@@ -4,15 +4,17 @@
 \alias{glue_create_trigger}
 \title{Creates a new trigger}
 \usage{
-glue_create_trigger(Name, Type, Schedule, Predicate, Actions,
-  Description, StartOnCreation, Tags)
+glue_create_trigger(Name, WorkflowName, Type, Schedule, Predicate,
+  Actions, Description, StartOnCreation, Tags)
 }
 \arguments{
 \item{Name}{[required] The name of the trigger.}
 
+\item{WorkflowName}{The name of the workflow associated with the trigger.}
+
 \item{Type}{[required] The type of the new trigger.}
 
-\item{Schedule}{A \code{cron} expression used to specify the schedule (see \href{http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html}{Time-Based Schedules for Jobs and Crawlers}.
+\item{Schedule}{A \code{cron} expression used to specify the schedule (see \href{https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html}{Time-Based Schedules for Jobs and Crawlers}.
 For example, to run something every day at 12:15 UTC, you would specify:
 \code{cron(15 12 * * ? *)}.
 
@@ -20,17 +22,17 @@ This field is required when the trigger type is SCHEDULED.}
 
 \item{Predicate}{A predicate to specify when the new trigger should fire.
 
-This field is required when the trigger type is CONDITIONAL.}
+This field is required when the trigger type is \code{CONDITIONAL}.}
 
 \item{Actions}{[required] The actions initiated by this trigger when it fires.}
 
 \item{Description}{A description of the new trigger.}
 
-\item{StartOnCreation}{Set to true to start SCHEDULED and CONDITIONAL triggers when created.
-True not supported for ON\_DEMAND triggers.}
+\item{StartOnCreation}{Set to \code{true} to start \code{SCHEDULED} and \code{CONDITIONAL} triggers when
+created. True is not supported for \code{ON_DEMAND} triggers.}
 
 \item{Tags}{The tags to use with this trigger. You may use tags to limit access to
-the trigger. For more information about tags in AWS Glue, see \href{http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html}{AWS Tags in AWS Glue} in
+the trigger. For more information about tags in AWS Glue, see \href{https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html}{AWS Tags in AWS Glue} in
 the developer guide.}
 }
 \description{
@@ -39,6 +41,7 @@ Creates a new trigger.
 \section{Request syntax}{
 \preformatted{svc$create_trigger(
   Name = "string",
+  WorkflowName = "string",
   Type = "SCHEDULED"|"CONDITIONAL"|"ON_DEMAND",
   Schedule = "string",
   Predicate = list(
@@ -47,7 +50,9 @@ Creates a new trigger.
       list(
         LogicalOperator = "EQUALS",
         JobName = "string",
-        State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT"
+        State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT",
+        CrawlerName = "string",
+        CrawlState = "RUNNING"|"SUCCEEDED"|"CANCELLED"|"FAILED"
       )
     )
   ),
@@ -58,10 +63,11 @@ Creates a new trigger.
         "string"
       ),
       Timeout = 123,
+      SecurityConfiguration = "string",
       NotificationProperty = list(
         NotifyDelayAfter = 123
       ),
-      SecurityConfiguration = "string"
+      CrawlerName = "string"
     )
   ),
   Description = "string",

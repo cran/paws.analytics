@@ -311,7 +311,7 @@ glue_batch_delete_table_version <- function(CatalogId = NULL, DatabaseName, Tabl
 #' @usage
 #' glue_batch_get_crawlers(CrawlerNames)
 #'
-#' @param CrawlerNames &#91;required&#93; A list of crawler names, which may be the names returned from the
+#' @param CrawlerNames &#91;required&#93; A list of crawler names, which might be the names returned from the
 #' `ListCrawlers` operation.
 #'
 #' @section Request syntax:
@@ -396,8 +396,8 @@ glue_batch_get_dev_endpoints <- function(DevEndpointNames) {
 #' @usage
 #' glue_batch_get_jobs(JobNames)
 #'
-#' @param JobNames &#91;required&#93; A list of job names, which may be the names returned from the `ListJobs`
-#' operation.
+#' @param JobNames &#91;required&#93; A list of job names, which might be the names returned from the
+#' `ListJobs` operation.
 #'
 #' @section Request syntax:
 #' ```
@@ -518,6 +518,51 @@ glue_batch_get_triggers <- function(TriggerNames) {
 }
 .glue$operations$batch_get_triggers <- glue_batch_get_triggers
 
+#' Returns a list of resource metadata for a given list of workflow names
+#'
+#' Returns a list of resource metadata for a given list of workflow names.
+#' After calling the `ListWorkflows` operation, you can call this operation
+#' to access the data to which you have been granted permissions. This
+#' operation supports all IAM permissions, including permission conditions
+#' that uses tags.
+#'
+#' @usage
+#' glue_batch_get_workflows(Names, IncludeGraph)
+#'
+#' @param Names &#91;required&#93; A list of workflow names, which may be the names returned from the
+#' `ListWorkflows` operation.
+#' @param IncludeGraph Specifies whether to include a graph when returning the workflow
+#' resource metadata.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$batch_get_workflows(
+#'   Names = list(
+#'     "string"
+#'   ),
+#'   IncludeGraph = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_batch_get_workflows
+glue_batch_get_workflows <- function(Names, IncludeGraph = NULL) {
+  op <- new_operation(
+    name = "BatchGetWorkflows",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$batch_get_workflows_input(Names = Names, IncludeGraph = IncludeGraph)
+  output <- .glue$batch_get_workflows_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$batch_get_workflows <- glue_batch_get_workflows
+
 #' Stops one or more job runs for a specified job definition
 #'
 #' Stops one or more job runs for a specified job definition.
@@ -526,7 +571,8 @@ glue_batch_get_triggers <- function(TriggerNames) {
 #' glue_batch_stop_job_run(JobName, JobRunIds)
 #'
 #' @param JobName &#91;required&#93; The name of the job definition for which to stop job runs.
-#' @param JobRunIds &#91;required&#93; A list of the JobRunIds that should be stopped for that job definition.
+#' @param JobRunIds &#91;required&#93; A list of the `JobRunIds` that should be stopped for that job
+#' definition.
 #'
 #' @section Request syntax:
 #' ```
@@ -559,7 +605,7 @@ glue_batch_stop_job_run <- function(JobName, JobRunIds) {
 
 #' Creates a classifier in the user's account
 #'
-#' Creates a classifier in the user\'s account. This may be a
+#' Creates a classifier in the user\'s account. This can be a
 #' `GrokClassifier`, an `XMLClassifier`, a `JsonClassifier`, or a
 #' `CsvClassifier`, depending on which field of the request is present.
 #'
@@ -683,7 +729,7 @@ glue_create_connection <- function(CatalogId = NULL, ConnectionInput) {
 #'
 #' Creates a new crawler with specified targets, role, configuration, and
 #' optional schedule. At least one crawl target must be specified, in the
-#' *s3Targets* field, the *jdbcTargets* field, or the *DynamoDBTargets*
+#' `s3Targets` field, the `jdbcTargets` field, or the `DynamoDBTargets`
 #' field.
 #'
 #' @usage
@@ -692,34 +738,32 @@ glue_create_connection <- function(CatalogId = NULL, ConnectionInput) {
 #'   CrawlerSecurityConfiguration, Tags)
 #'
 #' @param Name &#91;required&#93; Name of the new crawler.
-#' @param Role &#91;required&#93; The IAM role (or ARN of an IAM role) used by the new crawler to access
-#' customer resources.
-#' @param DatabaseName &#91;required&#93; The AWS Glue database where results are written, such as:
+#' @param Role &#91;required&#93; The IAM role or Amazon Resource Name (ARN) of an IAM role used by the
+#' new crawler to access customer resources.
+#' @param DatabaseName The AWS Glue database where results are written, such as:
 #' `arn:aws:daylight:us-east-1::database/sometable/*`.
 #' @param Description A description of the new crawler.
 #' @param Targets &#91;required&#93; A list of collection of targets to crawl.
-#' @param Schedule A `cron` expression used to specify the schedule (see [Time-Based
-#' Schedules for Jobs and
+#' @param Schedule A `cron` expression used to specify the schedule. For more information,
+#' see [Time-Based Schedules for Jobs and
 #' Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
-#' For example, to run something every day at 12:15 UTC, you would specify:
+#' For example, to run something every day at 12:15 UTC, specify
 #' `cron(15 12 * * ? *)`.
 #' @param Classifiers A list of custom classifiers that the user has registered. By default,
 #' all built-in classifiers are included in a crawl, but these custom
 #' classifiers always override the default classifiers for a given
 #' classification.
 #' @param TablePrefix The table prefix used for catalog tables that are created.
-#' @param SchemaChangePolicy Policy for the crawler\'s update and deletion behavior.
-#' @param Configuration Crawler configuration information. This versioned JSON string allows
+#' @param SchemaChangePolicy The policy for the crawler\'s update and deletion behavior.
+#' @param Configuration The crawler configuration information. This versioned JSON string allows
 #' users to specify aspects of a crawler\'s behavior. For more information,
 #' see [Configuring a
 #' Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
-#' @param CrawlerSecurityConfiguration The name of the SecurityConfiguration structure to be used by this
-#' Crawler.
-#' @param Tags The tags to use with this crawler request. You may use tags to limit
-#' access to the crawler. For more information about tags in AWS Glue, see
-#' [AWS Tags in AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in
-#' the developer guide.
+#' @param CrawlerSecurityConfiguration The name of the `SecurityConfiguration` structure to be used by this
+#' crawler.
+#' @param Tags The tags to use with this crawler request. You can use tags to limit
+#' access to the crawler. For more information, see [AWS Tags in AWS
+#' Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
 #'
 #' @section Request syntax:
 #' ```
@@ -750,6 +794,14 @@ glue_create_connection <- function(CatalogId = NULL, ConnectionInput) {
 #'       list(
 #'         Path = "string"
 #'       )
+#'     ),
+#'     CatalogTargets = list(
+#'       list(
+#'         DatabaseName = "string",
+#'         Tables = list(
+#'           "string"
+#'         )
+#'       )
 #'     )
 #'   ),
 #'   Schedule = "string",
@@ -772,7 +824,7 @@ glue_create_connection <- function(CatalogId = NULL, ConnectionInput) {
 #' @keywords internal
 #'
 #' @rdname glue_create_crawler
-glue_create_crawler <- function(Name, Role, DatabaseName, Description = NULL, Targets, Schedule = NULL, Classifiers = NULL, TablePrefix = NULL, SchemaChangePolicy = NULL, Configuration = NULL, CrawlerSecurityConfiguration = NULL, Tags = NULL) {
+glue_create_crawler <- function(Name, Role, DatabaseName = NULL, Description = NULL, Targets, Schedule = NULL, Classifiers = NULL, TablePrefix = NULL, SchemaChangePolicy = NULL, Configuration = NULL, CrawlerSecurityConfiguration = NULL, Tags = NULL) {
   op <- new_operation(
     name = "CreateCrawler",
     http_method = "POST",
@@ -933,16 +985,18 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #' @usage
 #' glue_create_job(Name, Description, LogUri, Role, ExecutionProperty,
 #'   Command, DefaultArguments, Connections, MaxRetries, AllocatedCapacity,
-#'   Timeout, MaxCapacity, NotificationProperty, SecurityConfiguration, Tags)
+#'   Timeout, MaxCapacity, SecurityConfiguration, Tags, NotificationProperty,
+#'   NumberOfWorkers, WorkerType)
 #'
 #' @param Name &#91;required&#93; The name you assign to this job definition. It must be unique in your
 #' account.
 #' @param Description Description of the job being defined.
 #' @param LogUri This field is reserved for future use.
-#' @param Role &#91;required&#93; The name or ARN of the IAM role associated with this job.
-#' @param ExecutionProperty An ExecutionProperty specifying the maximum number of concurrent runs
+#' @param Role &#91;required&#93; The name or Amazon Resource Name (ARN) of the IAM role associated with
+#' this job.
+#' @param ExecutionProperty An `ExecutionProperty` specifying the maximum number of concurrent runs
 #' allowed for this job.
-#' @param Command &#91;required&#93; The JobCommand that executes this job.
+#' @param Command &#91;required&#93; The `JobCommand` that executes this job.
 #' @param DefaultArguments The default arguments for this job.
 #' 
 #' You can specify arguments here that your own job-execution script
@@ -950,19 +1004,19 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #' 
 #' For information about how to specify and consume your own Job arguments,
 #' see the [Calling AWS Glue APIs in
-#' Python](http://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+#' Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
 #' topic in the developer guide.
 #' 
 #' For information about the key-value pairs that AWS Glue consumes to set
 #' up your job, see the [Special Parameters Used by AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+#' Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
 #' topic in the developer guide.
 #' @param Connections The connections used for this job.
 #' @param MaxRetries The maximum number of times to retry this job if it fails.
 #' @param AllocatedCapacity This parameter is deprecated. Use `MaxCapacity` instead.
 #' 
 #' The number of AWS Glue data processing units (DPUs) to allocate to this
-#' Job. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is a
+#' Job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a
 #' relative measure of processing power that consists of 4 vCPUs of compute
 #' capacity and 16 GB of memory. For more information, see the [AWS Glue
 #' pricing page](https://aws.amazon.com/glue/pricing/).
@@ -975,10 +1029,12 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #' For more information, see the [AWS Glue pricing
 #' page](https://aws.amazon.com/glue/pricing/).
 #' 
-#' The value that can be allocated for `MaxCapacity` depends on whether you
-#' are running a python shell job, or an Apache Spark ETL job:
+#' Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
 #' 
-#' -   When you specify a python shell job
+#' The value that can be allocated for `MaxCapacity` depends on whether you
+#' are running a Python shell job or an Apache Spark ETL job:
+#' 
+#' -   When you specify a Python shell job
 #'     (`JobCommand.Name`=\"pythonshell\"), you can allocate either 0.0625
 #'     or 1 DPU. The default is 0.0625 DPU.
 #' 
@@ -986,13 +1042,31 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #'     (`JobCommand.Name`=\"glueetl\"), you can allocate from 2 to 100
 #'     DPUs. The default is 10 DPUs. This job type cannot have a fractional
 #'     DPU allocation.
-#' @param NotificationProperty Specifies configuration properties of a job notification.
-#' @param SecurityConfiguration The name of the SecurityConfiguration structure to be used with this
+#' @param SecurityConfiguration The name of the `SecurityConfiguration` structure to be used with this
 #' job.
 #' @param Tags The tags to use with this job. You may use tags to limit access to the
 #' job. For more information about tags in AWS Glue, see [AWS Tags in AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in
+#' Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in
 #' the developer guide.
+#' @param NotificationProperty Specifies configuration properties of a job notification.
+#' @param NumberOfWorkers The number of workers of a defined `workerType` that are allocated when
+#' a job runs.
+#' 
+#' The maximum number of workers you can define are 299 for `G.1X`, and 149
+#' for `G.2X`.
+#' @param WorkerType The type of predefined worker that is allocated when a job runs. Accepts
+#' a value of Standard, G.1X, or G.2X.
+#' 
+#' -   For the `Standard` worker type, each worker provides 4 vCPU, 16 GB
+#'     of memory and a 50GB disk, and 2 executors per worker.
+#' 
+#' -   For the `G.1X` worker type, each worker maps to 1 DPU (4 vCPU, 16 GB
+#'     of memory, 64 GB disk), and provides 1 executor per worker. We
+#'     recommend this worker type for memory-intensive jobs.
+#' 
+#' -   For the `G.2X` worker type, each worker maps to 2 DPU (8 vCPU, 32 GB
+#'     of memory, 128 GB disk), and provides 1 executor per worker. We
+#'     recommend this worker type for memory-intensive jobs.
 #'
 #' @section Request syntax:
 #' ```
@@ -1006,7 +1080,8 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #'   ),
 #'   Command = list(
 #'     Name = "string",
-#'     ScriptLocation = "string"
+#'     ScriptLocation = "string",
+#'     PythonVersion = "string"
 #'   ),
 #'   DefaultArguments = list(
 #'     "string"
@@ -1020,27 +1095,29 @@ glue_create_dev_endpoint <- function(EndpointName, RoleArn, SecurityGroupIds = N
 #'   AllocatedCapacity = 123,
 #'   Timeout = 123,
 #'   MaxCapacity = 123.0,
-#'   NotificationProperty = list(
-#'     NotifyDelayAfter = 123
-#'   ),
 #'   SecurityConfiguration = "string",
 #'   Tags = list(
 #'     "string"
-#'   )
+#'   ),
+#'   NotificationProperty = list(
+#'     NotifyDelayAfter = 123
+#'   ),
+#'   NumberOfWorkers = 123,
+#'   WorkerType = "string"
 #' )
 #' ```
 #'
 #' @keywords internal
 #'
 #' @rdname glue_create_job
-glue_create_job <- function(Name, Description = NULL, LogUri = NULL, Role, ExecutionProperty = NULL, Command, DefaultArguments = NULL, Connections = NULL, MaxRetries = NULL, AllocatedCapacity = NULL, Timeout = NULL, MaxCapacity = NULL, NotificationProperty = NULL, SecurityConfiguration = NULL, Tags = NULL) {
+glue_create_job <- function(Name, Description = NULL, LogUri = NULL, Role, ExecutionProperty = NULL, Command, DefaultArguments = NULL, Connections = NULL, MaxRetries = NULL, AllocatedCapacity = NULL, Timeout = NULL, MaxCapacity = NULL, SecurityConfiguration = NULL, Tags = NULL, NotificationProperty = NULL, NumberOfWorkers = NULL, WorkerType = NULL) {
   op <- new_operation(
     name = "CreateJob",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .glue$create_job_input(Name = Name, Description = Description, LogUri = LogUri, Role = Role, ExecutionProperty = ExecutionProperty, Command = Command, DefaultArguments = DefaultArguments, Connections = Connections, MaxRetries = MaxRetries, AllocatedCapacity = AllocatedCapacity, Timeout = Timeout, MaxCapacity = MaxCapacity, NotificationProperty = NotificationProperty, SecurityConfiguration = SecurityConfiguration, Tags = Tags)
+  input <- .glue$create_job_input(Name = Name, Description = Description, LogUri = LogUri, Role = Role, ExecutionProperty = ExecutionProperty, Command = Command, DefaultArguments = DefaultArguments, Connections = Connections, MaxRetries = MaxRetries, AllocatedCapacity = AllocatedCapacity, Timeout = Timeout, MaxCapacity = MaxCapacity, SecurityConfiguration = SecurityConfiguration, Tags = Tags, NotificationProperty = NotificationProperty, NumberOfWorkers = NumberOfWorkers, WorkerType = WorkerType)
   output <- .glue$create_job_output()
   svc <- .glue$service()
   request <- new_request(svc, op, input, output)
@@ -1377,35 +1454,37 @@ glue_create_table <- function(CatalogId = NULL, DatabaseName, TableInput) {
 #' Creates a new trigger.
 #'
 #' @usage
-#' glue_create_trigger(Name, Type, Schedule, Predicate, Actions,
-#'   Description, StartOnCreation, Tags)
+#' glue_create_trigger(Name, WorkflowName, Type, Schedule, Predicate,
+#'   Actions, Description, StartOnCreation, Tags)
 #'
 #' @param Name &#91;required&#93; The name of the trigger.
+#' @param WorkflowName The name of the workflow associated with the trigger.
 #' @param Type &#91;required&#93; The type of the new trigger.
 #' @param Schedule A `cron` expression used to specify the schedule (see [Time-Based
 #' Schedules for Jobs and
-#' Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+#' Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
 #' For example, to run something every day at 12:15 UTC, you would specify:
 #' `cron(15 12 * * ? *)`.
 #' 
 #' This field is required when the trigger type is SCHEDULED.
 #' @param Predicate A predicate to specify when the new trigger should fire.
 #' 
-#' This field is required when the trigger type is CONDITIONAL.
+#' This field is required when the trigger type is `CONDITIONAL`.
 #' @param Actions &#91;required&#93; The actions initiated by this trigger when it fires.
 #' @param Description A description of the new trigger.
-#' @param StartOnCreation Set to true to start SCHEDULED and CONDITIONAL triggers when created.
-#' True not supported for ON\\_DEMAND triggers.
+#' @param StartOnCreation Set to `true` to start `SCHEDULED` and `CONDITIONAL` triggers when
+#' created. True is not supported for `ON_DEMAND` triggers.
 #' @param Tags The tags to use with this trigger. You may use tags to limit access to
 #' the trigger. For more information about tags in AWS Glue, see [AWS Tags
 #' in AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in
+#' Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in
 #' the developer guide.
 #'
 #' @section Request syntax:
 #' ```
 #' svc$create_trigger(
 #'   Name = "string",
+#'   WorkflowName = "string",
 #'   Type = "SCHEDULED"|"CONDITIONAL"|"ON_DEMAND",
 #'   Schedule = "string",
 #'   Predicate = list(
@@ -1414,7 +1493,9 @@ glue_create_table <- function(CatalogId = NULL, DatabaseName, TableInput) {
 #'       list(
 #'         LogicalOperator = "EQUALS",
 #'         JobName = "string",
-#'         State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT"
+#'         State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT",
+#'         CrawlerName = "string",
+#'         CrawlState = "RUNNING"|"SUCCEEDED"|"CANCELLED"|"FAILED"
 #'       )
 #'     )
 #'   ),
@@ -1425,10 +1506,11 @@ glue_create_table <- function(CatalogId = NULL, DatabaseName, TableInput) {
 #'         "string"
 #'       ),
 #'       Timeout = 123,
+#'       SecurityConfiguration = "string",
 #'       NotificationProperty = list(
 #'         NotifyDelayAfter = 123
 #'       ),
-#'       SecurityConfiguration = "string"
+#'       CrawlerName = "string"
 #'     )
 #'   ),
 #'   Description = "string",
@@ -1442,14 +1524,14 @@ glue_create_table <- function(CatalogId = NULL, DatabaseName, TableInput) {
 #' @keywords internal
 #'
 #' @rdname glue_create_trigger
-glue_create_trigger <- function(Name, Type, Schedule = NULL, Predicate = NULL, Actions, Description = NULL, StartOnCreation = NULL, Tags = NULL) {
+glue_create_trigger <- function(Name, WorkflowName = NULL, Type, Schedule = NULL, Predicate = NULL, Actions, Description = NULL, StartOnCreation = NULL, Tags = NULL) {
   op <- new_operation(
     name = "CreateTrigger",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .glue$create_trigger_input(Name = Name, Type = Type, Schedule = Schedule, Predicate = Predicate, Actions = Actions, Description = Description, StartOnCreation = StartOnCreation, Tags = Tags)
+  input <- .glue$create_trigger_input(Name = Name, WorkflowName = WorkflowName, Type = Type, Schedule = Schedule, Predicate = Predicate, Actions = Actions, Description = Description, StartOnCreation = StartOnCreation, Tags = Tags)
   output <- .glue$create_trigger_output()
   svc <- .glue$service()
   request <- new_request(svc, op, input, output)
@@ -1510,6 +1592,53 @@ glue_create_user_defined_function <- function(CatalogId = NULL, DatabaseName, Fu
   return(response)
 }
 .glue$operations$create_user_defined_function <- glue_create_user_defined_function
+
+#' Creates a new workflow
+#'
+#' Creates a new workflow.
+#'
+#' @usage
+#' glue_create_workflow(Name, Description, DefaultRunProperties, Tags)
+#'
+#' @param Name &#91;required&#93; The name to be assigned to the workflow. It should be unique within your
+#' account.
+#' @param Description A description of the workflow.
+#' @param DefaultRunProperties A collection of properties to be used as part of each execution of the
+#' workflow.
+#' @param Tags The tags to be used with this workflow.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_workflow(
+#'   Name = "string",
+#'   Description = "string",
+#'   DefaultRunProperties = list(
+#'     "string"
+#'   ),
+#'   Tags = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_create_workflow
+glue_create_workflow <- function(Name, Description = NULL, DefaultRunProperties = NULL, Tags = NULL) {
+  op <- new_operation(
+    name = "CreateWorkflow",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$create_workflow_input(Name = Name, Description = Description, DefaultRunProperties = DefaultRunProperties, Tags = Tags)
+  output <- .glue$create_workflow_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$create_workflow <- glue_create_workflow
 
 #' Removes a classifier from the Data Catalog
 #'
@@ -1584,16 +1713,16 @@ glue_delete_connection <- function(CatalogId = NULL, ConnectionName) {
 }
 .glue$operations$delete_connection <- glue_delete_connection
 
-#' Removes a specified crawler from the Data Catalog, unless the crawler
-#' state is RUNNING
+#' Removes a specified crawler from the AWS Glue Data Catalog, unless the
+#' crawler state is RUNNING
 #'
-#' Removes a specified crawler from the Data Catalog, unless the crawler
-#' state is `RUNNING`.
+#' Removes a specified crawler from the AWS Glue Data Catalog, unless the
+#' crawler state is `RUNNING`.
 #'
 #' @usage
 #' glue_delete_crawler(Name)
 #'
-#' @param Name &#91;required&#93; Name of the crawler to remove.
+#' @param Name &#91;required&#93; The name of the crawler to remove.
 #'
 #' @section Request syntax:
 #' ```
@@ -2031,6 +2160,41 @@ glue_delete_user_defined_function <- function(CatalogId = NULL, DatabaseName, Fu
 }
 .glue$operations$delete_user_defined_function <- glue_delete_user_defined_function
 
+#' Deletes a workflow
+#'
+#' Deletes a workflow.
+#'
+#' @usage
+#' glue_delete_workflow(Name)
+#'
+#' @param Name &#91;required&#93; Name of the workflow to be deleted.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_workflow(
+#'   Name = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_delete_workflow
+glue_delete_workflow <- function(Name) {
+  op <- new_operation(
+    name = "DeleteWorkflow",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$delete_workflow_input(Name = Name)
+  output <- .glue$delete_workflow_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$delete_workflow <- glue_delete_workflow
+
 #' Retrieves the status of a migration operation
 #'
 #' Retrieves the status of a migration operation.
@@ -2109,7 +2273,7 @@ glue_get_classifier <- function(Name) {
 #' @usage
 #' glue_get_classifiers(MaxResults, NextToken)
 #'
-#' @param MaxResults Size of the list to return (optional).
+#' @param MaxResults The size of the list to return (optional).
 #' @param NextToken An optional continuation token.
 #'
 #' @section Request syntax:
@@ -2246,7 +2410,7 @@ glue_get_connections <- function(CatalogId = NULL, Filter = NULL, HidePassword =
 #' @usage
 #' glue_get_crawler(Name)
 #'
-#' @param Name &#91;required&#93; Name of the crawler to retrieve metadata for.
+#' @param Name &#91;required&#93; The name of the crawler to retrieve metadata for.
 #'
 #' @section Request syntax:
 #' ```
@@ -2997,7 +3161,7 @@ glue_get_partitions <- function(CatalogId = NULL, DatabaseName, TableName, Expre
 #' @param Mapping &#91;required&#93; The list of mappings from a source table to target tables.
 #' @param Source &#91;required&#93; The source table.
 #' @param Sinks The target tables.
-#' @param Location Parameters for the mapping.
+#' @param Location The parameters for the mapping.
 #' @param Language The programming language of the code to perform the mapping.
 #'
 #' @section Request syntax:
@@ -3365,7 +3529,8 @@ glue_get_tables <- function(CatalogId = NULL, DatabaseName, Expression = NULL, N
 #' @usage
 #' glue_get_tags(ResourceArn)
 #'
-#' @param ResourceArn &#91;required&#93; The Amazon ARN of the resource for which to retrieve tags.
+#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource for which to retrieve
+#' tags.
 #'
 #' @section Request syntax:
 #' ```
@@ -3436,9 +3601,9 @@ glue_get_trigger <- function(Name) {
 #' glue_get_triggers(NextToken, DependentJobName, MaxResults)
 #'
 #' @param NextToken A continuation token, if this is a continuation call.
-#' @param DependentJobName The name of the job for which to retrieve triggers. The trigger that can
-#' start this job will be returned, and if there is no such trigger, all
-#' triggers will be returned.
+#' @param DependentJobName The name of the job to retrieve triggers for. The trigger that can start
+#' this job is returned, and if there is no such trigger, all triggers are
+#' returned.
 #' @param MaxResults The maximum size of the response.
 #'
 #' @section Request syntax:
@@ -3555,6 +3720,161 @@ glue_get_user_defined_functions <- function(CatalogId = NULL, DatabaseName, Patt
 }
 .glue$operations$get_user_defined_functions <- glue_get_user_defined_functions
 
+#' Retrieves resource metadata for a workflow
+#'
+#' Retrieves resource metadata for a workflow.
+#'
+#' @usage
+#' glue_get_workflow(Name, IncludeGraph)
+#'
+#' @param Name &#91;required&#93; The name of the workflow to retrieve.
+#' @param IncludeGraph Specifies whether to include a graph when returning the workflow
+#' resource metadata.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_workflow(
+#'   Name = "string",
+#'   IncludeGraph = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_get_workflow
+glue_get_workflow <- function(Name, IncludeGraph = NULL) {
+  op <- new_operation(
+    name = "GetWorkflow",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$get_workflow_input(Name = Name, IncludeGraph = IncludeGraph)
+  output <- .glue$get_workflow_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$get_workflow <- glue_get_workflow
+
+#' Retrieves the metadata for a given workflow run
+#'
+#' Retrieves the metadata for a given workflow run.
+#'
+#' @usage
+#' glue_get_workflow_run(Name, RunId, IncludeGraph)
+#'
+#' @param Name &#91;required&#93; Name of the workflow being run.
+#' @param RunId &#91;required&#93; The ID of the workflow run.
+#' @param IncludeGraph Specifies whether to include the workflow graph in response or not.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_workflow_run(
+#'   Name = "string",
+#'   RunId = "string",
+#'   IncludeGraph = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_get_workflow_run
+glue_get_workflow_run <- function(Name, RunId, IncludeGraph = NULL) {
+  op <- new_operation(
+    name = "GetWorkflowRun",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$get_workflow_run_input(Name = Name, RunId = RunId, IncludeGraph = IncludeGraph)
+  output <- .glue$get_workflow_run_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$get_workflow_run <- glue_get_workflow_run
+
+#' Retrieves the workflow run properties which were set during the run
+#'
+#' Retrieves the workflow run properties which were set during the run.
+#'
+#' @usage
+#' glue_get_workflow_run_properties(Name, RunId)
+#'
+#' @param Name &#91;required&#93; Name of the workflow which was run.
+#' @param RunId &#91;required&#93; The ID of the workflow run whose run properties should be returned.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_workflow_run_properties(
+#'   Name = "string",
+#'   RunId = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_get_workflow_run_properties
+glue_get_workflow_run_properties <- function(Name, RunId) {
+  op <- new_operation(
+    name = "GetWorkflowRunProperties",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$get_workflow_run_properties_input(Name = Name, RunId = RunId)
+  output <- .glue$get_workflow_run_properties_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$get_workflow_run_properties <- glue_get_workflow_run_properties
+
+#' Retrieves metadata for all runs of a given workflow
+#'
+#' Retrieves metadata for all runs of a given workflow.
+#'
+#' @usage
+#' glue_get_workflow_runs(Name, IncludeGraph, NextToken, MaxResults)
+#'
+#' @param Name &#91;required&#93; Name of the workflow whose metadata of runs should be returned.
+#' @param IncludeGraph Specifies whether to include the workflow graph in response or not.
+#' @param NextToken The maximum size of the response.
+#' @param MaxResults The maximum number of workflow runs to be included in the response.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_workflow_runs(
+#'   Name = "string",
+#'   IncludeGraph = TRUE|FALSE,
+#'   NextToken = "string",
+#'   MaxResults = 123
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_get_workflow_runs
+glue_get_workflow_runs <- function(Name, IncludeGraph = NULL, NextToken = NULL, MaxResults = NULL) {
+  op <- new_operation(
+    name = "GetWorkflowRuns",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$get_workflow_runs_input(Name = Name, IncludeGraph = IncludeGraph, NextToken = NextToken, MaxResults = MaxResults)
+  output <- .glue$get_workflow_runs_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$get_workflow_runs <- glue_get_workflow_runs
+
 #' Imports an existing Athena Data Catalog to AWS Glue
 #'
 #' Imports an existing Athena Data Catalog to AWS Glue
@@ -3598,10 +3918,10 @@ glue_import_catalog_to_glue <- function(CatalogId = NULL) {
 #' resources with the specified tag. This operation allows you to see which
 #' resources are available in your account, and their names.
 #' 
-#' This operation takes the optional `Tags` field which you can use as a
+#' This operation takes the optional `Tags` field, which you can use as a
 #' filter on the response so that tagged resources can be retrieved as a
 #' group. If you choose to use tags filtering, only resources with the tag
-#' will be retrieved.
+#' are retrieved.
 #'
 #' @usage
 #' glue_list_crawlers(MaxResults, NextToken, Tags)
@@ -3643,14 +3963,14 @@ glue_list_crawlers <- function(MaxResults = NULL, NextToken = NULL, Tags = NULL)
 #' Retrieves the names of all DevEndpoint resources in this AWS account, or
 #' the resources with the specified tag
 #'
-#' Retrieves the names of all DevEndpoint resources in this AWS account, or
-#' the resources with the specified tag. This operation allows you to see
-#' which resources are available in your account, and their names.
+#' Retrieves the names of all `DevEndpoint` resources in this AWS account,
+#' or the resources with the specified tag. This operation allows you to
+#' see which resources are available in your account, and their names.
 #' 
-#' This operation takes the optional `Tags` field which you can use as a
+#' This operation takes the optional `Tags` field, which you can use as a
 #' filter on the response so that tagged resources can be retrieved as a
 #' group. If you choose to use tags filtering, only resources with the tag
-#' will be retrieved.
+#' are retrieved.
 #'
 #' @usage
 #' glue_list_dev_endpoints(NextToken, MaxResults, Tags)
@@ -3696,10 +4016,10 @@ glue_list_dev_endpoints <- function(NextToken = NULL, MaxResults = NULL, Tags = 
 #' resources with the specified tag. This operation allows you to see which
 #' resources are available in your account, and their names.
 #' 
-#' This operation takes the optional `Tags` field which you can use as a
+#' This operation takes the optional `Tags` field, which you can use as a
 #' filter on the response so that tagged resources can be retrieved as a
 #' group. If you choose to use tags filtering, only resources with the tag
-#' will be retrieved.
+#' are retrieved.
 #'
 #' @usage
 #' glue_list_jobs(NextToken, MaxResults, Tags)
@@ -3745,18 +4065,18 @@ glue_list_jobs <- function(NextToken = NULL, MaxResults = NULL, Tags = NULL) {
 #' resources with the specified tag. This operation allows you to see which
 #' resources are available in your account, and their names.
 #' 
-#' This operation takes the optional `Tags` field which you can use as a
+#' This operation takes the optional `Tags` field, which you can use as a
 #' filter on the response so that tagged resources can be retrieved as a
 #' group. If you choose to use tags filtering, only resources with the tag
-#' will be retrieved.
+#' are retrieved.
 #'
 #' @usage
 #' glue_list_triggers(NextToken, DependentJobName, MaxResults, Tags)
 #'
 #' @param NextToken A continuation token, if this is a continuation request.
 #' @param DependentJobName The name of the job for which to retrieve triggers. The trigger that can
-#' start this job will be returned, and if there is no such trigger, all
-#' triggers will be returned.
+#' start this job is returned. If there is no such trigger, all triggers
+#' are returned.
 #' @param MaxResults The maximum size of a list to return.
 #' @param Tags Specifies to return only these tagged resources.
 #'
@@ -3790,6 +4110,43 @@ glue_list_triggers <- function(NextToken = NULL, DependentJobName = NULL, MaxRes
   return(response)
 }
 .glue$operations$list_triggers <- glue_list_triggers
+
+#' Lists names of workflows created in the account
+#'
+#' Lists names of workflows created in the account.
+#'
+#' @usage
+#' glue_list_workflows(NextToken, MaxResults)
+#'
+#' @param NextToken A continuation token, if this is a continuation request.
+#' @param MaxResults The maximum size of a list to return.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$list_workflows(
+#'   NextToken = "string",
+#'   MaxResults = 123
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_list_workflows
+glue_list_workflows <- function(NextToken = NULL, MaxResults = NULL) {
+  op <- new_operation(
+    name = "ListWorkflows",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$list_workflows_input(NextToken = NextToken, MaxResults = MaxResults)
+  output <- .glue$list_workflows_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$list_workflows <- glue_list_workflows
 
 #' Sets the security configuration for a specified catalog
 #'
@@ -3886,6 +4243,50 @@ glue_put_resource_policy <- function(PolicyInJson, PolicyHashCondition = NULL, P
   return(response)
 }
 .glue$operations$put_resource_policy <- glue_put_resource_policy
+
+#' Puts the specified workflow run properties for the given workflow run
+#'
+#' Puts the specified workflow run properties for the given workflow run.
+#' If a property already exists for the specified run, then it overrides
+#' the value otherwise adds the property to existing properties.
+#'
+#' @usage
+#' glue_put_workflow_run_properties(Name, RunId, RunProperties)
+#'
+#' @param Name &#91;required&#93; Name of the workflow which was run.
+#' @param RunId &#91;required&#93; The ID of the workflow run for which the run properties should be
+#' updated.
+#' @param RunProperties &#91;required&#93; The properties to put for the specified run.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$put_workflow_run_properties(
+#'   Name = "string",
+#'   RunId = "string",
+#'   RunProperties = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_put_workflow_run_properties
+glue_put_workflow_run_properties <- function(Name, RunId, RunProperties) {
+  op <- new_operation(
+    name = "PutWorkflowRunProperties",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$put_workflow_run_properties_input(Name = Name, RunId = RunId, RunProperties = RunProperties)
+  output <- .glue$put_workflow_run_properties_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$put_workflow_run_properties <- glue_put_workflow_run_properties
 
 #' Resets a bookmark entry
 #'
@@ -4005,10 +4406,11 @@ glue_start_crawler_schedule <- function(CrawlerName) {
 #'
 #' @usage
 #' glue_start_job_run(JobName, JobRunId, Arguments, AllocatedCapacity,
-#'   Timeout, MaxCapacity, NotificationProperty, SecurityConfiguration)
+#'   Timeout, MaxCapacity, SecurityConfiguration, NotificationProperty,
+#'   WorkerType, NumberOfWorkers)
 #'
 #' @param JobName &#91;required&#93; The name of the job definition to use.
-#' @param JobRunId The ID of a previous JobRun to retry.
+#' @param JobRunId The ID of a previous `JobRun` to retry.
 #' @param Arguments The job arguments specifically for this run. For this job run, they
 #' replace the default arguments set in the job definition itself.
 #' 
@@ -4017,34 +4419,35 @@ glue_start_crawler_schedule <- function(CrawlerName) {
 #' 
 #' For information about how to specify and consume your own Job arguments,
 #' see the [Calling AWS Glue APIs in
-#' Python](http://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+#' Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
 #' topic in the developer guide.
 #' 
 #' For information about the key-value pairs that AWS Glue consumes to set
 #' up your job, see the [Special Parameters Used by AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+#' Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
 #' topic in the developer guide.
-#' @param AllocatedCapacity This field is deprecated, use `MaxCapacity` instead.
+#' @param AllocatedCapacity This field is deprecated. Use `MaxCapacity` instead.
 #' 
 #' The number of AWS Glue data processing units (DPUs) to allocate to this
 #' JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is
 #' a relative measure of processing power that consists of 4 vCPUs of
-#' compute capacity and 16 GB of memory. For more information, see the [AWS
-#' Glue pricing page](https://aws.amazon.com/glue/pricing/).
-#' @param Timeout The JobRun timeout in minutes. This is the maximum time that a job run
+#' compute capacity and 16 GB of memory. For more information, see the AWS
+#' Glue pricing page.
+#' @param Timeout The `JobRun` timeout in minutes. This is the maximum time that a job run
 #' can consume resources before it is terminated and enters `TIMEOUT`
 #' status. The default is 2,880 minutes (48 hours). This overrides the
 #' timeout value set in the parent job.
 #' @param MaxCapacity The number of AWS Glue data processing units (DPUs) that can be
 #' allocated when this job runs. A DPU is a relative measure of processing
 #' power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
-#' For more information, see the [AWS Glue pricing
-#' page](https://aws.amazon.com/glue/pricing/).
+#' For more information, see the AWS Glue pricing page.
+#' 
+#' Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
 #' 
 #' The value that can be allocated for `MaxCapacity` depends on whether you
-#' are running a python shell job, or an Apache Spark ETL job:
+#' are running a Python shell job, or an Apache Spark ETL job:
 #' 
-#' -   When you specify a python shell job
+#' -   When you specify a Python shell job
 #'     (`JobCommand.Name`=\"pythonshell\"), you can allocate either 0.0625
 #'     or 1 DPU. The default is 0.0625 DPU.
 #' 
@@ -4052,9 +4455,25 @@ glue_start_crawler_schedule <- function(CrawlerName) {
 #'     (`JobCommand.Name`=\"glueetl\"), you can allocate from 2 to 100
 #'     DPUs. The default is 10 DPUs. This job type cannot have a fractional
 #'     DPU allocation.
+#' @param SecurityConfiguration The name of the `SecurityConfiguration` structure to be used with this
+#' job run.
 #' @param NotificationProperty Specifies configuration properties of a job run notification.
-#' @param SecurityConfiguration The name of the SecurityConfiguration structure to be used with this job
-#' run.
+#' @param WorkerType The type of predefined worker that is allocated when a job runs. Accepts
+#' a value of Standard, G.1X, or G.2X.
+#' 
+#' -   For the `Standard` worker type, each worker provides 4 vCPU, 16 GB
+#'     of memory and a 50GB disk, and 2 executors per worker.
+#' 
+#' -   For the `G.1X` worker type, each worker provides 4 vCPU, 16 GB of
+#'     memory and a 64GB disk, and 1 executor per worker.
+#' 
+#' -   For the `G.2X` worker type, each worker provides 8 vCPU, 32 GB of
+#'     memory and a 128GB disk, and 1 executor per worker.
+#' @param NumberOfWorkers The number of workers of a defined `workerType` that are allocated when
+#' a job runs.
+#' 
+#' The maximum number of workers you can define are 299 for `G.1X`, and 149
+#' for `G.2X`.
 #'
 #' @section Request syntax:
 #' ```
@@ -4067,24 +4486,26 @@ glue_start_crawler_schedule <- function(CrawlerName) {
 #'   AllocatedCapacity = 123,
 #'   Timeout = 123,
 #'   MaxCapacity = 123.0,
+#'   SecurityConfiguration = "string",
 #'   NotificationProperty = list(
 #'     NotifyDelayAfter = 123
 #'   ),
-#'   SecurityConfiguration = "string"
+#'   WorkerType = "string",
+#'   NumberOfWorkers = 123
 #' )
 #' ```
 #'
 #' @keywords internal
 #'
 #' @rdname glue_start_job_run
-glue_start_job_run <- function(JobName, JobRunId = NULL, Arguments = NULL, AllocatedCapacity = NULL, Timeout = NULL, MaxCapacity = NULL, NotificationProperty = NULL, SecurityConfiguration = NULL) {
+glue_start_job_run <- function(JobName, JobRunId = NULL, Arguments = NULL, AllocatedCapacity = NULL, Timeout = NULL, MaxCapacity = NULL, SecurityConfiguration = NULL, NotificationProperty = NULL, WorkerType = NULL, NumberOfWorkers = NULL) {
   op <- new_operation(
     name = "StartJobRun",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .glue$start_job_run_input(JobName = JobName, JobRunId = JobRunId, Arguments = Arguments, AllocatedCapacity = AllocatedCapacity, Timeout = Timeout, MaxCapacity = MaxCapacity, NotificationProperty = NotificationProperty, SecurityConfiguration = SecurityConfiguration)
+  input <- .glue$start_job_run_input(JobName = JobName, JobRunId = JobRunId, Arguments = Arguments, AllocatedCapacity = AllocatedCapacity, Timeout = Timeout, MaxCapacity = MaxCapacity, SecurityConfiguration = SecurityConfiguration, NotificationProperty = NotificationProperty, WorkerType = WorkerType, NumberOfWorkers = NumberOfWorkers)
   output <- .glue$start_job_run_output()
   svc <- .glue$service()
   request <- new_request(svc, op, input, output)
@@ -4096,7 +4517,7 @@ glue_start_job_run <- function(JobName, JobRunId = NULL, Arguments = NULL, Alloc
 #' Starts an existing trigger
 #'
 #' Starts an existing trigger. See [Triggering
-#' Jobs](http://docs.aws.amazon.com/glue/latest/dg/trigger-job.html) for
+#' Jobs](https://docs.aws.amazon.com/glue/latest/dg/trigger-job.html) for
 #' information about how different types of trigger are started.
 #'
 #' @usage
@@ -4129,6 +4550,41 @@ glue_start_trigger <- function(Name) {
   return(response)
 }
 .glue$operations$start_trigger <- glue_start_trigger
+
+#' Starts a new run of the specified workflow
+#'
+#' Starts a new run of the specified workflow.
+#'
+#' @usage
+#' glue_start_workflow_run(Name)
+#'
+#' @param Name &#91;required&#93; The name of the workflow to start.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$start_workflow_run(
+#'   Name = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_start_workflow_run
+glue_start_workflow_run <- function(Name) {
+  op <- new_operation(
+    name = "StartWorkflowRun",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$start_workflow_run_input(Name = Name)
+  output <- .glue$start_workflow_run_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$start_workflow_run <- glue_start_workflow_run
 
 #' If the specified crawler is running, stops the crawl
 #'
@@ -4242,14 +4698,14 @@ glue_stop_trigger <- function(Name) {
 #' Adds tags to a resource. A tag is a label you can assign to an AWS
 #' resource. In AWS Glue, you can tag only certain resources. For
 #' information about what resources you can tag, see [AWS Tags in AWS
-#' Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
+#' Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
 #'
 #' @usage
 #' glue_tag_resource(ResourceArn, TagsToAdd)
 #'
 #' @param ResourceArn &#91;required&#93; The ARN of the AWS Glue resource to which to add the tags. For more
 #' information about AWS Glue resource ARNs, see the [AWS Glue ARN string
-#' pattern](http://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id).
+#' pattern](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id).
 #' @param TagsToAdd &#91;required&#93; Tags to add to this resource.
 #'
 #' @section Request syntax:
@@ -4288,7 +4744,8 @@ glue_tag_resource <- function(ResourceArn, TagsToAdd) {
 #' @usage
 #' glue_untag_resource(ResourceArn, TagsToRemove)
 #'
-#' @param ResourceArn &#91;required&#93; The ARN of the resource from which to remove the tags.
+#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource from which to remove the
+#' tags.
 #' @param TagsToRemove &#91;required&#93; Tags to remove from this resource.
 #'
 #' @section Request syntax:
@@ -4455,29 +4912,29 @@ glue_update_connection <- function(CatalogId = NULL, Name, ConnectionInput) {
 #'   CrawlerSecurityConfiguration)
 #'
 #' @param Name &#91;required&#93; Name of the new crawler.
-#' @param Role The IAM role (or ARN of an IAM role) used by the new crawler to access
-#' customer resources.
+#' @param Role The IAM role or Amazon Resource Name (ARN) of an IAM role that is used
+#' by the new crawler to access customer resources.
 #' @param DatabaseName The AWS Glue database where results are stored, such as:
 #' `arn:aws:daylight:us-east-1::database/sometable/*`.
 #' @param Description A description of the new crawler.
 #' @param Targets A list of targets to crawl.
-#' @param Schedule A `cron` expression used to specify the schedule (see [Time-Based
-#' Schedules for Jobs and
+#' @param Schedule A `cron` expression used to specify the schedule. For more information,
+#' see [Time-Based Schedules for Jobs and
 #' Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
-#' For example, to run something every day at 12:15 UTC, you would specify:
+#' For example, to run something every day at 12:15 UTC, specify
 #' `cron(15 12 * * ? *)`.
 #' @param Classifiers A list of custom classifiers that the user has registered. By default,
 #' all built-in classifiers are included in a crawl, but these custom
 #' classifiers always override the default classifiers for a given
 #' classification.
 #' @param TablePrefix The table prefix used for catalog tables that are created.
-#' @param SchemaChangePolicy Policy for the crawler\'s update and deletion behavior.
-#' @param Configuration Crawler configuration information. This versioned JSON string allows
+#' @param SchemaChangePolicy The policy for the crawler\'s update and deletion behavior.
+#' @param Configuration The crawler configuration information. This versioned JSON string allows
 #' users to specify aspects of a crawler\'s behavior. For more information,
 #' see [Configuring a
 #' Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
-#' @param CrawlerSecurityConfiguration The name of the SecurityConfiguration structure to be used by this
-#' Crawler.
+#' @param CrawlerSecurityConfiguration The name of the `SecurityConfiguration` structure to be used by this
+#' crawler.
 #'
 #' @section Request syntax:
 #' ```
@@ -4507,6 +4964,14 @@ glue_update_connection <- function(CatalogId = NULL, Name, ConnectionInput) {
 #'     DynamoDBTargets = list(
 #'       list(
 #'         Path = "string"
+#'       )
+#'     ),
+#'     CatalogTargets = list(
+#'       list(
+#'         DatabaseName = "string",
+#'         Tables = list(
+#'           "string"
+#'         )
 #'       )
 #'     )
 #'   ),
@@ -4550,11 +5015,11 @@ glue_update_crawler <- function(Name, Role = NULL, DatabaseName = NULL, Descript
 #' @usage
 #' glue_update_crawler_schedule(CrawlerName, Schedule)
 #'
-#' @param CrawlerName &#91;required&#93; Name of the crawler whose schedule to update.
-#' @param Schedule The updated `cron` expression used to specify the schedule (see
-#' [Time-Based Schedules for Jobs and
+#' @param CrawlerName &#91;required&#93; The name of the crawler whose schedule to update.
+#' @param Schedule The updated `cron` expression used to specify the schedule. For more
+#' information, see [Time-Based Schedules for Jobs and
 #' Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
-#' For example, to run something every day at 12:15 UTC, you would specify:
+#' For example, to run something every day at 12:15 UTC, specify
 #' `cron(15 12 * * ? *)`.
 #'
 #' @section Request syntax:
@@ -4705,7 +5170,7 @@ glue_update_dev_endpoint <- function(EndpointName, PublicKey = NULL, AddPublicKe
 #' @usage
 #' glue_update_job(JobName, JobUpdate)
 #'
-#' @param JobName &#91;required&#93; Name of the job definition to update.
+#' @param JobName &#91;required&#93; The name of the job definition to update.
 #' @param JobUpdate &#91;required&#93; Specifies the values with which to update the job definition.
 #'
 #' @section Request syntax:
@@ -4721,7 +5186,8 @@ glue_update_dev_endpoint <- function(EndpointName, PublicKey = NULL, AddPublicKe
 #'     ),
 #'     Command = list(
 #'       Name = "string",
-#'       ScriptLocation = "string"
+#'       ScriptLocation = "string",
+#'       PythonVersion = "string"
 #'     ),
 #'     DefaultArguments = list(
 #'       "string"
@@ -4735,10 +5201,12 @@ glue_update_dev_endpoint <- function(EndpointName, PublicKey = NULL, AddPublicKe
 #'     AllocatedCapacity = 123,
 #'     Timeout = 123,
 #'     MaxCapacity = 123.0,
+#'     WorkerType = "Standard"|"G.1X"|"G.2X",
+#'     NumberOfWorkers = 123,
+#'     SecurityConfiguration = "string",
 #'     NotificationProperty = list(
 #'       NotifyDelayAfter = 123
-#'     ),
-#'     SecurityConfiguration = "string"
+#'     )
 #'   )
 #' )
 #' ```
@@ -5007,10 +5475,11 @@ glue_update_table <- function(CatalogId = NULL, DatabaseName, TableInput, SkipAr
 #'           "string"
 #'         ),
 #'         Timeout = 123,
+#'         SecurityConfiguration = "string",
 #'         NotificationProperty = list(
 #'           NotifyDelayAfter = 123
 #'         ),
-#'         SecurityConfiguration = "string"
+#'         CrawlerName = "string"
 #'       )
 #'     ),
 #'     Predicate = list(
@@ -5019,7 +5488,9 @@ glue_update_table <- function(CatalogId = NULL, DatabaseName, TableInput, SkipAr
 #'         list(
 #'           LogicalOperator = "EQUALS",
 #'           JobName = "string",
-#'           State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT"
+#'           State = "STARTING"|"RUNNING"|"STOPPING"|"STOPPED"|"SUCCEEDED"|"FAILED"|"TIMEOUT",
+#'           CrawlerName = "string",
+#'           CrawlState = "RUNNING"|"SUCCEEDED"|"CANCELLED"|"FAILED"
 #'         )
 #'       )
 #'     )
@@ -5101,3 +5572,45 @@ glue_update_user_defined_function <- function(CatalogId = NULL, DatabaseName, Fu
   return(response)
 }
 .glue$operations$update_user_defined_function <- glue_update_user_defined_function
+
+#' Updates an existing workflow
+#'
+#' Updates an existing workflow.
+#'
+#' @usage
+#' glue_update_workflow(Name, Description, DefaultRunProperties)
+#'
+#' @param Name &#91;required&#93; Name of the workflow to be updated.
+#' @param Description The description of the workflow.
+#' @param DefaultRunProperties A collection of properties to be used as part of each execution of the
+#' workflow.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$update_workflow(
+#'   Name = "string",
+#'   Description = "string",
+#'   DefaultRunProperties = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname glue_update_workflow
+glue_update_workflow <- function(Name, Description = NULL, DefaultRunProperties = NULL) {
+  op <- new_operation(
+    name = "UpdateWorkflow",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .glue$update_workflow_input(Name = Name, Description = Description, DefaultRunProperties = DefaultRunProperties)
+  output <- .glue$update_workflow_output()
+  svc <- .glue$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.glue$operations$update_workflow <- glue_update_workflow
