@@ -34,7 +34,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- kinesisanalyticsv2()
+#' \dontrun{svc <- kinesisanalyticsv2()
 #' svc$add_application_cloud_watch_logging_option(
 #'   Foo = 123
 #' )}
@@ -92,8 +92,7 @@ kinesisanalyticsv2 <- function(config = list()) {
   target_prefix = "KinesisAnalytics_20180523"
 )
 
-.kinesisanalyticsv2$handlers <- new_handlers("jsonrpc", "v4")
-
 .kinesisanalyticsv2$service <- function(config = list()) {
-  new_service(.kinesisanalyticsv2$metadata, .kinesisanalyticsv2$handlers, config)
+  handlers <- new_handlers("jsonrpc", "v4")
+  new_service(.kinesisanalyticsv2$metadata, handlers, config)
 }

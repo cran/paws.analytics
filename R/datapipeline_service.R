@@ -52,7 +52,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- datapipeline()
+#' \dontrun{svc <- datapipeline()
 #' svc$activate_pipeline(
 #'   Foo = 123
 #' )}
@@ -103,8 +103,7 @@ datapipeline <- function(config = list()) {
   target_prefix = "DataPipeline"
 )
 
-.datapipeline$handlers <- new_handlers("jsonrpc", "v4")
-
 .datapipeline$service <- function(config = list()) {
-  new_service(.datapipeline$metadata, .datapipeline$handlers, config)
+  handlers <- new_handlers("jsonrpc", "v4")
+  new_service(.datapipeline$metadata, handlers, config)
 }

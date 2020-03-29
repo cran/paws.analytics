@@ -36,7 +36,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- quicksight()
+#' \dontrun{svc <- quicksight()
 #' svc$cancel_ingestion(
 #'   Foo = 123
 #' )}
@@ -133,8 +133,7 @@ quicksight <- function(config = list()) {
   target_prefix = ""
 )
 
-.quicksight$handlers <- new_handlers("restjson", "v4")
-
 .quicksight$service <- function(config = list()) {
-  new_service(.quicksight$metadata, .quicksight$handlers, config)
+  handlers <- new_handlers("restjson", "v4")
+  new_service(.quicksight$metadata, handlers, config)
 }

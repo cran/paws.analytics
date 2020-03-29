@@ -35,7 +35,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- firehose()
+#' \dontrun{svc <- firehose()
 #' svc$create_delivery_stream(
 #'   Foo = 123
 #' )}
@@ -79,8 +79,7 @@ firehose <- function(config = list()) {
   target_prefix = "Firehose_20150804"
 )
 
-.firehose$handlers <- new_handlers("jsonrpc", "v4")
-
 .firehose$service <- function(config = list()) {
-  new_service(.firehose$metadata, .firehose$handlers, config)
+  handlers <- new_handlers("jsonrpc", "v4")
+  new_service(.firehose$metadata, handlers, config)
 }

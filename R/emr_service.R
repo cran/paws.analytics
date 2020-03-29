@@ -34,7 +34,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- emr()
+#' \dontrun{svc <- emr()
 #' svc$add_instance_fleet(
 #'   Foo = 123
 #' )}
@@ -96,8 +96,7 @@ emr <- function(config = list()) {
   target_prefix = "ElasticMapReduce"
 )
 
-.emr$handlers <- new_handlers("jsonrpc", "v4")
-
 .emr$service <- function(config = list()) {
-  new_service(.emr$metadata, .emr$handlers, config)
+  handlers <- new_handlers("jsonrpc", "v4")
+  new_service(.emr$metadata, handlers, config)
 }
