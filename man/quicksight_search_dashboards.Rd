@@ -2,14 +2,14 @@
 % Please edit documentation in R/quicksight_operations.R
 \name{quicksight_search_dashboards}
 \alias{quicksight_search_dashboards}
-\title{Searchs for dashboards that belong to a user}
+\title{Searches for dashboards that belong to a user}
 \usage{
 quicksight_search_dashboards(AwsAccountId, Filters, NextToken,
   MaxResults)
 }
 \arguments{
-\item{AwsAccountId}{[required] The ID of the AWS account that contains the user whose dashboards
-you\'re searching for.}
+\item{AwsAccountId}{[required] The ID of the AWS account that contains the user whose dashboards you're
+searching for.}
 
 \item{Filters}{[required] The filters to apply to the search. Currently, you can search only by
 user name, for example,
@@ -21,7 +21,7 @@ results.}
 \item{MaxResults}{The maximum number of results to be returned per request.}
 }
 \description{
-Searchs for dashboards that belong to a user.
+Searches for dashboards that belong to a user.
 }
 \section{Request syntax}{
 \preformatted{svc$search_dashboards(

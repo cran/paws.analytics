@@ -20,7 +20,7 @@ inherit from one of the starting themes defined by Amazon QuickSight.
 For a list of the starting themes, use \code{ListThemes} or choose \strong{Themes}
 from within a QuickSight analysis.}
 
-\item{VersionDescription}{A description of the first version of the theme that you\'re creating.
+\item{VersionDescription}{A description of the first version of the theme that you're creating.
 Every time \code{UpdateTheme} is called, a new version is created. Each
 version of the theme has a description of the version in the
 \code{VersionDescription} field.}
@@ -34,8 +34,7 @@ to add to the resource.}
 }
 \description{
 Creates a theme.
-}
-\details{
+
 A \emph{theme} is set of configuration options for color and layout. Themes
 apply to analyses and dashboards. For more information, see \href{https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html}{Using Themes in Amazon QuickSight}
 in the \emph{Amazon QuickSight User Guide}.

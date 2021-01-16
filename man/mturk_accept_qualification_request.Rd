@@ -16,10 +16,9 @@ the presence or absence of the Qualification as the basis for a HIT
 requirement.}
 }
 \description{
-The \code{AcceptQualificationRequest} operation approves a Worker\'s request
+The \code{AcceptQualificationRequest} operation approves a Worker's request
 for a Qualification.
-}
-\details{
+
 Only the owner of the Qualification type can grant a Qualification
 request for that type.
 

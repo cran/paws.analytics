@@ -35,12 +35,11 @@ This documentation is for version 1 of the Amazon Kinesis Data Analytics
 API, which only supports SQL applications. Version 2 of the API supports
 SQL and Java applications. For more information about version 2, see
 Amazon Kinesis Data Analytics API V2 Documentation.
-}
-\details{
+
 Adds an
 \href{https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html}{InputProcessingConfiguration}
 to an application. An input processor preprocesses records on the input
-stream before the application\'s SQL code executes. Currently, the only
+stream before the application's SQL code executes. Currently, the only
 input processor available is \href{https://docs.aws.amazon.com/lambda/}{AWS Lambda}.
 }
 \section{Request syntax}{

@@ -13,7 +13,7 @@ none is supplied, the AWS account ID is used by default.}
 
 \item{DatabaseName}{[required] The name of the catalog database where the partitions reside.}
 
-\item{TableName}{[required] The name of the partitions\' table.}
+\item{TableName}{[required] The name of the partitions' table.}
 
 \item{PartitionValues}{[required] A list of partition values identifying the partition.}
 
@@ -21,6 +21,9 @@ none is supplied, the AWS account ID is used by default.}
 }
 \description{
 Delete the partition column statistics of a column.
+
+The Identity and Access Management (IAM) permission required for this
+operation is \code{DeletePartition}.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_column_statistics_for_partition(

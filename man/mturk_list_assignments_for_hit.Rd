@@ -15,14 +15,12 @@ mturk_list_assignments_for_hit(HITId, NextToken, MaxResults,
 
 \item{MaxResults}{}
 
-\item{AssignmentStatuses}{The status of the assignments to return: Submitted \\| Approved \\|
-Rejected}
+\item{AssignmentStatuses}{The status of the assignments to return: Submitted | Approved | Rejected}
 }
 \description{
 The \code{ListAssignmentsForHIT} operation retrieves completed assignments
 for a HIT. You can use this operation to retrieve the results for a HIT.
-}
-\details{
+
 You can get assignments for a HIT at any time, even if the HIT is not
 yet Reviewable. If a HIT requested multiple assignments, and has
 received some results but has not yet become Reviewable, you can still

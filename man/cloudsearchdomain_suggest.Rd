@@ -21,18 +21,16 @@ a particular text field. When you request suggestions, Amazon
 CloudSearch finds all of the documents whose values in the suggester
 field start with the specified query string. The beginning of the field
 must match the query string to be considered a match.
-}
-\details{
+
 For more information about configuring suggesters and retrieving
-suggestions, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html}{Getting Suggestions}
+suggestions, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html}{Getting Suggestions}
 in the \emph{Amazon CloudSearch Developer Guide}.
 
 The endpoint for submitting \code{Suggest} requests is domain-specific. You
-submit suggest requests to a domain\'s search endpoint. To get the
-search endpoint for your domain, use the Amazon CloudSearch
-configuration service \code{DescribeDomains} action. A domain\'s endpoints
-are also displayed on the domain dashboard in the Amazon CloudSearch
-console.
+submit suggest requests to a domain's search endpoint. To get the search
+endpoint for your domain, use the Amazon CloudSearch configuration
+service \code{DescribeDomains} action. A domain's endpoints are also
+displayed on the domain dashboard in the Amazon CloudSearch console.
 }
 \section{Request syntax}{
 \preformatted{svc$suggest(

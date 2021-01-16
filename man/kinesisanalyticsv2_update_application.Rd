@@ -2,7 +2,7 @@
 % Please edit documentation in R/kinesisanalyticsv2_operations.R
 \name{kinesisanalyticsv2_update_application}
 \alias{kinesisanalyticsv2_update_application}
-\title{Updates an existing Amazon Kinesis Data Analytics application}
+\title{Updates an existing Kinesis Data Analytics application}
 \usage{
 kinesisanalyticsv2_update_application(ApplicationName,
   CurrentApplicationVersionId, ApplicationConfigurationUpdate,
@@ -19,7 +19,7 @@ version ID using DescribeApplication.}
 
 \item{ServiceExecutionRoleUpdate}{Describes updates to the service execution role.}
 
-\item{RunConfigurationUpdate}{Describes updates to the application\'s starting parameters.}
+\item{RunConfigurationUpdate}{Describes updates to the application's starting parameters.}
 
 \item{CloudWatchLoggingOptionUpdates}{Describes application Amazon CloudWatch logging option updates. You can
 only update existing CloudWatch logging options with this action. To add
@@ -27,13 +27,16 @@ a new CloudWatch logging option, use
 AddApplicationCloudWatchLoggingOption.}
 }
 \description{
-Updates an existing Amazon Kinesis Data Analytics application. Using
-this operation, you can update application code, input configuration,
-and output configuration.
-}
-\details{
+Updates an existing Kinesis Data Analytics application. Using this
+operation, you can update application code, input configuration, and
+output configuration.
+
 Kinesis Data Analytics updates the \code{ApplicationVersionId} each time you
 update your application.
+
+You cannot update the \code{RuntimeEnvironment} of an existing application.
+If you need to update an application's \code{RuntimeEnvironment}, you must
+delete the application and create it again.
 }
 \section{Request syntax}{
 \preformatted{svc$update_application(

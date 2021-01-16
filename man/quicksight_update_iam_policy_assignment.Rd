@@ -10,8 +10,8 @@ quicksight_update_iam_policy_assignment(AwsAccountId, AssignmentName,
 \arguments{
 \item{AwsAccountId}{[required] The ID of the AWS account that contains the IAM policy assignment.}
 
-\item{AssignmentName}{[required] The name of the assignment. This name must be unique within an AWS
-account.}
+\item{AssignmentName}{[required] The name of the assignment, also called a rule. This name must be unique
+within an AWS account.}
 
 \item{Namespace}{[required] The namespace of the assignment.}
 
@@ -19,10 +19,10 @@ account.}
 \itemize{
 \item \code{ENABLED} - Anything specified in this assignment is used when
 creating the data source.
-\item \code{DISABLED} - This assignment isn\'t used when creating the data
+\item \code{DISABLED} - This assignment isn't used when creating the data
 source.
-\item \code{DRAFT} - This assignment is an unfinished draft and isn\'t used
-when creating the data source.
+\item \code{DRAFT} - This assignment is an unfinished draft and isn't used when
+creating the data source.
 }}
 
 \item{PolicyArn}{The ARN for the IAM policy to apply to the QuickSight users and groups
@@ -34,6 +34,7 @@ to.}
 \description{
 Updates an existing IAM policy assignment. This operation updates only
 the optional parameter or parameters that are specified in the request.
+This overwrites all of the users included in \code{Identities}.
 }
 \section{Request syntax}{
 \preformatted{svc$update_iam_policy_assignment(

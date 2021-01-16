@@ -5,6 +5,7 @@ NULL
 
 #' Validates the specified pipeline and starts processing pipeline tasks
 #'
+#' @description
 #' Validates the specified pipeline and starts processing pipeline tasks.
 #' If the pipeline does not pass validation, activation fails.
 #' 
@@ -61,6 +62,7 @@ datapipeline_activate_pipeline <- function(pipelineId, parameterValues = NULL, s
 
 #' Adds or modifies tags for the specified pipeline
 #'
+#' @description
 #' Adds or modifies tags for the specified pipeline.
 #'
 #' @usage
@@ -104,6 +106,7 @@ datapipeline_add_tags <- function(pipelineId, tags) {
 
 #' Creates a new, empty pipeline
 #'
+#' @description
 #' Creates a new, empty pipeline. Use PutPipelineDefinition to populate the
 #' pipeline.
 #'
@@ -122,14 +125,14 @@ datapipeline_add_tags <- function(pipelineId, tags) {
 #' pipeline name combination on a subsequent call to `CreatePipeline`.
 #' `CreatePipeline` ensures that if a pipeline already exists with the same
 #' name and unique identifier, a new pipeline is not created. Instead,
-#' you\'ll receive the pipeline identifier from the previous attempt. The
+#' you'll receive the pipeline identifier from the previous attempt. The
 #' uniqueness of the name and unique identifier combination is scoped to
 #' the AWS account or IAM user credentials.
 #' @param description The description for the pipeline.
 #' @param tags A list of tags to associate with the pipeline at creation. Tags let you
 #' control access to pipelines. For more information, see [Controlling User
 #' Access to
-#' Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+#' Pipelines](https://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
 #' in the *AWS Data Pipeline Developer Guide*.
 #'
 #' @section Request syntax:
@@ -169,6 +172,7 @@ datapipeline_create_pipeline <- function(name, uniqueId, description = NULL, tag
 
 #' Deactivates the specified running pipeline
 #'
+#' @description
 #' Deactivates the specified running pipeline. The pipeline is set to the
 #' `DEACTIVATING` state until the deactivation process completes.
 #' 
@@ -214,6 +218,7 @@ datapipeline_deactivate_pipeline <- function(pipelineId, cancelActive = NULL) {
 
 #' Deletes a pipeline, its pipeline definition, and its run history
 #'
+#' @description
 #' Deletes a pipeline, its pipeline definition, and its run history. AWS
 #' Data Pipeline attempts to cancel instances associated with the pipeline
 #' that are currently being processed by task runners.
@@ -258,6 +263,7 @@ datapipeline_delete_pipeline <- function(pipelineId) {
 #' Gets the object definitions for a set of objects associated with the
 #' pipeline
 #'
+#' @description
 #' Gets the object definitions for a set of objects associated with the
 #' pipeline. Object definitions are composed of a set of fields that define
 #' the properties of the object.
@@ -311,6 +317,7 @@ datapipeline_describe_objects <- function(pipelineId, objectIds, evaluateExpress
 
 #' Retrieves metadata about one or more pipelines
 #'
+#' @description
 #' Retrieves metadata about one or more pipelines. The information
 #' retrieved includes the name of the pipeline, the pipeline identifier,
 #' its current state, and the user account that owns the pipeline. Using
@@ -361,6 +368,7 @@ datapipeline_describe_pipelines <- function(pipelineIds) {
 #' Task runners call EvaluateExpression to evaluate a string in the context
 #' of the specified object
 #'
+#' @description
 #' Task runners call `EvaluateExpression` to evaluate a string in the
 #' context of the specified object. For example, a task runner can evaluate
 #' SQL queries stored in Amazon S3.
@@ -403,6 +411,7 @@ datapipeline_evaluate_expression <- function(pipelineId, objectId, expression) {
 
 #' Gets the definition of the specified pipeline
 #'
+#' @description
 #' Gets the definition of the specified pipeline. You can call
 #' `GetPipelineDefinition` to retrieve the pipeline definition that you
 #' provided using PutPipelineDefinition.
@@ -446,6 +455,7 @@ datapipeline_get_pipeline_definition <- function(pipelineId, version = NULL) {
 #' Lists the pipeline identifiers for all active pipelines that you have
 #' permission to access
 #'
+#' @description
 #' Lists the pipeline identifiers for all active pipelines that you have
 #' permission to access.
 #'
@@ -487,6 +497,7 @@ datapipeline_list_pipelines <- function(marker = NULL) {
 #' Task runners call PollForTask to receive a task to perform from AWS Data
 #' Pipeline
 #'
+#' @description
 #' Task runners call `PollForTask` to receive a task to perform from AWS
 #' Data Pipeline. The task runner specifies which tasks it can perform by
 #' setting a value for the `workerGroup` parameter. The task returned can
@@ -516,7 +527,7 @@ datapipeline_list_pipelines <- function(marker = NULL) {
 #' runner. You can get this value from the instance using
 #' `http://169.254.169.254/latest/meta-data/instance-id`. For more
 #' information, see [Instance
-#' Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html)
+#' Metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
 #' in the *Amazon Elastic Compute Cloud User Guide.* Passing in this value
 #' proves that your task runner is running on an EC2 instance, and ensures
 #' the proper AWS Data Pipeline service charges are applied to your
@@ -556,6 +567,7 @@ datapipeline_poll_for_task <- function(workerGroup, hostname = NULL, instanceIde
 
 #' Adds tasks, schedules, and preconditions to the specified pipeline
 #'
+#' @description
 #' Adds tasks, schedules, and preconditions to the specified pipeline. You
 #' can use `PutPipelineDefinition` to populate a new pipeline.
 #' 
@@ -642,6 +654,7 @@ datapipeline_put_pipeline_definition <- function(pipelineId, pipelineObjects, pa
 #' Queries the specified pipeline for the names of objects that match the
 #' specified set of conditions
 #'
+#' @description
 #' Queries the specified pipeline for the names of objects that match the
 #' specified set of conditions.
 #'
@@ -707,6 +720,7 @@ datapipeline_query_objects <- function(pipelineId, query = NULL, sphere, marker 
 
 #' Removes existing tags from the specified pipeline
 #'
+#' @description
 #' Removes existing tags from the specified pipeline.
 #'
 #' @usage
@@ -748,6 +762,7 @@ datapipeline_remove_tags <- function(pipelineId, tagKeys) {
 #' Task runners call ReportTaskProgress when assigned a task to acknowledge
 #' that it has the task
 #'
+#' @description
 #' Task runners call `ReportTaskProgress` when assigned a task to
 #' acknowledge that it has the task. If the web service does not receive
 #' this acknowledgement within 2 minutes, it assigns the task in a
@@ -806,6 +821,7 @@ datapipeline_report_task_progress <- function(taskId, fields = NULL) {
 #' Task runners call ReportTaskRunnerHeartbeat every 15 minutes to indicate
 #' that they are operational
 #'
+#' @description
 #' Task runners call `ReportTaskRunnerHeartbeat` every 15 minutes to
 #' indicate that they are operational. If the AWS Data Pipeline Task Runner
 #' is launched on a resource managed by AWS Data Pipeline, the web service
@@ -861,6 +877,7 @@ datapipeline_report_task_runner_heartbeat <- function(taskrunnerId, workerGroup 
 #' Requests that the status of the specified physical or logical pipeline
 #' objects be updated in the specified pipeline
 #'
+#' @description
 #' Requests that the status of the specified physical or logical pipeline
 #' objects be updated in the specified pipeline. This update might not
 #' occur immediately, but is eventually consistent. The status that can be
@@ -912,6 +929,7 @@ datapipeline_set_status <- function(pipelineId, objectIds, status) {
 #' Task runners call SetTaskStatus to notify AWS Data Pipeline that a task
 #' is completed and provide information about the final status
 #'
+#' @description
 #' Task runners call `SetTaskStatus` to notify AWS Data Pipeline that a
 #' task is completed and provide information about the final status. A task
 #' runner makes this call regardless of whether the task was sucessful. A
@@ -929,7 +947,7 @@ datapipeline_set_status <- function(pipelineId, objectIds, status) {
 #' @param errorId If an error occurred during the task, this value specifies the error
 #' code. This value is set on the physical attempt object. It is used to
 #' display error information to the user. It should not start with string
-#' \"Service\\_\" which is reserved by the system.
+#' "Service\\_" which is reserved by the system.
 #' @param errorMessage If an error occurred during the task, this value specifies a text
 #' description of the error. This value is set on the physical attempt
 #' object. It is used to display error information to the user. The web
@@ -973,6 +991,7 @@ datapipeline_set_task_status <- function(taskId, taskStatus, errorId = NULL, err
 #' Validates the specified pipeline definition to ensure that it is well
 #' formed and can be run without error
 #'
+#' @description
 #' Validates the specified pipeline definition to ensure that it is well
 #' formed and can be run without error.
 #'

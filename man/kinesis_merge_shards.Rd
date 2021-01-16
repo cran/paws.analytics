@@ -18,20 +18,19 @@ merge.}
 }
 \description{
 Merges two adjacent shards in a Kinesis data stream and combines them
-into a single shard to reduce the stream\'s capacity to ingest and
+into a single shard to reduce the stream's capacity to ingest and
 transport data. Two shards are considered adjacent if the union of the
 hash key ranges for the two shards form a contiguous set with no gaps.
 For example, if you have two shards, one with a hash key range of
-276\\...381 and the other with a hash key range of 382\\...454, then you
+276...381 and the other with a hash key range of 382...454, then you
 could merge these two shards into a single shard that would have a hash
-key range of 276\\...454. After the merge, the single child shard
-receives data for all hash key values covered by the two parent shards.
-}
-\details{
+key range of 276...454. After the merge, the single child shard receives
+data for all hash key values covered by the two parent shards.
+
 \code{MergeShards} is called when there is a need to reduce the overall
 capacity of a stream because of excess capacity that is not being used.
 You must specify the shard to be merged and the adjacent shard for a
-stream. For more information about merging shards, see \href{http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-merge.html}{Merge Two Shards}
+stream. For more information about merging shards, see \href{https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding-merge.html}{Merge Two Shards}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}.
 
 If the stream is in the \code{ACTIVE} state, you can call \code{MergeShards}. If a

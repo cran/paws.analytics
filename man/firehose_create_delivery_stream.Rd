@@ -9,7 +9,7 @@ firehose_create_delivery_stream(DeliveryStreamName, DeliveryStreamType,
   DeliveryStreamEncryptionConfigurationInput, S3DestinationConfiguration,
   ExtendedS3DestinationConfiguration, RedshiftDestinationConfiguration,
   ElasticsearchDestinationConfiguration, SplunkDestinationConfiguration,
-  Tags)
+  HttpEndpointDestinationConfiguration, Tags)
 }
 \arguments{
 \item{DeliveryStreamName}{[required] The name of the delivery stream. This name must be unique per AWS
@@ -46,6 +46,9 @@ destination.}
 
 \item{SplunkDestinationConfiguration}{The destination in Splunk. You can specify only one destination.}
 
+\item{HttpEndpointDestinationConfiguration}{Enables configuring Kinesis Firehose to deliver data to any HTTP
+endpoint destination. You can specify only one destination.}
+
 \item{Tags}{A set of tags to assign to the delivery stream. A tag is a key-value
 pair that you can define and assign to AWS resources. Tags are metadata.
 For example, you can add friendly names and descriptions or other types
@@ -57,8 +60,7 @@ You can specify up to 50 tags when creating a delivery stream.}
 }
 \description{
 Creates a Kinesis Data Firehose delivery stream.
-}
-\details{
+
 By default, you can create up to 50 delivery streams per AWS Region.
 
 This is an asynchronous operation that immediately returns. The initial
@@ -70,9 +72,8 @@ not in the \code{ACTIVE} state cause an exception. To check the state of a
 delivery stream, use DescribeDeliveryStream.
 
 If the status of a delivery stream is \code{CREATING_FAILED}, this status
-doesn\'t change, and you can\'t invoke \code{CreateDeliveryStream} again on
-it. However, you can invoke the DeleteDeliveryStream operation to delete
-it.
+doesn't change, and you can't invoke \code{CreateDeliveryStream} again on it.
+However, you can invoke the DeleteDeliveryStream operation to delete it.
 
 A Kinesis Data Firehose delivery stream can be configured to receive
 records directly from providers using PutRecord or PutRecordBatch, or it
@@ -85,7 +86,7 @@ Amazon Resource Name (ARN) and role ARN in the
 To create a delivery stream with server-side encryption (SSE) enabled,
 include DeliveryStreamEncryptionConfigurationInput in your request. This
 is optional. You can also invoke StartDeliveryStreamEncryption to turn
-on SSE for an existing delivery stream that doesn\'t have SSE enabled.
+on SSE for an existing delivery stream that doesn't have SSE enabled.
 
 A delivery stream is configured with a single destination: Amazon S3,
 Amazon ES, Amazon Redshift, or Splunk. You must specify only one of the
@@ -115,7 +116,7 @@ This is specified in the
 \item The compression formats \code{SNAPPY} or \code{ZIP} cannot be specified in
 \code{RedshiftDestinationConfiguration.S3Configuration} because the
 Amazon Redshift \code{COPY} operation that reads from the S3 bucket
-doesn\'t support these compression formats.
+doesn't support these compression formats.
 \item We strongly recommend that you use the user name and password you
 provide exclusively with Kinesis Data Firehose, and that the
 permissions for the account are restricted for Amazon Redshift
@@ -467,6 +468,72 @@ in the \emph{Amazon Kinesis Data Firehose Developer Guide}.
       Enabled = TRUE|FALSE,
       LogGroupName = "string",
       LogStreamName = "string"
+    )
+  ),
+  HttpEndpointDestinationConfiguration = list(
+    EndpointConfiguration = list(
+      Url = "string",
+      Name = "string",
+      AccessKey = "string"
+    ),
+    BufferingHints = list(
+      SizeInMBs = 123,
+      IntervalInSeconds = 123
+    ),
+    CloudWatchLoggingOptions = list(
+      Enabled = TRUE|FALSE,
+      LogGroupName = "string",
+      LogStreamName = "string"
+    ),
+    RequestConfiguration = list(
+      ContentEncoding = "NONE"|"GZIP",
+      CommonAttributes = list(
+        list(
+          AttributeName = "string",
+          AttributeValue = "string"
+        )
+      )
+    ),
+    ProcessingConfiguration = list(
+      Enabled = TRUE|FALSE,
+      Processors = list(
+        list(
+          Type = "Lambda",
+          Parameters = list(
+            list(
+              ParameterName = "LambdaArn"|"NumberOfRetries"|"RoleArn"|"BufferSizeInMBs"|"BufferIntervalInSeconds",
+              ParameterValue = "string"
+            )
+          )
+        )
+      )
+    ),
+    RoleARN = "string",
+    RetryOptions = list(
+      DurationInSeconds = 123
+    ),
+    S3BackupMode = "FailedDataOnly"|"AllData",
+    S3Configuration = list(
+      RoleARN = "string",
+      BucketARN = "string",
+      Prefix = "string",
+      ErrorOutputPrefix = "string",
+      BufferingHints = list(
+        SizeInMBs = 123,
+        IntervalInSeconds = 123
+      ),
+      CompressionFormat = "UNCOMPRESSED"|"GZIP"|"ZIP"|"Snappy"|"HADOOP_SNAPPY",
+      EncryptionConfiguration = list(
+        NoEncryptionConfig = "NoEncryption",
+        KMSEncryptionConfig = list(
+          AWSKMSKeyARN = "string"
+        )
+      ),
+      CloudWatchLoggingOptions = list(
+        Enabled = TRUE|FALSE,
+        LogGroupName = "string",
+        LogStreamName = "string"
+      )
     )
   ),
   Tags = list(

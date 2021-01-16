@@ -5,6 +5,7 @@ NULL
 
 #' Creates a Kinesis Data Firehose delivery stream
 #'
+#' @description
 #' Creates a Kinesis Data Firehose delivery stream.
 #' 
 #' By default, you can create up to 50 delivery streams per AWS Region.
@@ -18,9 +19,8 @@ NULL
 #' delivery stream, use DescribeDeliveryStream.
 #' 
 #' If the status of a delivery stream is `CREATING_FAILED`, this status
-#' doesn\'t change, and you can\'t invoke `CreateDeliveryStream` again on
-#' it. However, you can invoke the DeleteDeliveryStream operation to delete
-#' it.
+#' doesn't change, and you can't invoke `CreateDeliveryStream` again on it.
+#' However, you can invoke the DeleteDeliveryStream operation to delete it.
 #' 
 #' A Kinesis Data Firehose delivery stream can be configured to receive
 #' records directly from providers using PutRecord or PutRecordBatch, or it
@@ -33,7 +33,7 @@ NULL
 #' To create a delivery stream with server-side encryption (SSE) enabled,
 #' include DeliveryStreamEncryptionConfigurationInput in your request. This
 #' is optional. You can also invoke StartDeliveryStreamEncryption to turn
-#' on SSE for an existing delivery stream that doesn\'t have SSE enabled.
+#' on SSE for an existing delivery stream that doesn't have SSE enabled.
 #' 
 #' A delivery stream is configured with a single destination: Amazon S3,
 #' Amazon ES, Amazon Redshift, or Splunk. You must specify only one of the
@@ -64,7 +64,7 @@ NULL
 #' -   The compression formats `SNAPPY` or `ZIP` cannot be specified in
 #'     `RedshiftDestinationConfiguration.S3Configuration` because the
 #'     Amazon Redshift `COPY` operation that reads from the S3 bucket
-#'     doesn\'t support these compression formats.
+#'     doesn't support these compression formats.
 #' 
 #' -   We strongly recommend that you use the user name and password you
 #'     provide exclusively with Kinesis Data Firehose, and that the
@@ -85,7 +85,7 @@ NULL
 #'   DeliveryStreamEncryptionConfigurationInput, S3DestinationConfiguration,
 #'   ExtendedS3DestinationConfiguration, RedshiftDestinationConfiguration,
 #'   ElasticsearchDestinationConfiguration, SplunkDestinationConfiguration,
-#'   Tags)
+#'   HttpEndpointDestinationConfiguration, Tags)
 #'
 #' @param DeliveryStreamName &#91;required&#93; The name of the delivery stream. This name must be unique per AWS
 #' account in the same AWS Region. If the delivery streams are in different
@@ -112,6 +112,8 @@ NULL
 #' destination.
 #' @param ElasticsearchDestinationConfiguration The destination in Amazon ES. You can specify only one destination.
 #' @param SplunkDestinationConfiguration The destination in Splunk. You can specify only one destination.
+#' @param HttpEndpointDestinationConfiguration Enables configuring Kinesis Firehose to deliver data to any HTTP
+#' endpoint destination. You can specify only one destination.
 #' @param Tags A set of tags to assign to the delivery stream. A tag is a key-value
 #' pair that you can define and assign to AWS resources. Tags are metadata.
 #' For example, you can add friendly names and descriptions or other types
@@ -464,6 +466,72 @@ NULL
 #'       LogStreamName = "string"
 #'     )
 #'   ),
+#'   HttpEndpointDestinationConfiguration = list(
+#'     EndpointConfiguration = list(
+#'       Url = "string",
+#'       Name = "string",
+#'       AccessKey = "string"
+#'     ),
+#'     BufferingHints = list(
+#'       SizeInMBs = 123,
+#'       IntervalInSeconds = 123
+#'     ),
+#'     CloudWatchLoggingOptions = list(
+#'       Enabled = TRUE|FALSE,
+#'       LogGroupName = "string",
+#'       LogStreamName = "string"
+#'     ),
+#'     RequestConfiguration = list(
+#'       ContentEncoding = "NONE"|"GZIP",
+#'       CommonAttributes = list(
+#'         list(
+#'           AttributeName = "string",
+#'           AttributeValue = "string"
+#'         )
+#'       )
+#'     ),
+#'     ProcessingConfiguration = list(
+#'       Enabled = TRUE|FALSE,
+#'       Processors = list(
+#'         list(
+#'           Type = "Lambda",
+#'           Parameters = list(
+#'             list(
+#'               ParameterName = "LambdaArn"|"NumberOfRetries"|"RoleArn"|"BufferSizeInMBs"|"BufferIntervalInSeconds",
+#'               ParameterValue = "string"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     RoleARN = "string",
+#'     RetryOptions = list(
+#'       DurationInSeconds = 123
+#'     ),
+#'     S3BackupMode = "FailedDataOnly"|"AllData",
+#'     S3Configuration = list(
+#'       RoleARN = "string",
+#'       BucketARN = "string",
+#'       Prefix = "string",
+#'       ErrorOutputPrefix = "string",
+#'       BufferingHints = list(
+#'         SizeInMBs = 123,
+#'         IntervalInSeconds = 123
+#'       ),
+#'       CompressionFormat = "UNCOMPRESSED"|"GZIP"|"ZIP"|"Snappy"|"HADOOP_SNAPPY",
+#'       EncryptionConfiguration = list(
+#'         NoEncryptionConfig = "NoEncryption",
+#'         KMSEncryptionConfig = list(
+#'           AWSKMSKeyARN = "string"
+#'         )
+#'       ),
+#'       CloudWatchLoggingOptions = list(
+#'         Enabled = TRUE|FALSE,
+#'         LogGroupName = "string",
+#'         LogStreamName = "string"
+#'       )
+#'     )
+#'   ),
 #'   Tags = list(
 #'     list(
 #'       Key = "string",
@@ -476,14 +544,14 @@ NULL
 #' @keywords internal
 #'
 #' @rdname firehose_create_delivery_stream
-firehose_create_delivery_stream <- function(DeliveryStreamName, DeliveryStreamType = NULL, KinesisStreamSourceConfiguration = NULL, DeliveryStreamEncryptionConfigurationInput = NULL, S3DestinationConfiguration = NULL, ExtendedS3DestinationConfiguration = NULL, RedshiftDestinationConfiguration = NULL, ElasticsearchDestinationConfiguration = NULL, SplunkDestinationConfiguration = NULL, Tags = NULL) {
+firehose_create_delivery_stream <- function(DeliveryStreamName, DeliveryStreamType = NULL, KinesisStreamSourceConfiguration = NULL, DeliveryStreamEncryptionConfigurationInput = NULL, S3DestinationConfiguration = NULL, ExtendedS3DestinationConfiguration = NULL, RedshiftDestinationConfiguration = NULL, ElasticsearchDestinationConfiguration = NULL, SplunkDestinationConfiguration = NULL, HttpEndpointDestinationConfiguration = NULL, Tags = NULL) {
   op <- new_operation(
     name = "CreateDeliveryStream",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .firehose$create_delivery_stream_input(DeliveryStreamName = DeliveryStreamName, DeliveryStreamType = DeliveryStreamType, KinesisStreamSourceConfiguration = KinesisStreamSourceConfiguration, DeliveryStreamEncryptionConfigurationInput = DeliveryStreamEncryptionConfigurationInput, S3DestinationConfiguration = S3DestinationConfiguration, ExtendedS3DestinationConfiguration = ExtendedS3DestinationConfiguration, RedshiftDestinationConfiguration = RedshiftDestinationConfiguration, ElasticsearchDestinationConfiguration = ElasticsearchDestinationConfiguration, SplunkDestinationConfiguration = SplunkDestinationConfiguration, Tags = Tags)
+  input <- .firehose$create_delivery_stream_input(DeliveryStreamName = DeliveryStreamName, DeliveryStreamType = DeliveryStreamType, KinesisStreamSourceConfiguration = KinesisStreamSourceConfiguration, DeliveryStreamEncryptionConfigurationInput = DeliveryStreamEncryptionConfigurationInput, S3DestinationConfiguration = S3DestinationConfiguration, ExtendedS3DestinationConfiguration = ExtendedS3DestinationConfiguration, RedshiftDestinationConfiguration = RedshiftDestinationConfiguration, ElasticsearchDestinationConfiguration = ElasticsearchDestinationConfiguration, SplunkDestinationConfiguration = SplunkDestinationConfiguration, HttpEndpointDestinationConfiguration = HttpEndpointDestinationConfiguration, Tags = Tags)
   output <- .firehose$create_delivery_stream_output()
   config <- get_config()
   svc <- .firehose$service(config)
@@ -495,17 +563,18 @@ firehose_create_delivery_stream <- function(DeliveryStreamName, DeliveryStreamTy
 
 #' Deletes a delivery stream and its data
 #'
+#' @description
 #' Deletes a delivery stream and its data.
 #' 
 #' To check the state of a delivery stream, use DescribeDeliveryStream. You
 #' can delete a delivery stream only if it is in one of the following
 #' states: `ACTIVE`, `DELETING`, `CREATING_FAILED`, or `DELETING_FAILED`.
-#' You can\'t delete a delivery stream that is in the `CREATING` state.
+#' You can't delete a delivery stream that is in the `CREATING` state.
 #' While the deletion request is in process, the delivery stream is in the
 #' `DELETING` state.
 #' 
 #' While the delivery stream is in the `DELETING` state, the service might
-#' continue to accept records, but it doesn\'t make any guarantees with
+#' continue to accept records, but it doesn't make any guarantees with
 #' respect to delivering the data. Therefore, as a best practice, first
 #' stop any applications that are sending records before you delete a
 #' delivery stream.
@@ -556,17 +625,18 @@ firehose_delete_delivery_stream <- function(DeliveryStreamName, AllowForceDelete
 
 #' Describes the specified delivery stream and its status
 #'
+#' @description
 #' Describes the specified delivery stream and its status. For example,
 #' after your delivery stream is created, call `DescribeDeliveryStream` to
 #' see whether the delivery stream is `ACTIVE` and therefore ready for data
 #' to be sent to it.
 #' 
 #' If the status of a delivery stream is `CREATING_FAILED`, this status
-#' doesn\'t change, and you can\'t invoke CreateDeliveryStream again on it.
+#' doesn't change, and you can't invoke CreateDeliveryStream again on it.
 #' However, you can invoke the DeleteDeliveryStream operation to delete it.
 #' If the status is `DELETING_FAILED`, you can force deletion by invoking
 #' DeleteDeliveryStream again but with
-#' DeleteDeliveryStreamInput\\$AllowForceDelete set to true.
+#' DeleteDeliveryStreamInput$AllowForceDelete set to true.
 #'
 #' @usage
 #' firehose_describe_delivery_stream(DeliveryStreamName, Limit,
@@ -610,6 +680,7 @@ firehose_describe_delivery_stream <- function(DeliveryStreamName, Limit = NULL, 
 
 #' Lists your delivery streams in alphabetical order of their names
 #'
+#' @description
 #' Lists your delivery streams in alphabetical order of their names.
 #' 
 #' The number of delivery streams might be too large to return using a
@@ -672,6 +743,7 @@ firehose_list_delivery_streams <- function(Limit = NULL, DeliveryStreamType = NU
 
 #' Lists the tags for the specified delivery stream
 #'
+#' @description
 #' Lists the tags for the specified delivery stream. This operation has a
 #' limit of five transactions per second per account.
 #'
@@ -720,6 +792,7 @@ firehose_list_tags_for_delivery_stream <- function(DeliveryStreamName, Exclusive
 #' Writes a single data record into an Amazon Kinesis Data Firehose
 #' delivery stream
 #'
+#' @description
 #' Writes a single data record into an Amazon Kinesis Data Firehose
 #' delivery stream. To write multiple data records into a delivery stream,
 #' use PutRecordBatch. Applications using these operations are referred to
@@ -758,7 +831,7 @@ firehose_list_tags_for_delivery_stream <- function(DeliveryStreamName, Exclusive
 #' records to the destination. If the destination is unreachable for more
 #' than 24 hours, the data is no longer available.
 #' 
-#' Don\'t concatenate two or more base64 strings to form the data fields of
+#' Don't concatenate two or more base64 strings to form the data fields of
 #' your records. Instead, concatenate the raw data, then perform base64
 #' encoding.
 #'
@@ -802,18 +875,15 @@ firehose_put_record <- function(DeliveryStreamName, Record) {
 #' which can achieve higher throughput per producer than when writing
 #' single records
 #'
+#' @description
 #' Writes multiple data records into a delivery stream in a single call,
 #' which can achieve higher throughput per producer than when writing
 #' single records. To write single data records into a delivery stream, use
 #' PutRecord. Applications using these operations are referred to as
 #' producers.
 #' 
-#' By default, each delivery stream can take in up to 2,000 transactions
-#' per second, 5,000 records per second, or 5 MB per second. If you use
-#' PutRecord and PutRecordBatch, the limits are an aggregate across these
-#' two operations for each delivery stream. For more information about
-#' limits, see [Amazon Kinesis Data Firehose
-#' Limits](https://docs.aws.amazon.com/firehose/latest/dev/limits.html).
+#' For information about service quota, see [Amazon Kinesis Data Firehose
+#' Quota](https://docs.aws.amazon.com/firehose/latest/dev/limits.html).
 #' 
 #' Each PutRecordBatch request supports up to 500 records. Each record in
 #' the request can be as large as 1,000 KB (before 64-bit encoding), up to
@@ -836,7 +906,7 @@ firehose_put_record <- function(DeliveryStreamName, Record) {
 #' `FailedPutCount`, and an array of responses, `RequestResponses`. Even if
 #' the PutRecordBatch call succeeds, the value of `FailedPutCount` may be
 #' greater than 0, indicating that there are records for which the
-#' operation didn\'t succeed. Each entry in the `RequestResponses` array
+#' operation didn't succeed. Each entry in the `RequestResponses` array
 #' provides additional information about the processed record. It directly
 #' correlates with a record in the request array using the same ordering,
 #' from the top to the bottom. The response array always includes the same
@@ -868,7 +938,7 @@ firehose_put_record <- function(DeliveryStreamName, Record) {
 #' records to the destination. If the destination is unreachable for more
 #' than 24 hours, the data is no longer available.
 #' 
-#' Don\'t concatenate two or more base64 strings to form the data fields of
+#' Don't concatenate two or more base64 strings to form the data fields of
 #' your records. Instead, concatenate the raw data, then perform base64
 #' encoding.
 #'
@@ -912,6 +982,7 @@ firehose_put_record_batch <- function(DeliveryStreamName, Records) {
 
 #' Enables server-side encryption (SSE) for the delivery stream
 #'
+#' @description
 #' Enables server-side encryption (SSE) for the delivery stream.
 #' 
 #' This operation is asynchronous. It returns immediately. When you invoke
@@ -925,7 +996,7 @@ firehose_put_record_batch <- function(DeliveryStreamName, Records) {
 #' after the encryption status changes to `ENABLED` before all records
 #' written to the delivery stream are encrypted. To find out whether a
 #' record or a batch of records was encrypted, check the response elements
-#' PutRecordOutput\\$Encrypted and PutRecordBatchOutput\\$Encrypted,
+#' PutRecordOutput$Encrypted and PutRecordBatchOutput$Encrypted,
 #' respectively.
 #' 
 #' To check the encryption status of a delivery stream, use
@@ -948,10 +1019,10 @@ firehose_put_record_batch <- function(DeliveryStreamName, Records) {
 #' 
 #' If the encryption status of your delivery stream is `ENABLING_FAILED`,
 #' you can invoke this operation again with a valid CMK. The CMK must be
-#' enabled and the key policy mustn\'t explicitly deny the permission for
+#' enabled and the key policy mustn't explicitly deny the permission for
 #' Kinesis Data Firehose to invoke KMS encrypt and decrypt operations.
 #' 
-#' You can enable SSE for a delivery stream only if it\'s a delivery stream
+#' You can enable SSE for a delivery stream only if it's a delivery stream
 #' that uses `DirectPut` as its source.
 #' 
 #' The `StartDeliveryStreamEncryption` and `StopDeliveryStreamEncryption`
@@ -1003,6 +1074,7 @@ firehose_start_delivery_stream_encryption <- function(DeliveryStreamName, Delive
 
 #' Disables server-side encryption (SSE) for the delivery stream
 #'
+#' @description
 #' Disables server-side encryption (SSE) for the delivery stream.
 #' 
 #' This operation is asynchronous. It returns immediately. When you invoke
@@ -1012,8 +1084,8 @@ firehose_start_delivery_stream_encryption <- function(DeliveryStreamName, Delive
 #' up to 5 seconds after the encryption status changes to `DISABLED` before
 #' all records written to the delivery stream are no longer subject to
 #' encryption. To find out whether a record or a batch of records was
-#' encrypted, check the response elements PutRecordOutput\\$Encrypted and
-#' PutRecordBatchOutput\\$Encrypted, respectively.
+#' encrypted, check the response elements PutRecordOutput$Encrypted and
+#' PutRecordBatchOutput$Encrypted, respectively.
 #' 
 #' To check the encryption state of a delivery stream, use
 #' DescribeDeliveryStream.
@@ -1065,6 +1137,7 @@ firehose_stop_delivery_stream_encryption <- function(DeliveryStreamName) {
 
 #' Adds or updates tags for the specified delivery stream
 #'
+#' @description
 #' Adds or updates tags for the specified delivery stream. A tag is a
 #' key-value pair that you can define and assign to AWS resources. If you
 #' specify a tag that already exists, the tag value is replaced with the
@@ -1120,11 +1193,12 @@ firehose_tag_delivery_stream <- function(DeliveryStreamName, Tags) {
 
 #' Removes tags from the specified delivery stream
 #'
+#' @description
 #' Removes tags from the specified delivery stream. Removed tags are
-#' deleted, and you can\'t recover them after this operation successfully
+#' deleted, and you can't recover them after this operation successfully
 #' completes.
 #' 
-#' If you specify a tag that doesn\'t exist, the operation ignores it.
+#' If you specify a tag that doesn't exist, the operation ignores it.
 #' 
 #' This operation has a limit of five transactions per second per account.
 #'
@@ -1167,6 +1241,7 @@ firehose_untag_delivery_stream <- function(DeliveryStreamName, TagKeys) {
 
 #' Updates the specified destination of the specified delivery stream
 #'
+#' @description
 #' Updates the specified destination of the specified delivery stream.
 #' 
 #' Use this operation to change the destination type (for example, to
@@ -1207,7 +1282,8 @@ firehose_untag_delivery_stream <- function(DeliveryStreamName, TagKeys) {
 #' firehose_update_destination(DeliveryStreamName,
 #'   CurrentDeliveryStreamVersionId, DestinationId, S3DestinationUpdate,
 #'   ExtendedS3DestinationUpdate, RedshiftDestinationUpdate,
-#'   ElasticsearchDestinationUpdate, SplunkDestinationUpdate)
+#'   ElasticsearchDestinationUpdate, SplunkDestinationUpdate,
+#'   HttpEndpointDestinationUpdate)
 #'
 #' @param DeliveryStreamName &#91;required&#93; The name of the delivery stream.
 #' @param CurrentDeliveryStreamVersionId &#91;required&#93; Obtain this value from the `VersionId` result of
@@ -1223,6 +1299,7 @@ firehose_untag_delivery_stream <- function(DeliveryStreamName, TagKeys) {
 #' @param RedshiftDestinationUpdate Describes an update for a destination in Amazon Redshift.
 #' @param ElasticsearchDestinationUpdate Describes an update for a destination in Amazon ES.
 #' @param SplunkDestinationUpdate Describes an update for a destination in Splunk.
+#' @param HttpEndpointDestinationUpdate Describes an update to the specified HTTP endpoint destination.
 #'
 #' @section Request syntax:
 #' ```
@@ -1548,6 +1625,72 @@ firehose_untag_delivery_stream <- function(DeliveryStreamName, TagKeys) {
 #'       LogGroupName = "string",
 #'       LogStreamName = "string"
 #'     )
+#'   ),
+#'   HttpEndpointDestinationUpdate = list(
+#'     EndpointConfiguration = list(
+#'       Url = "string",
+#'       Name = "string",
+#'       AccessKey = "string"
+#'     ),
+#'     BufferingHints = list(
+#'       SizeInMBs = 123,
+#'       IntervalInSeconds = 123
+#'     ),
+#'     CloudWatchLoggingOptions = list(
+#'       Enabled = TRUE|FALSE,
+#'       LogGroupName = "string",
+#'       LogStreamName = "string"
+#'     ),
+#'     RequestConfiguration = list(
+#'       ContentEncoding = "NONE"|"GZIP",
+#'       CommonAttributes = list(
+#'         list(
+#'           AttributeName = "string",
+#'           AttributeValue = "string"
+#'         )
+#'       )
+#'     ),
+#'     ProcessingConfiguration = list(
+#'       Enabled = TRUE|FALSE,
+#'       Processors = list(
+#'         list(
+#'           Type = "Lambda",
+#'           Parameters = list(
+#'             list(
+#'               ParameterName = "LambdaArn"|"NumberOfRetries"|"RoleArn"|"BufferSizeInMBs"|"BufferIntervalInSeconds",
+#'               ParameterValue = "string"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     RoleARN = "string",
+#'     RetryOptions = list(
+#'       DurationInSeconds = 123
+#'     ),
+#'     S3BackupMode = "FailedDataOnly"|"AllData",
+#'     S3Update = list(
+#'       RoleARN = "string",
+#'       BucketARN = "string",
+#'       Prefix = "string",
+#'       ErrorOutputPrefix = "string",
+#'       BufferingHints = list(
+#'         SizeInMBs = 123,
+#'         IntervalInSeconds = 123
+#'       ),
+#'       CompressionFormat = "UNCOMPRESSED"|"GZIP"|"ZIP"|"Snappy"|"HADOOP_SNAPPY",
+#'       EncryptionConfiguration = list(
+#'         NoEncryptionConfig = "NoEncryption",
+#'         KMSEncryptionConfig = list(
+#'           AWSKMSKeyARN = "string"
+#'         )
+#'       ),
+#'       CloudWatchLoggingOptions = list(
+#'         Enabled = TRUE|FALSE,
+#'         LogGroupName = "string",
+#'         LogStreamName = "string"
+#'       )
+#'     )
 #'   )
 #' )
 #' ```
@@ -1555,14 +1698,14 @@ firehose_untag_delivery_stream <- function(DeliveryStreamName, TagKeys) {
 #' @keywords internal
 #'
 #' @rdname firehose_update_destination
-firehose_update_destination <- function(DeliveryStreamName, CurrentDeliveryStreamVersionId, DestinationId, S3DestinationUpdate = NULL, ExtendedS3DestinationUpdate = NULL, RedshiftDestinationUpdate = NULL, ElasticsearchDestinationUpdate = NULL, SplunkDestinationUpdate = NULL) {
+firehose_update_destination <- function(DeliveryStreamName, CurrentDeliveryStreamVersionId, DestinationId, S3DestinationUpdate = NULL, ExtendedS3DestinationUpdate = NULL, RedshiftDestinationUpdate = NULL, ElasticsearchDestinationUpdate = NULL, SplunkDestinationUpdate = NULL, HttpEndpointDestinationUpdate = NULL) {
   op <- new_operation(
     name = "UpdateDestination",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .firehose$update_destination_input(DeliveryStreamName = DeliveryStreamName, CurrentDeliveryStreamVersionId = CurrentDeliveryStreamVersionId, DestinationId = DestinationId, S3DestinationUpdate = S3DestinationUpdate, ExtendedS3DestinationUpdate = ExtendedS3DestinationUpdate, RedshiftDestinationUpdate = RedshiftDestinationUpdate, ElasticsearchDestinationUpdate = ElasticsearchDestinationUpdate, SplunkDestinationUpdate = SplunkDestinationUpdate)
+  input <- .firehose$update_destination_input(DeliveryStreamName = DeliveryStreamName, CurrentDeliveryStreamVersionId = CurrentDeliveryStreamVersionId, DestinationId = DestinationId, S3DestinationUpdate = S3DestinationUpdate, ExtendedS3DestinationUpdate = ExtendedS3DestinationUpdate, RedshiftDestinationUpdate = RedshiftDestinationUpdate, ElasticsearchDestinationUpdate = ElasticsearchDestinationUpdate, SplunkDestinationUpdate = SplunkDestinationUpdate, HttpEndpointDestinationUpdate = HttpEndpointDestinationUpdate)
   output <- .firehose$update_destination_output()
   config <- get_config()
   svc <- .firehose$service(config)

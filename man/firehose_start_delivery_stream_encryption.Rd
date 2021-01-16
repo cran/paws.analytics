@@ -16,8 +16,7 @@ needed for Server-Side Encryption (SSE).}
 }
 \description{
 Enables server-side encryption (SSE) for the delivery stream.
-}
-\details{
+
 This operation is asynchronous. It returns immediately. When you invoke
 it, Kinesis Data Firehose first sets the encryption status of the stream
 to \code{ENABLING}, and then to \code{ENABLED}. The encryption status of a
@@ -29,7 +28,7 @@ and write data to your delivery stream while the encryption status is
 after the encryption status changes to \code{ENABLED} before all records
 written to the delivery stream are encrypted. To find out whether a
 record or a batch of records was encrypted, check the response elements
-PutRecordOutput\\$Encrypted and PutRecordBatchOutput\\$Encrypted,
+PutRecordOutput$Encrypted and PutRecordBatchOutput$Encrypted,
 respectively.
 
 To check the encryption status of a delivery stream, use
@@ -52,10 +51,10 @@ CMK.
 
 If the encryption status of your delivery stream is \code{ENABLING_FAILED},
 you can invoke this operation again with a valid CMK. The CMK must be
-enabled and the key policy mustn\'t explicitly deny the permission for
+enabled and the key policy mustn't explicitly deny the permission for
 Kinesis Data Firehose to invoke KMS encrypt and decrypt operations.
 
-You can enable SSE for a delivery stream only if it\'s a delivery stream
+You can enable SSE for a delivery stream only if it's a delivery stream
 that uses \code{DirectPut} as its source.
 
 The \code{StartDeliveryStreamEncryption} and \code{StopDeliveryStreamEncryption}

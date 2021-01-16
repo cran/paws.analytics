@@ -23,12 +23,11 @@ child shard.}
 }
 \description{
 Splits a shard into two new shards in the Kinesis data stream, to
-increase the stream\'s capacity to ingest and transport data.
+increase the stream's capacity to ingest and transport data.
 \code{SplitShard} is called when there is a need to increase the overall
 capacity of a stream because of an expected increase in the volume of
 data records being ingested.
-}
-\details{
+
 You can also use \code{SplitShard} when a shard appears to be approaching its
 maximum utilization; for example, the producers sending data into the
 specific shard are suddenly sending more than previously anticipated.
@@ -40,7 +39,7 @@ You must specify the shard to be split and the new hash key, which is
 the position in the shard where the shard gets split in two. In many
 cases, the new hash key might be the average of the beginning and ending
 hash key, but it can be any hash key value in the range being mapped
-into the shard. For more information, see \href{http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-split.html}{Split a Shard}
+into the shard. For more information, see \href{https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding-split.html}{Split a Shard}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}.
 
 You can use DescribeStream to determine the shard ID and hash key values
@@ -62,9 +61,9 @@ If the specified stream does not exist, \code{DescribeStream} returns a
 \code{ResourceNotFoundException}. If you try to create more shards than are
 authorized for your account, you receive a \code{LimitExceededException}.
 
-For the default shard limit for an AWS account, see \href{http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html}{Kinesis Data Streams Limits}
+For the default shard limit for an AWS account, see \href{https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html}{Kinesis Data Streams Limits}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}. To increase this
-limit, \href{http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html}{contact AWS Support}.
+limit, \href{https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html}{contact AWS Support}.
 
 If you try to operate on too many streams simultaneously using
 CreateStream, DeleteStream, MergeShards, and/or SplitShard, you receive

@@ -5,7 +5,7 @@
 \title{Lists the shards in a stream and provides information about each shard}
 \usage{
 kinesis_list_shards(StreamName, NextToken, ExclusiveStartShardId,
-  MaxResults, StreamCreationTimestamp)
+  MaxResults, StreamCreationTimestamp, ShardFilter)
 }
 \arguments{
 \item{StreamName}{The name of the data stream whose shards you want to list.
@@ -20,12 +20,12 @@ data stream, the response includes a pagination token named \code{NextToken}.
 You can specify this \code{NextToken} value in a subsequent call to
 \code{ListShards} to list the next set of shards.
 
-Don\'t specify \code{StreamName} or \code{StreamCreationTimestamp} if you specify
+Don't specify \code{StreamName} or \code{StreamCreationTimestamp} if you specify
 \code{NextToken} because the latter unambiguously identifies the stream.
 
 You can optionally specify a value for the \code{MaxResults} parameter when
 you specify \code{NextToken}. If you specify a \code{MaxResults} value that is
-less than the number of shards that the operation returns if you don\'t
+less than the number of shards that the operation returns if you don't
 specify \code{MaxResults}, the response will contain a new \code{NextToken} value.
 You can use the new \code{NextToken} value in a subsequent call to the
 \code{ListShards} operation.
@@ -39,7 +39,7 @@ you get \code{ExpiredNextTokenException}.}
 starting with the shard whose ID immediately follows
 \code{ExclusiveStartShardId}.
 
-If you don\'t specify this parameter, the default behavior is for
+If you don't specify this parameter, the default behavior is for
 \code{ListShards} to list the shards starting with the first one in the
 stream.
 
@@ -47,7 +47,7 @@ You cannot specify this parameter if you specify \code{NextToken}.}
 
 \item{MaxResults}{The maximum number of shards to return in a single call to \code{ListShards}.
 The minimum value you can specify for this parameter is 1, and the
-maximum is 1,000, which is also the default.
+maximum is 10,000, which is also the default.
 
 When the number of shards to be listed is greater than the value of
 \code{MaxResults}, the response contains a \code{NextToken} value that you can use
@@ -61,13 +61,14 @@ list the shards for.
 
 You cannot specify this parameter if you specify the \code{NextToken}
 parameter.}
+
+\item{ShardFilter}{}
 }
 \description{
 Lists the shards in a stream and provides information about each shard.
 This operation has a limit of 100 transactions per second per data
 stream.
-}
-\details{
+
 This API is a new operation that is used by the Amazon Kinesis Client
 Library (KCL). If you have a fine-grained IAM policy that only allows
 specific operations, you must update your policy to allow calls to this
@@ -81,6 +82,13 @@ API. For more information, see \href{https://docs.aws.amazon.com/streams/latest/
   MaxResults = 123,
   StreamCreationTimestamp = as.POSIXct(
     "2015-01-01"
+  ),
+  ShardFilter = list(
+    Type = "AFTER_SHARD_ID"|"AT_TRIM_HORIZON"|"FROM_TRIM_HORIZON"|"AT_LATEST"|"AT_TIMESTAMP"|"FROM_TIMESTAMP",
+    ShardId = "string",
+    Timestamp = as.POSIXct(
+      "2015-01-01"
+    )
   )
 )
 }

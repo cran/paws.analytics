@@ -16,7 +16,7 @@ in a request; they are mutually exclusive. To get the first cursor, set
 the cursor value to \code{initial}. In subsequent requests, specify the
 cursor value returned in the hits section of the response.
 
-For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html}{Paginating Results}
+For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html}{Paginating Results}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{expr}{Defines one or more numeric expressions that can be used to sort results
@@ -30,7 +30,7 @@ expressions in a search request. For example:
 \verb{\\\{"expression1":"_score*rating", "expression2":"(1/rank)*year"\\\}}
 
 For information about the variables, operators, and functions you can
-use in expressions, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions}{Writing Expressions}
+use in expressions, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions}{Writing Expressions}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{facet}{Specifies one or more fields for which to get facet information, and
@@ -43,7 +43,7 @@ You can specify the following faceting options:
 \itemize{
 \item \code{buckets} specifies an array of the facet values or ranges to count.
 Ranges are specified using the same syntax that you use to search
-for a range of values. For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html}{Searching for a Range of Values}
+for a range of values. For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html}{Searching for a Range of Values}
 in the \emph{Amazon CloudSearch Developer Guide}. Buckets are returned in
 the order they are specified in the request. The \code{sort} and \code{size}
 options are not valid if you specify \code{buckets}.
@@ -83,7 +83,7 @@ values numerically by year, with earliest year listed first.
 
 \verb{\\\{"year":\\\{"sort":"bucket"\\\}\\\}}
 
-For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html}{Getting and Using Facet Information}
+For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html}{Getting and Using Facet Information}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{filterQuery}{Specifies a structured query that filters the results of a search
@@ -94,7 +94,7 @@ Specifying a filter controls only which matching documents are included
 in the results, it has no effect on how they are scored and sorted. The
 \code{filterQuery} parameter supports the full structured query syntax.
 
-For more information about using filters, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html}{Filtering Matching Documents}
+For more information about using filters, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html}{Filtering Matching Documents}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{highlight}{Retrieves highlights for matches in the specified \code{text} or \code{text-array}
@@ -136,7 +136,7 @@ search instance can result in 5xx (internal server) errors. When you
 enable partial results, Amazon CloudSearch returns whatever results are
 available and includes the percentage of documents searched in the
 search results (percent-searched). This enables you to more gracefully
-degrade your users\' search experience. For example, rather than
+degrade your users' search experience. For example, rather than
 displaying no results, you could display the partial results and a
 message indicating that the results might be incomplete due to a
 temporary system outage.}
@@ -148,7 +148,7 @@ the \code{simple} query parser is used to process requests. To use the
 \code{structured}, \code{lucene}, or \code{dismax} query parser, you must also specify
 the \code{queryParser} parameter.
 
-For more information about specifying search criteria, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html}{Searching Your Data}
+For more information about specifying search criteria, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html}{Searching Your Data}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{queryOptions}{Configures options for the query parser specified in the \code{queryParser}
@@ -161,11 +161,11 @@ The options you can configure vary according to which parser you use:
 terms in the search string. For example: \code{defaultOperator: 'or'}.
 For the \code{dismax} parser, you specify a percentage that represents
 the percentage of terms in the search string (rounded down) that
-must match, rather than a default operator. A value of \verb{0\%} is the
-equivalent to OR, and a value of \verb{100\%} is equivalent to AND. The
+must match, rather than a default operator. A value of \verb{0\\\%} is the
+equivalent to OR, and a value of \verb{100\\\%} is equivalent to AND. The
 percentage must be specified as a value in the range 0-100 followed
-by the percent (\%) symbol. For example, \verb{defaultOperator: 50\%}.
-Valid values: \code{and}, \code{or}, a percentage in the range 0\%-100\%
+by the percent (\\%) symbol. For example, \verb{defaultOperator: 50\\\%}.
+Valid values: \code{and}, \code{or}, a percentage in the range 0\\%-100\\%
 (\code{dismax}). Default: \code{and} (\code{simple}, \code{structured}, \code{lucene}) or
 \code{100} (\code{dismax}). Valid for: \code{simple}, \code{structured}, \code{lucene}, and
 \code{dismax}.
@@ -189,9 +189,9 @@ string. Similarly, disabling \code{prefix} disables the wildcard operator
 (\code{*}) and disabling \code{phrase} disables the ability to search for
 phrases by enclosing phrases in double quotes. Disabling precedence
 disables the ability to control order of precedence using
-parentheses. Disabling \code{near} disables the ability to use the \~
+parentheses. Disabling \code{near} disables the ability to use the ~
 operator to perform a sloppy phrase search. Disabling the \code{fuzzy}
-operator disables the ability to use the \~ operator to perform a
+operator disables the ability to use the ~ operator to perform a
 fuzzy search. \code{escape} disables the ability to use a backslash (\verb{\\\\})
 to escape special characters within the search string. Disabling
 whitespace is an advanced option that prevents the parser from
@@ -214,7 +214,7 @@ example, to boost phrase matches in the \code{title} field over the
 \code{abstract} field, you could specify:
 \verb{"phraseFields":\\\["title^3", "plot"\\\]} Valid values: The name of
 any \code{text} or \code{text-array} field and an optional numeric value
-greater than zero. Default: No fields. If you don\'t specify any
+greater than zero. Default: No fields. If you don't specify any
 fields with \code{phraseFields}, proximity scoring is disabled even if
 \code{phraseSlop} is specified. Valid for: \code{dismax}.
 \item \code{phraseSlop}: An integer value that specifies how much matches can
@@ -231,12 +231,12 @@ specify a slop of three for dismax phrase queries, you would specify
 \code{"explicitPhraseSlop":3}. Valid values: positive integers.
 Default: 0. Valid for: \code{dismax}.
 \item \code{tieBreaker}: When a term in the search string is found in a
-document\'s field, a score is calculated for that field based on how
+document's field, a score is calculated for that field based on how
 common the word is in that field compared to other documents. If the
 term occurs in multiple fields within a document, by default only
-the highest scoring field contributes to the document\'s overall
+the highest scoring field contributes to the document's overall
 score. You can specify a \code{tieBreaker} value to enable the matches in
-lower-scoring fields to contribute to the document\'s score. That
+lower-scoring fields to contribute to the document's score. That
 way, if two documents have the same max field score for a particular
 term, the score for the document that has matches in more fields
 will be higher. The formula for calculating the score with a
@@ -265,19 +265,19 @@ operator with the \code{queryOptions} parameter.) You can use the \code{-}
 terms, find results that match any of the specified terms, or search
 for a prefix. To search for a phrase rather than individual terms,
 enclose the phrase in double quotes. For more information, see
-\href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-text.html}{Searching for Text}
+\href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-text.html}{Searching for Text}
 in the \emph{Amazon CloudSearch Developer Guide}.
 \item \code{structured}: perform advanced searches by combining multiple
 expressions to define the search criteria. You can also search
 within particular fields, search for values and ranges of values,
 and use advanced options such as term boosting, \code{matchall}, and
-\code{near}. For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html}{Constructing Compound Queries}
+\code{near}. For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html}{Constructing Compound Queries}
 in the \emph{Amazon CloudSearch Developer Guide}.
 \item \code{lucene}: search using the Apache Lucene query parser syntax. For
-more information, see \href{http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description}{Apache Lucene Query Parser Syntax}.
+more information, see \href{https://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description}{Apache Lucene Query Parser Syntax}.
 \item \code{dismax}: search using the simplified subset of the Apache Lucene
 query parser syntax defined by the DisMax query parser. For more
-information, see \href{http://wiki.apache.org/solr/DisMaxQParserPlugin#Query_Syntax}{DisMax Query Parser Syntax}.
+information, see \href{https://cwiki.apache.org/confluence/display/solr/DisMaxQParserPlugin#Query_Syntax}{DisMax Query Parser Syntax}.
 }}
 
 \item{return}{Specifies the field and expression values to include in the response.
@@ -299,7 +299,7 @@ configuration. Array type fields cannot be used for sorting. If no
 relevance scores in descending order: \verb{_score desc}. You can also sort
 by document ID (\verb{_id asc}) and version (\verb{_version desc}).
 
-For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html}{Sorting Results}
+For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html}{Sorting Results}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{start}{Specifies the offset of the first search hit you want to return. Note
@@ -307,7 +307,7 @@ that the result set is zero-based; the first result is at index 0. You
 can specify either the \code{start} or \code{cursor} parameter in a request, they
 are mutually exclusive.
 
-For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html}{Paginating Results}
+For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html}{Paginating Results}
 in the \emph{Amazon CloudSearch Developer Guide}.}
 
 \item{stats}{Specifies one or more fields for which to get statistics information.
@@ -322,8 +322,6 @@ There are currently no options supported for statistics.}
 Retrieves a list of documents that match the specified search criteria.
 How you specify the search criteria depends on which query parser you
 use. Amazon CloudSearch supports four query parsers:
-}
-\details{
 \itemize{
 \item \code{simple}: search all \code{text} and \code{text-array} fields for the
 specified string. Search for phrases, individual terms, and
@@ -338,13 +336,13 @@ Apache Lucene query parser syntax defined by the DisMax query
 parser.
 }
 
-For more information, see \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html}{Searching Your Data}
+For more information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html}{Searching Your Data}
 in the \emph{Amazon CloudSearch Developer Guide}.
 
 The endpoint for submitting \code{Search} requests is domain-specific. You
-submit search requests to a domain\'s search endpoint. To get the search
+submit search requests to a domain's search endpoint. To get the search
 endpoint for your domain, use the Amazon CloudSearch configuration
-service \code{DescribeDomains} action. A domain\'s endpoints are also
+service \code{DescribeDomains} action. A domain's endpoints are also
 displayed on the domain dashboard in the Amazon CloudSearch console.
 }
 \section{Request syntax}{

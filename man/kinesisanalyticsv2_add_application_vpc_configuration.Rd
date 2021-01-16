@@ -10,18 +10,17 @@ kinesisanalyticsv2_add_application_vpc_configuration(ApplicationName,
 \arguments{
 \item{ApplicationName}{[required] The name of an existing application.}
 
-\item{CurrentApplicationVersionId}{[required] The version of the application to which you want to add the input
-processing configuration. You can use the DescribeApplication operation
-to get the current application version. If the version specified is not
-the current version, the \code{ConcurrentModificationException} is returned.}
+\item{CurrentApplicationVersionId}{[required] The version of the application to which you want to add the VPC
+configuration. You can use the DescribeApplication operation to get the
+current application version. If the version specified is not the current
+version, the \code{ConcurrentModificationException} is returned.}
 
 \item{VpcConfiguration}{[required] Description of the VPC to add to the application.}
 }
 \description{
 Adds a Virtual Private Cloud (VPC) configuration to the application.
 Applications can use VPCs to store and access resources securely.
-}
-\details{
+
 Note the following about VPC configurations for Kinesis Data Analytics
 applications:
 \itemize{

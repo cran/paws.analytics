@@ -47,8 +47,7 @@ horizon, the iterator returned is for the oldest untrimmed data record
 \description{
 Gets an Amazon Kinesis shard iterator. A shard iterator expires 5
 minutes after it is returned to the requester.
-}
-\details{
+
 A shard iterator specifies the shard position from which to start
 reading data records sequentially. The position is specified using the
 sequence number of a data record in a shard. A sequence number is the
@@ -78,7 +77,7 @@ use in the \code{ShardIterator} parameter of the next GetRecords request.
 
 If a GetShardIterator request is made too often, you receive a
 \code{ProvisionedThroughputExceededException}. For more information about
-throughput limits, see GetRecords, and \href{http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html}{Streams Limits}
+throughput limits, see GetRecords, and \href{https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html}{Streams Limits}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}.
 
 If the shard is closed, GetShardIterator returns a valid iterator for

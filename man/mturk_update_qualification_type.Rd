@@ -15,7 +15,7 @@ mturk_update_qualification_type(QualificationTypeId, Description,
 
 \item{Description}{The new description of the Qualification type.}
 
-\item{QualificationTypeStatus}{The new status of the Qualification type - Active \\| Inactive}
+\item{QualificationTypeStatus}{The new status of the Qualification type - Active | Inactive}
 
 \item{Test}{The questions for the Qualification test a Worker must answer correctly
 to obtain a Qualification of this type. If this parameter is specified,
@@ -57,8 +57,7 @@ The \code{UpdateQualificationType} operation modifies the attributes of an
 existing Qualification type, which is represented by a QualificationType
 data structure. Only the owner of a Qualification type can modify its
 attributes.
-}
-\details{
+
 Most attributes of a Qualification type can be changed after the type
 has been created. However, the Name and Keywords fields cannot be
 modified. The RetryDelayInSeconds parameter can be modified or added to

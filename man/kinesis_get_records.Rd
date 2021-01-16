@@ -13,12 +13,11 @@ sequence number of a data record in the shard.}
 
 \item{Limit}{The maximum number of records to return. Specify a value of up to
 10,000. If you specify a value that is greater than 10,000, GetRecords
-throws \code{InvalidArgumentException}.}
+throws \code{InvalidArgumentException}. The default value is 10,000.}
 }
 \description{
-Gets data records from a Kinesis data stream\'s shard.
-}
-\details{
+Gets data records from a Kinesis data stream's shard.
+
 Specify a shard iterator using the \code{ShardIterator} parameter. The shard
 iterator specifies the position in the shard from which you want to
 start reading data records sequentially. If there are no records
@@ -27,7 +26,7 @@ GetRecords returns an empty list. It might take multiple calls to get to
 a portion of the shard that contains records.
 
 You can scale by provisioning multiple shards per stream while
-considering service limits (for more information, see \href{http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html}{Amazon Kinesis Data Streams Limits}
+considering service limits (for more information, see \href{https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html}{Amazon Kinesis Data Streams Limits}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}). Your application
 should have one thread per shard, each reading continuously from its
 stream. To read from a stream continually, call GetRecords in a loop.
@@ -35,14 +34,14 @@ Use GetShardIterator to get the shard iterator to specify in the first
 GetRecords call. GetRecords returns a new shard iterator in
 \code{NextShardIterator}. Specify the shard iterator returned in
 \code{NextShardIterator} in subsequent calls to GetRecords. If the shard has
-been closed, the shard iterator can\'t return more data and GetRecords
+been closed, the shard iterator can't return more data and GetRecords
 returns \code{null} in \code{NextShardIterator}. You can terminate the loop when
 the shard is closed, or when the shard iterator reaches the record with
 the sequence number or other attribute that marks it as the last record
 to process.
 
 Each data record can be up to 1 MiB in size, and each shard can read up
-to 2 MiB per second. You can ensure that your calls don\'t exceed the
+to 2 MiB per second. You can ensure that your calls don't exceed the
 maximum supported size or throughput by using the \code{Limit} parameter to
 specify the maximum number of records that GetRecords can return.
 Consider your average record size when determining this limit. The
@@ -55,15 +54,15 @@ calls made within the next 5 seconds throw
 \code{ProvisionedThroughputExceededException}. If there is insufficient
 provisioned throughput on the stream, subsequent calls made within the
 next 1 second throw \code{ProvisionedThroughputExceededException}. GetRecords
-doesn\'t return any data when it throws an exception. For this reason,
-we recommend that you wait 1 second between calls to GetRecords.
-However, it\'s possible that the application will get exceptions for
-longer than 1 second.
+doesn't return any data when it throws an exception. For this reason, we
+recommend that you wait 1 second between calls to GetRecords. However,
+it's possible that the application will get exceptions for longer than 1
+second.
 
 To detect whether the application is falling behind in processing, you
 can use the \code{MillisBehindLatest} response attribute. You can also
 monitor the stream using CloudWatch metrics and other mechanisms (see
-\href{http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html}{Monitoring}
+\href{https://docs.aws.amazon.com/streams/latest/dev/monitoring.html}{Monitoring}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}).
 
 Each Amazon Kinesis record includes a value,
@@ -77,7 +76,7 @@ guarantees about the time stamp accuracy, or that the time stamp is
 always increasing. For example, records in a shard or across a stream
 might have time stamps that are out of order.
 
-This operation has a limit of five transactions per second per account.
+This operation has a limit of five transactions per second per shard.
 }
 \section{Request syntax}{
 \preformatted{svc$get_records(

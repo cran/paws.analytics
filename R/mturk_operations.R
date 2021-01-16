@@ -6,7 +6,8 @@ NULL
 #' The AcceptQualificationRequest operation approves a Worker's request for
 #' a Qualification
 #'
-#' The `AcceptQualificationRequest` operation approves a Worker\'s request
+#' @description
+#' The `AcceptQualificationRequest` operation approves a Worker's request
 #' for a Qualification.
 #' 
 #' Only the owner of the Qualification type can grant a Qualification
@@ -55,10 +56,11 @@ mturk_accept_qualification_request <- function(QualificationRequestId, IntegerVa
 #' The ApproveAssignment operation approves the results of a completed
 #' assignment
 #'
+#' @description
 #' The `ApproveAssignment` operation approves the results of a completed
 #' assignment.
 #' 
-#' Approving an assignment initiates two payments from the Requester\'s
+#' Approving an assignment initiates two payments from the Requester's
 #' Amazon.com account
 #' 
 #' -   The Worker who submitted the results is paid the reward specified in
@@ -66,7 +68,7 @@ mturk_accept_qualification_request <- function(QualificationRequestId, IntegerVa
 #' 
 #' -   Amazon Mechanical Turk fees are debited.
 #' 
-#' If the Requester\'s account does not have adequate funds for these
+#' If the Requester's account does not have adequate funds for these
 #' payments, the call to ApproveAssignment returns an exception, and the
 #' approval is not processed. You can include an optional feedback message
 #' with the approval, which the Worker can see in the Status section of the
@@ -75,8 +77,8 @@ mturk_accept_qualification_request <- function(QualificationRequestId, IntegerVa
 #' You can also call this operation for assignments that were previous
 #' rejected and approve them by explicitly overriding the previous
 #' rejection. This only works on rejected assignments that were submitted
-#' within the previous 30 days and only if the assignment\'s related HIT
-#' has not been deleted.
+#' within the previous 30 days and only if the assignment's related HIT has
+#' not been deleted.
 #'
 #' @usage
 #' mturk_approve_assignment(AssignmentId, RequesterFeedback,
@@ -121,6 +123,7 @@ mturk_approve_assignment <- function(AssignmentId, RequesterFeedback = NULL, Ove
 #' The AssociateQualificationWithWorker operation gives a Worker a
 #' Qualification
 #'
+#' @description
 #' The `AssociateQualificationWithWorker` operation gives a Worker a
 #' Qualification. `AssociateQualificationWithWorker` does not require that
 #' the Worker submit a Qualification request. It gives the Qualification
@@ -183,6 +186,7 @@ mturk_associate_qualification_with_worker <- function(QualificationTypeId, Worke
 #' The CreateAdditionalAssignmentsForHIT operation increases the maximum
 #' number of assignments of an existing HIT
 #'
+#' @description
 #' The `CreateAdditionalAssignmentsForHIT` operation increases the maximum
 #' number of assignments of an existing HIT.
 #' 
@@ -245,6 +249,7 @@ mturk_create_additional_assignments_for_hit <- function(HITId, NumberOfAdditiona
 
 #' The CreateHIT operation creates a new Human Intelligence Task (HIT)
 #'
+#' @description
 #' The `CreateHIT` operation creates a new Human Intelligence Task (HIT).
 #' The new HIT is made available for Workers to find and accept on the
 #' Amazon Mechanical Turk website.
@@ -316,7 +321,7 @@ mturk_create_additional_assignments_for_hit <- function(HITId, NumberOfAdditiona
 #' @param RequesterAnnotation An arbitrary data field. The RequesterAnnotation parameter lets your
 #' application attach arbitrary data to the HIT for tracking purposes. For
 #' example, this parameter could be an identifier internal to the
-#' Requester\'s application that corresponds with the HIT.
+#' Requester's application that corresponds with the HIT.
 #' 
 #' The RequesterAnnotation parameter for a HIT is only visible to the
 #' Requester who created the HIT. It is not shown to the Worker, or any
@@ -324,7 +329,7 @@ mturk_create_additional_assignments_for_hit <- function(HITId, NumberOfAdditiona
 #' 
 #' The RequesterAnnotation parameter may be different for each HIT you
 #' submit. It does not affect how your HITs are grouped.
-#' @param QualificationRequirements Conditions that a Worker\'s Qualifications must meet in order to accept
+#' @param QualificationRequirements Conditions that a Worker's Qualifications must meet in order to accept
 #' the HIT. A HIT can have between zero and ten Qualification requirements.
 #' All requirements must be met in order for a Worker to accept the HIT.
 #' Additionally, other actions can be restricted using the `ActionsGuarded`
@@ -457,6 +462,7 @@ mturk_create_hit <- function(MaxAssignments = NULL, AutoApprovalDelayInSeconds =
 
 #' The CreateHITType operation creates a new HIT type
 #'
+#' @description
 #' The `CreateHITType` operation creates a new HIT type. This operation
 #' allows you to define a standard set of HIT properties to use when
 #' creating HITs. If you register a HIT type with values that match an
@@ -490,7 +496,7 @@ mturk_create_hit <- function(MaxAssignments = NULL, AutoApprovalDelayInSeconds =
 #' view of search results, and in the HIT and assignment screens. A good
 #' description gives the user enough information to evaluate the HIT before
 #' accepting it.
-#' @param QualificationRequirements Conditions that a Worker\'s Qualifications must meet in order to accept
+#' @param QualificationRequirements Conditions that a Worker's Qualifications must meet in order to accept
 #' the HIT. A HIT can have between zero and ten Qualification requirements.
 #' All requirements must be met in order for a Worker to accept the HIT.
 #' Additionally, other actions can be restricted using the `ActionsGuarded`
@@ -549,6 +555,7 @@ mturk_create_hit_type <- function(AutoApprovalDelayInSeconds = NULL, AssignmentD
 #' (HIT) using an existing HITTypeID generated by the CreateHITType
 #' operation
 #'
+#' @description
 #' The `CreateHITWithHITType` operation creates a new Human Intelligence
 #' Task (HIT) using an existing HITTypeID generated by the `CreateHITType`
 #' operation.
@@ -590,7 +597,7 @@ mturk_create_hit_type <- function(AutoApprovalDelayInSeconds = NULL, AssignmentD
 #' @param RequesterAnnotation An arbitrary data field. The RequesterAnnotation parameter lets your
 #' application attach arbitrary data to the HIT for tracking purposes. For
 #' example, this parameter could be an identifier internal to the
-#' Requester\'s application that corresponds with the HIT.
+#' Requester's application that corresponds with the HIT.
 #' 
 #' The RequesterAnnotation parameter for a HIT is only visible to the
 #' Requester who created the HIT. It is not shown to the Worker, or any
@@ -705,6 +712,7 @@ mturk_create_hit_with_hit_type <- function(HITTypeId, MaxAssignments = NULL, Lif
 #' The CreateQualificationType operation creates a new Qualification type,
 #' which is represented by a QualificationType data structure
 #'
+#' @description
 #' The `CreateQualificationType` operation creates a new Qualification
 #' type, which is represented by a `QualificationType` data structure.
 #'
@@ -725,7 +733,7 @@ mturk_create_hit_with_hit_type <- function(HITTypeId, MaxAssignments = NULL, Lif
 #' Qualification type.
 #' @param QualificationTypeStatus &#91;required&#93; The initial status of the Qualification type.
 #' 
-#' Constraints: Valid values are: Active \\| Inactive
+#' Constraints: Valid values are: Active | Inactive
 #' @param RetryDelayInSeconds The number of seconds that a Worker must wait after requesting a
 #' Qualification of the Qualification type before the worker can retry the
 #' Qualification request.
@@ -803,6 +811,7 @@ mturk_create_qualification_type <- function(Name, Keywords = NULL, Description, 
 #' The CreateWorkerBlock operation allows you to prevent a Worker from
 #' working on your HITs
 #'
+#' @description
 #' The `CreateWorkerBlock` operation allows you to prevent a Worker from
 #' working on your HITs. For example, you can block a Worker who is
 #' producing poor quality work. You can block up to 100,000 Workers.
@@ -845,6 +854,7 @@ mturk_create_worker_block <- function(WorkerId, Reason) {
 
 #' The DeleteHIT operation is used to delete HIT that is no longer needed
 #'
+#' @description
 #' The `DeleteHIT` operation is used to delete HIT that is no longer
 #' needed. Only the Requester who created the HIT can delete it.
 #' 
@@ -858,7 +868,7 @@ mturk_create_worker_block <- function(WorkerId, Reason) {
 #' 
 #' -   HITs are automatically disposed of after 120 days.
 #' 
-#' -   After you dispose of a HIT, you can no longer approve the HIT\'s
+#' -   After you dispose of a HIT, you can no longer approve the HIT's
 #'     rejected assignments.
 #' 
 #' -   Disposed HITs are not returned in results for the ListHITs
@@ -902,6 +912,7 @@ mturk_delete_hit <- function(HITId) {
 #' The DeleteQualificationType deletes a Qualification type and deletes any
 #' HIT types that are associated with the Qualification type
 #'
+#' @description
 #' The `DeleteQualificationType` deletes a Qualification type and deletes
 #' any HIT types that are associated with the Qualification type.
 #' 
@@ -952,11 +963,12 @@ mturk_delete_qualification_type <- function(QualificationTypeId) {
 #' The DeleteWorkerBlock operation allows you to reinstate a blocked Worker
 #' to work on your HITs
 #'
+#' @description
 #' The `DeleteWorkerBlock` operation allows you to reinstate a blocked
 #' Worker to work on your HITs. This operation reverses the effects of the
 #' CreateWorkerBlock operation. You need the Worker ID to use this
 #' operation. If the Worker ID is missing or invalid, this operation fails
-#' and returns the message "WorkerId is invalid." If the specified Worker
+#' and returns the message “WorkerId is invalid.” If the specified Worker
 #' is not blocked, this operation returns successfully.
 #'
 #' @usage
@@ -997,6 +1009,7 @@ mturk_delete_worker_block <- function(WorkerId, Reason = NULL) {
 #' The DisassociateQualificationFromWorker revokes a previously granted
 #' Qualification from a user
 #'
+#' @description
 #' The `DisassociateQualificationFromWorker` revokes a previously granted
 #' Qualification from a user.
 #' 
@@ -1044,6 +1057,7 @@ mturk_disassociate_qualification_from_worker <- function(WorkerId, Qualification
 #' The GetAccountBalance operation retrieves the amount of money in your
 #' Amazon Mechanical Turk account
 #'
+#' @description
 #' The `GetAccountBalance` operation retrieves the amount of money in your
 #' Amazon Mechanical Turk account.
 #'
@@ -1078,6 +1092,7 @@ mturk_get_account_balance <- function() {
 #' The GetAssignment operation retrieves the details of the specified
 #' Assignment
 #'
+#' @description
 #' The `GetAssignment` operation retrieves the details of the specified
 #' Assignment.
 #'
@@ -1115,6 +1130,7 @@ mturk_get_assignment <- function(AssignmentId) {
 
 #' The GetFileUploadURL operation generates and returns a temporary URL
 #'
+#' @description
 #' The `GetFileUploadURL` operation generates and returns a temporary URL.
 #' You use the temporary URL to retrieve a file uploaded by a Worker as an
 #' answer to a FileUploadAnswer question for a HIT. The temporary URL is
@@ -1165,6 +1181,7 @@ mturk_get_file_upload_url <- function(AssignmentId, QuestionIdentifier) {
 
 #' The GetHIT operation retrieves the details of the specified HIT
 #'
+#' @description
 #' The `GetHIT` operation retrieves the details of the specified HIT.
 #'
 #' @usage
@@ -1202,15 +1219,16 @@ mturk_get_hit <- function(HITId) {
 #' The GetQualificationScore operation returns the value of a Worker's
 #' Qualification for a given Qualification type
 #'
-#' The `GetQualificationScore` operation returns the value of a Worker\'s
+#' @description
+#' The `GetQualificationScore` operation returns the value of a Worker's
 #' Qualification for a given Qualification type.
 #' 
-#' To get a Worker\'s Qualification, you must know the Worker\'s ID. The
-#' Worker\'s ID is included in the assignment data returned by the
+#' To get a Worker's Qualification, you must know the Worker's ID. The
+#' Worker's ID is included in the assignment data returned by the
 #' `ListAssignmentsForHIT` operation.
 #' 
-#' Only the owner of a Qualification type can query the value of a
-#' Worker\'s Qualification of that type.
+#' Only the owner of a Qualification type can query the value of a Worker's
+#' Qualification of that type.
 #'
 #' @usage
 #' mturk_get_qualification_score(QualificationTypeId, WorkerId)
@@ -1249,6 +1267,7 @@ mturk_get_qualification_score <- function(QualificationTypeId, WorkerId) {
 #' The GetQualificationTypeoperation retrieves information about a
 #' Qualification type using its ID
 #'
+#' @description
 #' The `GetQualificationType`operation retrieves information about a
 #' Qualification type using its ID.
 #'
@@ -1287,6 +1306,7 @@ mturk_get_qualification_type <- function(QualificationTypeId) {
 #' The ListAssignmentsForHIT operation retrieves completed assignments for
 #' a HIT
 #'
+#' @description
 #' The `ListAssignmentsForHIT` operation retrieves completed assignments
 #' for a HIT. You can use this operation to retrieve the results for a HIT.
 #' 
@@ -1316,8 +1336,7 @@ mturk_get_qualification_type <- function(QualificationTypeId) {
 #' @param HITId &#91;required&#93; The ID of the HIT.
 #' @param NextToken Pagination token
 #' @param MaxResults 
-#' @param AssignmentStatuses The status of the assignments to return: Submitted \\| Approved \\|
-#' Rejected
+#' @param AssignmentStatuses The status of the assignments to return: Submitted | Approved | Rejected
 #'
 #' @section Request syntax:
 #' ```
@@ -1354,6 +1373,7 @@ mturk_list_assignments_for_hit <- function(HITId, NextToken = NULL, MaxResults =
 #' The ListBonusPayments operation retrieves the amounts of bonuses you
 #' have paid to Workers for a given HIT or assignment
 #'
+#' @description
 #' The `ListBonusPayments` operation retrieves the amounts of bonuses you
 #' have paid to Workers for a given HIT or assignment.
 #'
@@ -1403,7 +1423,8 @@ mturk_list_bonus_payments <- function(HITId = NULL, AssignmentId = NULL, NextTok
 
 #' The ListHITs operation returns all of a Requester's HITs
 #'
-#' The `ListHITs` operation returns all of a Requester\'s HITs. The
+#' @description
+#' The `ListHITs` operation returns all of a Requester's HITs. The
 #' operation returns HITs of any status, except for HITs that have been
 #' deleted of with the DeleteHIT operation or that have been auto-deleted.
 #'
@@ -1444,6 +1465,7 @@ mturk_list_hi_ts <- function(NextToken = NULL, MaxResults = NULL) {
 #' The ListHITsForQualificationType operation returns the HITs that use the
 #' given Qualification type for a Qualification requirement
 #'
+#' @description
 #' The `ListHITsForQualificationType` operation returns the HITs that use
 #' the given Qualification type for a Qualification requirement. The
 #' operation returns HITs of any status, except for HITs that have been
@@ -1489,6 +1511,7 @@ mturk_list_hi_ts_for_qualification_type <- function(QualificationTypeId, NextTok
 #' The ListQualificationRequests operation retrieves requests for
 #' Qualifications of a particular Qualification type
 #'
+#' @description
 #' The `ListQualificationRequests` operation retrieves requests for
 #' Qualifications of a particular Qualification type. The owner of the
 #' Qualification type calls this operation to poll for pending requests,
@@ -1534,6 +1557,7 @@ mturk_list_qualification_requests <- function(QualificationTypeId = NULL, NextTo
 #' The ListQualificationTypes operation returns a list of Qualification
 #' types, filtered by an optional search term
 #'
+#' @description
 #' The `ListQualificationTypes` operation returns a list of Qualification
 #' types, filtered by an optional search term.
 #'
@@ -1548,7 +1572,7 @@ mturk_list_qualification_requests <- function(QualificationTypeId = NULL, NextTo
 #' test, are returned as results of the search. Some Qualification types,
 #' such as those assigned automatically by the system, cannot be requested
 #' directly by users. If false, all Qualification types, including those
-#' managed by the system, are considered. Valid values are True \\| False.
+#' managed by the system, are considered. Valid values are True | False.
 #' @param MustBeOwnedByCaller Specifies that only Qualification types that the Requester created are
 #' returned. If false, the operation returns all Qualification types.
 #' @param NextToken 
@@ -1589,6 +1613,7 @@ mturk_list_qualification_types <- function(Query = NULL, MustBeRequestable, Must
 #' results and the actions taken in the course of executing your Review
 #' Policies for a given HIT
 #'
+#' @description
 #' The `ListReviewPolicyResultsForHIT` operation retrieves the computed
 #' results and the actions taken in the course of executing your Review
 #' Policies for a given HIT. For information about how to specify Review
@@ -1649,6 +1674,7 @@ mturk_list_review_policy_results_for_hit <- function(HITId, PolicyLevels = NULL,
 #' Reviewable or Status equal to Reviewing that belong to the Requester
 #' calling the operation
 #'
+#' @description
 #' The `ListReviewableHITs` operation retrieves the HITs with Status equal
 #' to Reviewable or Status equal to Reviewing that belong to the Requester
 #' calling the operation.
@@ -1696,6 +1722,7 @@ mturk_list_reviewable_hi_ts <- function(HITTypeId = NULL, Status = NULL, NextTok
 #' The ListWorkersBlocks operation retrieves a list of Workers who are
 #' blocked from working on your HITs
 #'
+#' @description
 #' The `ListWorkersBlocks` operation retrieves a list of Workers who are
 #' blocked from working on your HITs.
 #'
@@ -1736,6 +1763,7 @@ mturk_list_worker_blocks <- function(NextToken = NULL, MaxResults = NULL) {
 #' The ListWorkersWithQualificationType operation returns all of the
 #' Workers that have been associated with a given Qualification type
 #'
+#' @description
 #' The `ListWorkersWithQualificationType` operation returns all of the
 #' Workers that have been associated with a given Qualification type.
 #'
@@ -1781,6 +1809,7 @@ mturk_list_workers_with_qualification_type <- function(QualificationTypeId, Stat
 #' The NotifyWorkers operation sends an email to one or more Workers that
 #' you specify with the Worker ID
 #'
+#' @description
 #' The `NotifyWorkers` operation sends an email to one or more Workers that
 #' you specify with the Worker ID. You can specify up to 100 Worker IDs to
 #' send the same message with a single call to the NotifyWorkers operation.
@@ -1831,6 +1860,7 @@ mturk_notify_workers <- function(Subject, MessageText, WorkerIds) {
 #' The RejectAssignment operation rejects the results of a completed
 #' assignment
 #'
+#' @description
 #' The `RejectAssignment` operation rejects the results of a completed
 #' assignment.
 #' 
@@ -1882,7 +1912,8 @@ mturk_reject_assignment <- function(AssignmentId, RequesterFeedback) {
 #' The RejectQualificationRequest operation rejects a user's request for a
 #' Qualification
 #'
-#' The `RejectQualificationRequest` operation rejects a user\'s request for
+#' @description
+#' The `RejectQualificationRequest` operation rejects a user's request for
 #' a Qualification.
 #' 
 #' You can provide a text message explaining why the request was rejected.
@@ -1927,16 +1958,16 @@ mturk_reject_qualification_request <- function(QualificationRequestId, Reason = 
 #' The SendBonus operation issues a payment of money from your account to a
 #' Worker
 #'
+#' @description
 #' The `SendBonus` operation issues a payment of money from your account to
 #' a Worker. This payment happens separately from the reward you pay to the
-#' Worker when you approve the Worker\'s assignment. The SendBonus
-#' operation requires the Worker\'s ID and the assignment ID as parameters
-#' to initiate payment of the bonus. You must include a message that
-#' explains the reason for the bonus payment, as the Worker may not be
-#' expecting the payment. Amazon Mechanical Turk collects a fee for bonus
-#' payments, similar to the HIT listing fee. This operation fails if your
-#' account does not have enough funds to pay for both the bonus and the
-#' fees.
+#' Worker when you approve the Worker's assignment. The SendBonus operation
+#' requires the Worker's ID and the assignment ID as parameters to initiate
+#' payment of the bonus. You must include a message that explains the
+#' reason for the bonus payment, as the Worker may not be expecting the
+#' payment. Amazon Mechanical Turk collects a fee for bonus payments,
+#' similar to the HIT listing fee. This operation fails if your account
+#' does not have enough funds to pay for both the bonus and the fees.
 #'
 #' @usage
 #' mturk_send_bonus(WorkerId, BonusAmount, AssignmentId, Reason,
@@ -1944,8 +1975,8 @@ mturk_reject_qualification_request <- function(QualificationRequestId, Reason = 
 #'
 #' @param WorkerId &#91;required&#93; The ID of the Worker being paid the bonus.
 #' @param BonusAmount &#91;required&#93; The Bonus amount is a US Dollar amount specified using a string (for
-#' example, \"5\" represents \\$5.00 USD and \"101.42\" represents \\$101.42
-#' USD). Do not include currency symbols or currency codes.
+#' example, "5" represents $5.00 USD and "101.42" represents $101.42 USD).
+#' Do not include currency symbols or currency codes.
 #' @param AssignmentId &#91;required&#93; The ID of the assignment for which this bonus is paid.
 #' @param Reason &#91;required&#93; A message that explains the reason for the bonus payment. The Worker
 #' receiving the bonus can see this message.
@@ -1991,6 +2022,7 @@ mturk_send_bonus <- function(WorkerId, BonusAmount, AssignmentId, Reason, Unique
 #' send a notification message as if a HIT event occurred, according to the
 #' provided notification specification
 #'
+#' @description
 #' The `SendTestEventNotification` operation causes Amazon Mechanical Turk
 #' to send a notification message as if a HIT event occurred, according to
 #' the provided notification specification. This allows you to test
@@ -2047,6 +2079,7 @@ mturk_send_test_event_notification <- function(Notification, TestEventType) {
 #' The UpdateExpirationForHIT operation allows you update the expiration
 #' time of a HIT
 #'
+#' @description
 #' The `UpdateExpirationForHIT` operation allows you update the expiration
 #' time of a HIT. If you update it to a time in the past, the HIT will be
 #' immediately expired.
@@ -2089,6 +2122,7 @@ mturk_update_expiration_for_hit <- function(HITId, ExpireAt) {
 
 #' The UpdateHITReviewStatus operation updates the status of a HIT
 #'
+#' @description
 #' The `UpdateHITReviewStatus` operation updates the status of a HIT. If
 #' the status is Reviewable, this operation can update the status to
 #' Reviewing, or it can revert a Reviewing HIT back to the Reviewable
@@ -2137,6 +2171,7 @@ mturk_update_hit_review_status <- function(HITId, Revert = NULL) {
 #' The UpdateHITTypeOfHIT operation allows you to change the HITType
 #' properties of a HIT
 #'
+#' @description
 #' The `UpdateHITTypeOfHIT` operation allows you to change the HITType
 #' properties of a HIT. This operation disassociates the HIT from its old
 #' HITType properties and associates it with the new HITType properties.
@@ -2180,6 +2215,7 @@ mturk_update_hit_type_of_hit <- function(HITId, HITTypeId) {
 #' The UpdateNotificationSettings operation creates, updates, disables or
 #' re-enables notifications for a HIT type
 #'
+#' @description
 #' The `UpdateNotificationSettings` operation creates, updates, disables or
 #' re-enables notifications for a HIT type. If you call the
 #' UpdateNotificationSettings operation for a HIT type that already has a
@@ -2188,7 +2224,7 @@ mturk_update_hit_type_of_hit <- function(HITId, HITTypeId) {
 #' enable or disable notifications for the HIT type, without having to
 #' modify the notification specification itself by providing updates to the
 #' Active status without specifying a new notification specification. To
-#' change the Active status of a HIT type\'s notifications, the HIT type
+#' change the Active status of a HIT type's notifications, the HIT type
 #' must already have a notification specification, or one must be provided
 #' in the same call to `UpdateNotificationSettings`.
 #'
@@ -2243,6 +2279,7 @@ mturk_update_notification_settings <- function(HITTypeId, Notification = NULL, A
 #' existing Qualification type, which is represented by a QualificationType
 #' data structure
 #'
+#' @description
 #' The `UpdateQualificationType` operation modifies the attributes of an
 #' existing Qualification type, which is represented by a QualificationType
 #' data structure. Only the owner of a Qualification type can modify its
@@ -2286,7 +2323,7 @@ mturk_update_notification_settings <- function(HITTypeId, Notification = NULL, A
 #'
 #' @param QualificationTypeId &#91;required&#93; The ID of the Qualification type to update.
 #' @param Description The new description of the Qualification type.
-#' @param QualificationTypeStatus The new status of the Qualification type - Active \\| Inactive
+#' @param QualificationTypeStatus The new status of the Qualification type - Active | Inactive
 #' @param Test The questions for the Qualification test a Worker must answer correctly
 #' to obtain a Qualification of this type. If this parameter is specified,
 #' `TestDurationInSeconds` must also be specified.

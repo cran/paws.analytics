@@ -13,12 +13,15 @@ none is supplied, the AWS account ID is used by default.}
 
 \item{DatabaseName}{[required] The name of the catalog database where the partitions reside.}
 
-\item{TableName}{[required] The name of the partitions\' table.}
+\item{TableName}{[required] The name of the partitions' table.}
 
 \item{ColumnNames}{[required] A list of the column names.}
 }
 \description{
 Retrieves table statistics of columns.
+
+The Identity and Access Management (IAM) permission required for this
+operation is \code{GetTable}.
 }
 \section{Request syntax}{
 \preformatted{svc$get_column_statistics_for_table(

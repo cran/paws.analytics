@@ -20,7 +20,7 @@ The domain endpoints are also displayed on the domain dashboard in the
 Amazon CloudSearch console. You submit suggest requests to the search
 endpoint.
 
-For more information, see the \href{http://docs.aws.amazon.com/cloudsearch/latest/developerguide}{Amazon CloudSearch Developer Guide}.
+For more information, see the \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/}{Amazon CloudSearch Developer Guide}.
 }
 \section{Service syntax}{
 \preformatted{svc <- cloudsearchdomain(
@@ -44,7 +44,7 @@ For more information, see the \href{http://docs.aws.amazon.com/cloudsearch/lates
 
 \tabular{ll}{
 \link[=cloudsearchdomain_search]{search} \tab Retrieves a list of documents that match the specified search criteria\cr
-\link[=cloudsearchdomain_suggest]{suggest} \tab Retrieves autocomplete suggestions for a partial query string \cr
+\link[=cloudsearchdomain_suggest]{suggest} \tab Retrieves autocomplete suggestions for a partial query string\cr
 \link[=cloudsearchdomain_upload_documents]{upload_documents} \tab Posts a batch of documents to a search domain for indexing
 }
 }

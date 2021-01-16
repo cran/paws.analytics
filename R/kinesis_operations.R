@@ -5,6 +5,7 @@ NULL
 
 #' Adds or updates tags for the specified Kinesis data stream
 #'
+#' @description
 #' Adds or updates tags for the specified Kinesis data stream. Each time
 #' you invoke this operation, you can specify up to 10 tags. If you want to
 #' add more than 10 tags to your stream, you can invoke this operation
@@ -53,6 +54,7 @@ kinesis_add_tags_to_stream <- function(StreamName, Tags) {
 
 #' Creates a Kinesis data stream
 #'
+#' @description
 #' Creates a Kinesis data stream. A stream captures and transports data
 #' records that are continuously emitted from different data sources or
 #' *producers*. Scale-out within a stream is explicitly supported by means
@@ -61,9 +63,9 @@ kinesis_add_tags_to_stream <- function(StreamName, Tags) {
 #' 
 #' You specify and control the number of shards that a stream is composed
 #' of. Each shard can support reads up to five transactions per second, up
-#' to a maximum data read total of 2 MB per second. Each shard can support
+#' to a maximum data read total of 2 MiB per second. Each shard can support
 #' writes up to 1,000 records per second, up to a maximum data write total
-#' of 1 MB per second. If the amount of data input increases or decreases,
+#' of 1 MiB per second. If the amount of data input increases or decreases,
 #' you can add or remove shards.
 #' 
 #' The stream name identifies the stream. The name is scoped to the AWS
@@ -88,10 +90,10 @@ kinesis_add_tags_to_stream <- function(StreamName, Tags) {
 #' 
 #' For the default shard limit for an AWS account, see [Amazon Kinesis Data
 #' Streams
-#' Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+#' Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*. To increase this
 #' limit, [contact AWS
-#' Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
+#' Support](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
 #' 
 #' You can use `DescribeStream` to check the stream status, which is
 #' returned in `StreamStatus`.
@@ -109,8 +111,6 @@ kinesis_add_tags_to_stream <- function(StreamName, Tags) {
 #' @param ShardCount &#91;required&#93; The number of shards that the stream will use. The throughput of the
 #' stream is a function of the number of shards; more shards are required
 #' for greater provisioned throughput.
-#' 
-#' DefaultShardLimit;
 #'
 #' @section Request syntax:
 #' ```
@@ -144,11 +144,12 @@ kinesis_create_stream <- function(StreamName, ShardCount) {
 #' length of time data records are accessible after they are added to the
 #' stream
 #'
-#' Decreases the Kinesis data stream\'s retention period, which is the
+#' @description
+#' Decreases the Kinesis data stream's retention period, which is the
 #' length of time data records are accessible after they are added to the
-#' stream. The minimum value of a stream\'s retention period is 24 hours.
+#' stream. The minimum value of a stream's retention period is 24 hours.
 #' 
-#' This operation may result in lost data. For example, if the stream\'s
+#' This operation may result in lost data. For example, if the stream's
 #' retention period is 48 hours and is decreased to 24 hours, any data
 #' already in the stream that is older than 24 hours is inaccessible.
 #'
@@ -190,6 +191,7 @@ kinesis_decrease_stream_retention_period <- function(StreamName, RetentionPeriod
 
 #' Deletes a Kinesis data stream and all its shards and data
 #'
+#' @description
 #' Deletes a Kinesis data stream and all its shards and data. You must shut
 #' down any applications that are operating on the stream before you delete
 #' the stream. If an application attempts to operate on a deleted stream,
@@ -249,16 +251,17 @@ kinesis_delete_stream <- function(StreamName, EnforceConsumerDeletion = NULL) {
 
 #' To deregister a consumer, provide its ARN
 #'
+#' @description
 #' To deregister a consumer, provide its ARN. Alternatively, you can
 #' provide the ARN of the data stream and the name you gave the consumer
 #' when you registered it. You may also provide all three parameters, as
-#' long as they don\'t conflict with each other. If you don\'t know the
-#' name or ARN of the consumer that you want to deregister, you can use the
+#' long as they don't conflict with each other. If you don't know the name
+#' or ARN of the consumer that you want to deregister, you can use the
 #' ListStreamConsumers operation to get a list of the descriptions of all
 #' the consumers that are currently registered with a given data stream.
 #' The description of a consumer contains its name and ARN.
 #' 
-#' This operation has a limit of five transactions per second per account.
+#' This operation has a limit of five transactions per second per stream.
 #'
 #' @usage
 #' kinesis_deregister_stream_consumer(StreamARN, ConsumerName, ConsumerARN)
@@ -268,7 +271,7 @@ kinesis_delete_stream <- function(StreamName, EnforceConsumerDeletion = NULL) {
 #' Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
 #' @param ConsumerName The name that you gave to the consumer.
 #' @param ConsumerARN The ARN returned by Kinesis Data Streams when you registered the
-#' consumer. If you don\'t know the ARN of the consumer that you want to
+#' consumer. If you don't know the ARN of the consumer that you want to
 #' deregister, you can use the ListStreamConsumers operation to get a list
 #' of the descriptions of all the consumers that are currently registered
 #' with a given data stream. The description of a consumer contains its
@@ -305,6 +308,7 @@ kinesis_deregister_stream_consumer <- function(StreamARN = NULL, ConsumerName = 
 
 #' Describes the shard limits and usage for the account
 #'
+#' @description
 #' Describes the shard limits and usage for the account.
 #' 
 #' If you update your account limits, the old limits might be returned for
@@ -342,6 +346,7 @@ kinesis_describe_limits <- function() {
 
 #' Describes the specified Kinesis data stream
 #'
+#' @description
 #' Describes the specified Kinesis data stream.
 #' 
 #' The information returned includes the stream name, Amazon Resource Name
@@ -354,8 +359,8 @@ kinesis_describe_limits <- function() {
 #' 
 #' You can limit the number of shards returned by each call. For more
 #' information, see [Retrieving Shards from a
-#' Stream](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-retrieve-shards.html)
-#' in the *Amazon Kinesis Data Streams Developer Guide*.
+#' Stream](https://docs.aws.amazon.com/streams/latest/dev/) in the *Amazon
+#' Kinesis Data Streams Developer Guide*.
 #' 
 #' There are no guarantees about the chronological order shards returned.
 #' To process shards in chronological order, use the ID of the parent shard
@@ -404,16 +409,17 @@ kinesis_describe_stream <- function(StreamName, Limit = NULL, ExclusiveStartShar
 #' To get the description of a registered consumer, provide the ARN of the
 #' consumer
 #'
+#' @description
 #' To get the description of a registered consumer, provide the ARN of the
 #' consumer. Alternatively, you can provide the ARN of the data stream and
 #' the name you gave the consumer when you registered it. You may also
-#' provide all three parameters, as long as they don\'t conflict with each
-#' other. If you don\'t know the name or ARN of the consumer that you want
+#' provide all three parameters, as long as they don't conflict with each
+#' other. If you don't know the name or ARN of the consumer that you want
 #' to describe, you can use the ListStreamConsumers operation to get a list
 #' of the descriptions of all the consumers that are currently registered
 #' with a given data stream.
 #' 
-#' This operation has a limit of 20 transactions per second per account.
+#' This operation has a limit of 20 transactions per second per stream.
 #'
 #' @usage
 #' kinesis_describe_stream_consumer(StreamARN, ConsumerName, ConsumerARN)
@@ -457,12 +463,16 @@ kinesis_describe_stream_consumer <- function(StreamARN = NULL, ConsumerName = NU
 #' Provides a summarized description of the specified Kinesis data stream
 #' without the shard list
 #'
+#' @description
 #' Provides a summarized description of the specified Kinesis data stream
 #' without the shard list.
 #' 
 #' The information returned includes the stream name, Amazon Resource Name
 #' (ARN), status, record retention period, approximate creation time,
 #' monitoring, encryption details, and open shard count.
+#' 
+#' DescribeStreamSummary has a limit of 20 transactions per second per
+#' account.
 #'
 #' @usage
 #' kinesis_describe_stream_summary(StreamName)
@@ -498,6 +508,7 @@ kinesis_describe_stream_summary <- function(StreamName) {
 
 #' Disables enhanced monitoring
 #'
+#' @description
 #' Disables enhanced monitoring.
 #'
 #' @usage
@@ -507,7 +518,7 @@ kinesis_describe_stream_summary <- function(StreamName) {
 #' monitoring.
 #' @param ShardLevelMetrics &#91;required&#93; List of shard-level metrics to disable.
 #' 
-#' The following are the valid shard-level metrics. The value \"`ALL`\"
+#' The following are the valid shard-level metrics. The value "`ALL`"
 #' disables every metric.
 #' 
 #' -   `IncomingBytes`
@@ -528,7 +539,7 @@ kinesis_describe_stream_summary <- function(StreamName) {
 #' 
 #' For more information, see [Monitoring the Amazon Kinesis Data Streams
 #' Service with Amazon
-#' CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+#' CloudWatch](https://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #'
 #' @section Request syntax:
@@ -563,6 +574,7 @@ kinesis_disable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 
 #' Enables enhanced Kinesis data stream monitoring for shard-level metrics
 #'
+#' @description
 #' Enables enhanced Kinesis data stream monitoring for shard-level metrics.
 #'
 #' @usage
@@ -571,7 +583,7 @@ kinesis_disable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' @param StreamName &#91;required&#93; The name of the stream for which to enable enhanced monitoring.
 #' @param ShardLevelMetrics &#91;required&#93; List of shard-level metrics to enable.
 #' 
-#' The following are the valid shard-level metrics. The value \"`ALL`\"
+#' The following are the valid shard-level metrics. The value "`ALL`"
 #' enables every metric.
 #' 
 #' -   `IncomingBytes`
@@ -592,7 +604,7 @@ kinesis_disable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' 
 #' For more information, see [Monitoring the Amazon Kinesis Data Streams
 #' Service with Amazon
-#' CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+#' CloudWatch](https://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #'
 #' @section Request syntax:
@@ -627,7 +639,8 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 
 #' Gets data records from a Kinesis data stream's shard
 #'
-#' Gets data records from a Kinesis data stream\'s shard.
+#' @description
+#' Gets data records from a Kinesis data stream's shard.
 #' 
 #' Specify a shard iterator using the `ShardIterator` parameter. The shard
 #' iterator specifies the position in the shard from which you want to
@@ -639,7 +652,7 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' You can scale by provisioning multiple shards per stream while
 #' considering service limits (for more information, see [Amazon Kinesis
 #' Data Streams
-#' Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+#' Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*). Your application
 #' should have one thread per shard, each reading continuously from its
 #' stream. To read from a stream continually, call GetRecords in a loop.
@@ -647,14 +660,14 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' GetRecords call. GetRecords returns a new shard iterator in
 #' `NextShardIterator`. Specify the shard iterator returned in
 #' `NextShardIterator` in subsequent calls to GetRecords. If the shard has
-#' been closed, the shard iterator can\'t return more data and GetRecords
+#' been closed, the shard iterator can't return more data and GetRecords
 #' returns `null` in `NextShardIterator`. You can terminate the loop when
 #' the shard is closed, or when the shard iterator reaches the record with
 #' the sequence number or other attribute that marks it as the last record
 #' to process.
 #' 
 #' Each data record can be up to 1 MiB in size, and each shard can read up
-#' to 2 MiB per second. You can ensure that your calls don\'t exceed the
+#' to 2 MiB per second. You can ensure that your calls don't exceed the
 #' maximum supported size or throughput by using the `Limit` parameter to
 #' specify the maximum number of records that GetRecords can return.
 #' Consider your average record size when determining this limit. The
@@ -667,15 +680,15 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' `ProvisionedThroughputExceededException`. If there is insufficient
 #' provisioned throughput on the stream, subsequent calls made within the
 #' next 1 second throw `ProvisionedThroughputExceededException`. GetRecords
-#' doesn\'t return any data when it throws an exception. For this reason,
-#' we recommend that you wait 1 second between calls to GetRecords.
-#' However, it\'s possible that the application will get exceptions for
-#' longer than 1 second.
+#' doesn't return any data when it throws an exception. For this reason, we
+#' recommend that you wait 1 second between calls to GetRecords. However,
+#' it's possible that the application will get exceptions for longer than 1
+#' second.
 #' 
 #' To detect whether the application is falling behind in processing, you
 #' can use the `MillisBehindLatest` response attribute. You can also
 #' monitor the stream using CloudWatch metrics and other mechanisms (see
-#' [Monitoring](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring.html)
+#' [Monitoring](https://docs.aws.amazon.com/streams/latest/dev/monitoring.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*).
 #' 
 #' Each Amazon Kinesis record includes a value,
@@ -689,7 +702,7 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' always increasing. For example, records in a shard or across a stream
 #' might have time stamps that are out of order.
 #' 
-#' This operation has a limit of five transactions per second per account.
+#' This operation has a limit of five transactions per second per shard.
 #'
 #' @usage
 #' kinesis_get_records(ShardIterator, Limit)
@@ -699,7 +712,7 @@ kinesis_enable_enhanced_monitoring <- function(StreamName, ShardLevelMetrics) {
 #' sequence number of a data record in the shard.
 #' @param Limit The maximum number of records to return. Specify a value of up to
 #' 10,000. If you specify a value that is greater than 10,000, GetRecords
-#' throws `InvalidArgumentException`.
+#' throws `InvalidArgumentException`. The default value is 10,000.
 #'
 #' @section Request syntax:
 #' ```
@@ -731,6 +744,7 @@ kinesis_get_records <- function(ShardIterator, Limit = NULL) {
 
 #' Gets an Amazon Kinesis shard iterator
 #'
+#' @description
 #' Gets an Amazon Kinesis shard iterator. A shard iterator expires 5
 #' minutes after it is returned to the requester.
 #' 
@@ -764,7 +778,7 @@ kinesis_get_records <- function(ShardIterator, Limit = NULL) {
 #' If a GetShardIterator request is made too often, you receive a
 #' `ProvisionedThroughputExceededException`. For more information about
 #' throughput limits, see GetRecords, and [Streams
-#' Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+#' Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' If the shard is closed, GetShardIterator returns a valid iterator for
@@ -850,16 +864,17 @@ kinesis_get_shard_iterator <- function(StreamName, ShardId, ShardIteratorType, S
 #' length of time data records are accessible after they are added to the
 #' stream
 #'
-#' Increases the Kinesis data stream\'s retention period, which is the
+#' @description
+#' Increases the Kinesis data stream's retention period, which is the
 #' length of time data records are accessible after they are added to the
-#' stream. The maximum value of a stream\'s retention period is 168 hours
-#' (7 days).
+#' stream. The maximum value of a stream's retention period is 168 hours (7
+#' days).
 #' 
 #' If you choose a longer stream retention period, this operation increases
 #' the time period during which records that have not yet expired are
 #' accessible. However, it does not make previous, expired data (older than
-#' the stream\'s previous retention period) accessible after the operation
-#' has been called. For example, if a stream\'s retention period is set to
+#' the stream's previous retention period) accessible after the operation
+#' has been called. For example, if a stream's retention period is set to
 #' 24 hours and is increased to 168 hours, any data that is older than 24
 #' hours remains inaccessible to consumer applications.
 #'
@@ -901,6 +916,7 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 
 #' Lists the shards in a stream and provides information about each shard
 #'
+#' @description
 #' Lists the shards in a stream and provides information about each shard.
 #' This operation has a limit of 100 transactions per second per data
 #' stream.
@@ -914,7 +930,7 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #'
 #' @usage
 #' kinesis_list_shards(StreamName, NextToken, ExclusiveStartShardId,
-#'   MaxResults, StreamCreationTimestamp)
+#'   MaxResults, StreamCreationTimestamp, ShardFilter)
 #'
 #' @param StreamName The name of the data stream whose shards you want to list.
 #' 
@@ -927,12 +943,12 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #' You can specify this `NextToken` value in a subsequent call to
 #' `ListShards` to list the next set of shards.
 #' 
-#' Don\'t specify `StreamName` or `StreamCreationTimestamp` if you specify
+#' Don't specify `StreamName` or `StreamCreationTimestamp` if you specify
 #' `NextToken` because the latter unambiguously identifies the stream.
 #' 
 #' You can optionally specify a value for the `MaxResults` parameter when
 #' you specify `NextToken`. If you specify a `MaxResults` value that is
-#' less than the number of shards that the operation returns if you don\'t
+#' less than the number of shards that the operation returns if you don't
 #' specify `MaxResults`, the response will contain a new `NextToken` value.
 #' You can use the new `NextToken` value in a subsequent call to the
 #' `ListShards` operation.
@@ -945,14 +961,14 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #' starting with the shard whose ID immediately follows
 #' `ExclusiveStartShardId`.
 #' 
-#' If you don\'t specify this parameter, the default behavior is for
+#' If you don't specify this parameter, the default behavior is for
 #' `ListShards` to list the shards starting with the first one in the
 #' stream.
 #' 
 #' You cannot specify this parameter if you specify `NextToken`.
 #' @param MaxResults The maximum number of shards to return in a single call to `ListShards`.
 #' The minimum value you can specify for this parameter is 1, and the
-#' maximum is 1,000, which is also the default.
+#' maximum is 10,000, which is also the default.
 #' 
 #' When the number of shards to be listed is greater than the value of
 #' `MaxResults`, the response contains a `NextToken` value that you can use
@@ -965,6 +981,7 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #' 
 #' You cannot specify this parameter if you specify the `NextToken`
 #' parameter.
+#' @param ShardFilter 
 #'
 #' @section Request syntax:
 #' ```
@@ -975,6 +992,13 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #'   MaxResults = 123,
 #'   StreamCreationTimestamp = as.POSIXct(
 #'     "2015-01-01"
+#'   ),
+#'   ShardFilter = list(
+#'     Type = "AFTER_SHARD_ID"|"AT_TRIM_HORIZON"|"FROM_TRIM_HORIZON"|"AT_LATEST"|"AT_TIMESTAMP"|"FROM_TIMESTAMP",
+#'     ShardId = "string",
+#'     Timestamp = as.POSIXct(
+#'       "2015-01-01"
+#'     )
 #'   )
 #' )
 #' ```
@@ -982,14 +1006,14 @@ kinesis_increase_stream_retention_period <- function(StreamName, RetentionPeriod
 #' @keywords internal
 #'
 #' @rdname kinesis_list_shards
-kinesis_list_shards <- function(StreamName = NULL, NextToken = NULL, ExclusiveStartShardId = NULL, MaxResults = NULL, StreamCreationTimestamp = NULL) {
+kinesis_list_shards <- function(StreamName = NULL, NextToken = NULL, ExclusiveStartShardId = NULL, MaxResults = NULL, StreamCreationTimestamp = NULL, ShardFilter = NULL) {
   op <- new_operation(
     name = "ListShards",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .kinesis$list_shards_input(StreamName = StreamName, NextToken = NextToken, ExclusiveStartShardId = ExclusiveStartShardId, MaxResults = MaxResults, StreamCreationTimestamp = StreamCreationTimestamp)
+  input <- .kinesis$list_shards_input(StreamName = StreamName, NextToken = NextToken, ExclusiveStartShardId = ExclusiveStartShardId, MaxResults = MaxResults, StreamCreationTimestamp = StreamCreationTimestamp, ShardFilter = ShardFilter)
   output <- .kinesis$list_shards_output()
   config <- get_config()
   svc <- .kinesis$service(config)
@@ -1002,10 +1026,11 @@ kinesis_list_shards <- function(StreamName = NULL, NextToken = NULL, ExclusiveSt
 #' Lists the consumers registered to receive data from a stream using
 #' enhanced fan-out, and provides information about each consumer
 #'
+#' @description
 #' Lists the consumers registered to receive data from a stream using
 #' enhanced fan-out, and provides information about each consumer.
 #' 
-#' This operation has a limit of 10 transactions per second per account.
+#' This operation has a limit of 5 transactions per second per stream.
 #'
 #' @usage
 #' kinesis_list_stream_consumers(StreamARN, NextToken, MaxResults,
@@ -1023,13 +1048,13 @@ kinesis_list_shards <- function(StreamName = NULL, NextToken = NULL, ExclusiveSt
 #' `NextToken` value in a subsequent call to `ListStreamConsumers` to list
 #' the next set of registered consumers.
 #' 
-#' Don\'t specify `StreamName` or `StreamCreationTimestamp` if you specify
+#' Don't specify `StreamName` or `StreamCreationTimestamp` if you specify
 #' `NextToken` because the latter unambiguously identifies the stream.
 #' 
 #' You can optionally specify a value for the `MaxResults` parameter when
 #' you specify `NextToken`. If you specify a `MaxResults` value that is
 #' less than the number of consumers that the operation returns if you
-#' don\'t specify `MaxResults`, the response will contain a new `NextToken`
+#' don't specify `MaxResults`, the response will contain a new `NextToken`
 #' value. You can use the new `NextToken` value in a subsequent call to the
 #' `ListStreamConsumers` operation to list the next set of consumers.
 #' 
@@ -1045,8 +1070,7 @@ kinesis_list_shards <- function(StreamName = NULL, NextToken = NULL, ExclusiveSt
 #' this input parameter to specify which of the two streams you want to
 #' list the consumers for.
 #' 
-#' You can\'t specify this parameter if you specify the NextToken
-#' parameter.
+#' You can't specify this parameter if you specify the NextToken parameter.
 #'
 #' @section Request syntax:
 #' ```
@@ -1082,6 +1106,7 @@ kinesis_list_stream_consumers <- function(StreamARN, NextToken = NULL, MaxResult
 
 #' Lists your Kinesis data streams
 #'
+#' @description
 #' Lists your Kinesis data streams.
 #' 
 #' The number of streams may be too large to return from a single call to
@@ -1137,6 +1162,7 @@ kinesis_list_streams <- function(Limit = NULL, ExclusiveStartStreamName = NULL) 
 
 #' Lists the tags for the specified Kinesis data stream
 #'
+#' @description
 #' Lists the tags for the specified Kinesis data stream. This operation has
 #' a limit of five transactions per second per account.
 #'
@@ -1185,21 +1211,22 @@ kinesis_list_tags_for_stream <- function(StreamName, ExclusiveStartTagKey = NULL
 #' into a single shard to reduce the stream's capacity to ingest and
 #' transport data
 #'
+#' @description
 #' Merges two adjacent shards in a Kinesis data stream and combines them
-#' into a single shard to reduce the stream\'s capacity to ingest and
+#' into a single shard to reduce the stream's capacity to ingest and
 #' transport data. Two shards are considered adjacent if the union of the
 #' hash key ranges for the two shards form a contiguous set with no gaps.
 #' For example, if you have two shards, one with a hash key range of
-#' 276\\...381 and the other with a hash key range of 382\\...454, then you
+#' 276...381 and the other with a hash key range of 382...454, then you
 #' could merge these two shards into a single shard that would have a hash
-#' key range of 276\\...454. After the merge, the single child shard
-#' receives data for all hash key values covered by the two parent shards.
+#' key range of 276...454. After the merge, the single child shard receives
+#' data for all hash key values covered by the two parent shards.
 #' 
 #' `MergeShards` is called when there is a need to reduce the overall
 #' capacity of a stream because of excess capacity that is not being used.
 #' You must specify the shard to be merged and the adjacent shard for a
 #' stream. For more information about merging shards, see [Merge Two
-#' Shards](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-merge.html)
+#' Shards](https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding-merge.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' If the stream is in the `ACTIVE` state, you can call `MergeShards`. If a
@@ -1266,11 +1293,12 @@ kinesis_merge_shards <- function(StreamName, ShardToMerge, AdjacentShardToMerge)
 
 #' Writes a single data record into an Amazon Kinesis data stream
 #'
+#' @description
 #' Writes a single data record into an Amazon Kinesis data stream. Call
 #' `PutRecord` to send data into the stream for real-time ingestion and
 #' subsequent processing, one record at a time. Each shard can support
 #' writes up to 1,000 records per second, up to a maximum data write total
-#' of 1 MB per second.
+#' of 1 MiB per second.
 #' 
 #' You must specify the name of the stream that captures, stores, and
 #' transports the data; a partition key; and the data blob itself.
@@ -1291,7 +1319,7 @@ kinesis_merge_shards <- function(StreamName, ShardToMerge, AdjacentShardToMerge)
 #' the partition key to determine the shard by explicitly specifying a hash
 #' value using the `ExplicitHashKey` parameter. For more information, see
 #' [Adding Data to a
-#' Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+#' Stream](https://docs.aws.amazon.com/streams/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' `PutRecord` returns the shard ID of where the data record was placed and
@@ -1302,8 +1330,11 @@ kinesis_merge_shards <- function(StreamName, ShardToMerge, AdjacentShardToMerge)
 #' increasing ordering, write serially to a shard and use the
 #' `SequenceNumberForOrdering` parameter. For more information, see [Adding
 #' Data to a
-#' Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+#' Stream](https://docs.aws.amazon.com/streams/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
+#' 
+#' After you write a record to a stream, you cannot modify that record or
+#' its order within the stream.
 #' 
 #' If a `PutRecord` request cannot be processed because of insufficient
 #' provisioned throughput on the shard involved in the request, `PutRecord`
@@ -1321,7 +1352,7 @@ kinesis_merge_shards <- function(StreamName, ShardToMerge, AdjacentShardToMerge)
 #' @param Data &#91;required&#93; The data blob to put into the record, which is base64-encoded when the
 #' blob is serialized. When the data blob (the payload before
 #' base64-encoding) is added to the partition key size, the total size must
-#' not exceed the maximum record size (1 MB).
+#' not exceed the maximum record size (1 MiB).
 #' @param PartitionKey &#91;required&#93; Determines which shard in the stream the data record is assigned to.
 #' Partition keys are Unicode strings with a maximum length limit of 256
 #' characters for each key. Amazon Kinesis Data Streams uses the partition
@@ -1374,15 +1405,16 @@ kinesis_put_record <- function(StreamName, Data, PartitionKey, ExplicitHashKey =
 #' Writes multiple data records into a Kinesis data stream in a single call
 #' (also referred to as a PutRecords request)
 #'
+#' @description
 #' Writes multiple data records into a Kinesis data stream in a single call
 #' (also referred to as a `PutRecords` request). Use this operation to send
 #' data into the stream for data ingestion and processing.
 #' 
 #' Each `PutRecords` request can support up to 500 records. Each record in
-#' the request can be as large as 1 MB, up to a limit of 5 MB for the
+#' the request can be as large as 1 MiB, up to a limit of 5 MiB for the
 #' entire request, including partition keys. Each shard can support writes
-#' up to 1,000 records per second, up to a maximum data write total of 1 MB
-#' per second.
+#' up to 1,000 records per second, up to a maximum data write total of 1
+#' MiB per second.
 #' 
 #' You must specify the name of the stream that captures, stores, and
 #' transports the data; and an array of request `Records`, with each record
@@ -1399,7 +1431,7 @@ kinesis_put_record <- function(StreamName, Data, PartitionKey, ExplicitHashKey =
 #' of this hashing mechanism, all data records with the same partition key
 #' map to the same shard within the stream. For more information, see
 #' [Adding Data to a
-#' Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+#' Stream](https://docs.aws.amazon.com/streams/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' Each record in the `Records` array may include an optional parameter,
@@ -1407,7 +1439,7 @@ kinesis_put_record <- function(StreamName, Data, PartitionKey, ExplicitHashKey =
 #' This parameter allows a data producer to determine explicitly the shard
 #' where the record is stored. For more information, see [Adding Multiple
 #' Records with
-#' PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords)
+#' PutRecords](https://docs.aws.amazon.com/streams/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' The `PutRecords` response includes an array of response `Records`. Each
@@ -1419,7 +1451,10 @@ kinesis_put_record <- function(StreamName, Data, PartitionKey, ExplicitHashKey =
 #' The response `Records` array includes both successfully and
 #' unsuccessfully processed records. Kinesis Data Streams attempts to
 #' process all records in each `PutRecords` request. A single record
-#' failure does not stop the processing of subsequent records.
+#' failure does not stop the processing of subsequent records. As a result,
+#' PutRecords doesn't guarantee the ordering of records. If you need to
+#' read records in the same order they are written to the stream, use
+#' PutRecord instead of `PutRecords`, and write to the same shard.
 #' 
 #' A successfully processed record includes `ShardId` and `SequenceNumber`
 #' values. The `ShardId` parameter identifies the shard in the stream where
@@ -1434,8 +1469,11 @@ kinesis_put_record <- function(StreamName, Data, PartitionKey, ExplicitHashKey =
 #' the account ID, stream name, and shard ID of the record that was
 #' throttled. For more information about partially successful responses,
 #' see [Adding Multiple Records with
-#' PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords)
+#' PutRecords](https://docs.aws.amazon.com/streams/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
+#' 
+#' After you write a record to a stream, you cannot modify that record or
+#' its order within the stream.
 #' 
 #' By default, data records are accessible for 24 hours from the time that
 #' they are added to a stream. You can use IncreaseStreamRetentionPeriod or
@@ -1483,15 +1521,25 @@ kinesis_put_records <- function(Records, StreamName) {
 
 #' Registers a consumer with a Kinesis data stream
 #'
+#' @description
 #' Registers a consumer with a Kinesis data stream. When you use this
-#' operation, the consumer you register can read data from the stream at a
-#' rate of up to 2 MiB per second. This rate is unaffected by the total
-#' number of consumers that read from the same stream.
+#' operation, the consumer you register can then call SubscribeToShard to
+#' receive data from the stream using enhanced fan-out, at a rate of up to
+#' 2 MiB per second for every shard you subscribe to. This rate is
+#' unaffected by the total number of consumers that read from the same
+#' stream.
 #' 
-#' You can register up to 5 consumers per stream. A given consumer can only
-#' be registered with one stream.
+#' You can register up to 20 consumers per stream. A given consumer can
+#' only be registered with one stream at a time.
 #' 
-#' This operation has a limit of five transactions per second per account.
+#' For an example of how to use this operations, see Enhanced Fan-Out Using
+#' the Kinesis Data Streams API.
+#' 
+#' The use of this operation has a limit of five transactions per second
+#' per account. Also, only 5 consumers can be created simultaneously. In
+#' other words, you cannot have more than 5 consumers in a `CREATING`
+#' status at the same time. Registering a 6th consumer while there are 5 in
+#' a `CREATING` status results in a `LimitExceededException`.
 #'
 #' @usage
 #' kinesis_register_stream_consumer(StreamARN, ConsumerName)
@@ -1501,7 +1549,7 @@ kinesis_put_records <- function(Records, StreamName) {
 #' Service
 #' Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
 #' @param ConsumerName &#91;required&#93; For a given Kinesis data stream, each consumer must have a unique name.
-#' However, consumer names don\'t have to be unique across data streams.
+#' However, consumer names don't have to be unique across data streams.
 #'
 #' @section Request syntax:
 #' ```
@@ -1533,6 +1581,7 @@ kinesis_register_stream_consumer <- function(StreamARN, ConsumerName) {
 
 #' Removes tags from the specified Kinesis data stream
 #'
+#' @description
 #' Removes tags from the specified Kinesis data stream. Removed tags are
 #' deleted and cannot be recovered after this operation successfully
 #' completes.
@@ -1581,8 +1630,9 @@ kinesis_remove_tags_from_stream <- function(StreamName, TagKeys) {
 #' Splits a shard into two new shards in the Kinesis data stream, to
 #' increase the stream's capacity to ingest and transport data
 #'
+#' @description
 #' Splits a shard into two new shards in the Kinesis data stream, to
-#' increase the stream\'s capacity to ingest and transport data.
+#' increase the stream's capacity to ingest and transport data.
 #' `SplitShard` is called when there is a need to increase the overall
 #' capacity of a stream because of an expected increase in the volume of
 #' data records being ingested.
@@ -1599,7 +1649,7 @@ kinesis_remove_tags_from_stream <- function(StreamName, TagKeys) {
 #' cases, the new hash key might be the average of the beginning and ending
 #' hash key, but it can be any hash key value in the range being mapped
 #' into the shard. For more information, see [Split a
-#' Shard](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-split.html)
+#' Shard](https://docs.aws.amazon.com/streams/latest/dev/kinesis-using-sdk-java-resharding-split.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*.
 #' 
 #' You can use DescribeStream to determine the shard ID and hash key values
@@ -1623,10 +1673,10 @@ kinesis_remove_tags_from_stream <- function(StreamName, TagKeys) {
 #' 
 #' For the default shard limit for an AWS account, see [Kinesis Data
 #' Streams
-#' Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+#' Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*. To increase this
 #' limit, [contact AWS
-#' Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
+#' Support](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
 #' 
 #' If you try to operate on too many streams simultaneously using
 #' CreateStream, DeleteStream, MergeShards, and/or SplitShard, you receive
@@ -1680,6 +1730,7 @@ kinesis_split_shard <- function(StreamName, ShardToSplit, NewStartingHashKey) {
 #' Enables or updates server-side encryption using an AWS KMS key for a
 #' specified stream
 #'
+#' @description
 #' Enables or updates server-side encryption using an AWS KMS key for a
 #' specified stream.
 #' 
@@ -1708,8 +1759,8 @@ kinesis_split_shard <- function(StreamName, ShardToSplit, NewStartingHashKey) {
 #' @param KeyId &#91;required&#93; The GUID for the customer-managed AWS KMS key to use for encryption.
 #' This value can be a globally unique identifier, a fully specified Amazon
 #' Resource Name (ARN) to either an alias or a key, or an alias name
-#' prefixed by \"alias/\".You can also use a master key owned by Kinesis
-#' Data Streams by specifying the alias `aws/kinesis`.
+#' prefixed by "alias/".You can also use a master key owned by Kinesis Data
+#' Streams by specifying the alias `aws/kinesis`.
 #' 
 #' -   Key ARN example:
 #'     `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
@@ -1755,6 +1806,7 @@ kinesis_start_stream_encryption <- function(StreamName, EncryptionType, KeyId) {
 
 #' Disables server-side encryption for a specified stream
 #'
+#' @description
 #' Disables server-side encryption for a specified stream.
 #' 
 #' Stopping encryption is an asynchronous operation. Upon receiving the
@@ -1784,8 +1836,8 @@ kinesis_start_stream_encryption <- function(StreamName, EncryptionType, KeyId) {
 #' @param KeyId &#91;required&#93; The GUID for the customer-managed AWS KMS key to use for encryption.
 #' This value can be a globally unique identifier, a fully specified Amazon
 #' Resource Name (ARN) to either an alias or a key, or an alias name
-#' prefixed by \"alias/\".You can also use a master key owned by Kinesis
-#' Data Streams by specifying the alias `aws/kinesis`.
+#' prefixed by "alias/".You can also use a master key owned by Kinesis Data
+#' Streams by specifying the alias `aws/kinesis`.
 #' 
 #' -   Key ARN example:
 #'     `arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012`
@@ -1832,6 +1884,7 @@ kinesis_stop_stream_encryption <- function(StreamName, EncryptionType, KeyId) {
 #' Updates the shard count of the specified stream to the specified number
 #' of shards
 #'
+#' @description
 #' Updates the shard count of the specified stream to the specified number
 #' of shards.
 #' 
@@ -1845,14 +1898,19 @@ kinesis_stop_stream_encryption <- function(StreamName, EncryptionType, KeyId) {
 #' 
 #' To update the shard count, Kinesis Data Streams performs splits or
 #' merges on individual shards. This can cause short-lived shards to be
-#' created, in addition to the final shards. We recommend that you double
-#' or halve the shard count, as this results in the fewest number of splits
-#' or merges.
+#' created, in addition to the final shards. These short-lived shards count
+#' towards your total shard limit for your account in the Region.
+#' 
+#' When using this operation, we recommend that you specify a target shard
+#' count that is a multiple of 25\% (25\%, 50\%, 75\%, 100\%). You can specify
+#' any target value within your shard limit. However, if you specify a
+#' target that isn't a multiple of 25\%, the scaling action might take
+#' longer to complete.
 #' 
 #' This operation has the following default limits. By default, you cannot
 #' do the following:
 #' 
-#' -   Scale more than twice per rolling 24-hour period per stream
+#' -   Scale more than ten times per rolling 24-hour period per stream
 #' 
 #' -   Scale up to more than double your current shard count for a stream
 #' 
@@ -1866,17 +1924,29 @@ kinesis_stop_stream_encryption <- function(StreamName, EncryptionType, KeyId) {
 #' -   Scale up to more than the shard limit for your account
 #' 
 #' For the default limits for an AWS account, see [Streams
-#' Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+#' Limits](https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
 #' in the *Amazon Kinesis Data Streams Developer Guide*. To request an
 #' increase in the call rate limit, the shard limit for this API, or your
-#' overall shard limit, use the [limits
-#' form](https://console.aws.amazon.com/support/v1#/case/create?issueType=service-limit-increase&limitType=service-code-kinesis).
+#' overall shard limit, use the limits form.
 #'
 #' @usage
 #' kinesis_update_shard_count(StreamName, TargetShardCount, ScalingType)
 #'
 #' @param StreamName &#91;required&#93; The name of the stream.
-#' @param TargetShardCount &#91;required&#93; The new number of shards.
+#' @param TargetShardCount &#91;required&#93; The new number of shards. This value has the following default limits.
+#' By default, you cannot do the following:
+#' 
+#' -   Set this value to more than double your current shard count for a
+#'     stream.
+#' 
+#' -   Set this value below half your current shard count for a stream.
+#' 
+#' -   Set this value to more than 500 shards in a stream (the default
+#'     limit for shard count per stream is 500 per account per region),
+#'     unless you request a limit increase.
+#' 
+#' -   Scale a stream with more than 500 shards down unless you set this
+#'     value to less than 500 shards.
 #' @param ScalingType &#91;required&#93; The scaling type. Uniform scaling creates shards of equal size.
 #'
 #' @section Request syntax:

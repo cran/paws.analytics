@@ -16,8 +16,7 @@ assigned to the resource.}
 \description{
 Assigns one or more tags (key-value pairs) to the specified QuickSight
 resource.
-}
-\details{
+
 Tags can help you organize and categorize your resources. You can also
 use them to scope user permissions, by granting a user permission to
 access or change only resources with certain tag values. You can use the
@@ -33,11 +32,11 @@ supports tagging on data set, data source, dashboard, and template.
 Tagging for QuickSight works in a similar way to tagging for other AWS
 services, except for the following:
 \itemize{
-\item You can\'t use tags to track AWS costs for QuickSight. This
+\item You can't use tags to track AWS costs for QuickSight. This
 restriction is because QuickSight costs are based on users and SPICE
-capacity, which aren\'t taggable resources.
-\item QuickSight doesn\'t currently support the Tag Editor for AWS
-Resource Groups.
+capacity, which aren't taggable resources.
+\item QuickSight doesn't currently support the Tag Editor for AWS Resource
+Groups.
 }
 }
 \section{Request syntax}{
