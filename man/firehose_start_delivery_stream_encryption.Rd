@@ -14,6 +14,9 @@ encryption (SSE).}
 \item{DeliveryStreamEncryptionConfigurationInput}{Used to specify the type and Amazon Resource Name (ARN) of the KMS key
 needed for Server-Side Encryption (SSE).}
 }
+\value{
+An empty list.
+}
 \description{
 Enables server-side encryption (SSE) for the delivery stream.
 
@@ -32,7 +35,7 @@ PutRecordOutput$Encrypted and PutRecordBatchOutput$Encrypted,
 respectively.
 
 To check the encryption status of a delivery stream, use
-DescribeDeliveryStream.
+\code{\link[=firehose_describe_delivery_stream]{describe_delivery_stream}}.
 
 Even if encryption is currently enabled for a delivery stream, you can
 still invoke this operation on it to change the ARN of the CMK or both
@@ -57,12 +60,16 @@ Kinesis Data Firehose to invoke KMS encrypt and decrypt operations.
 You can enable SSE for a delivery stream only if it's a delivery stream
 that uses \code{DirectPut} as its source.
 
-The \code{StartDeliveryStreamEncryption} and \code{StopDeliveryStreamEncryption}
+The
+\code{\link[=firehose_start_delivery_stream_encryption]{start_delivery_stream_encryption}}
+and
+\code{\link[=firehose_stop_delivery_stream_encryption]{stop_delivery_stream_encryption}}
 operations have a combined limit of 25 calls per delivery stream per 24
 hours. For example, you reach the limit if you call
-\code{StartDeliveryStreamEncryption} 13 times and
-\code{StopDeliveryStreamEncryption} 12 times for the same delivery stream in
-a 24-hour period.
+\code{\link[=firehose_start_delivery_stream_encryption]{start_delivery_stream_encryption}}
+13 times and
+\code{\link[=firehose_stop_delivery_stream_encryption]{stop_delivery_stream_encryption}}
+12 times for the same delivery stream in a 24-hour period.
 }
 \section{Request syntax}{
 \preformatted{svc$start_delivery_stream_encryption(

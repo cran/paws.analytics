@@ -58,14 +58,21 @@ before it is terminated and enters \code{TIMEOUT} status. The default is
 \item{MaxRetries}{The maximum number of times to retry a task for this transform after a
 task run fails.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TransformId = "string"
+)
+}
+}
 \description{
 Updates an existing machine learning transform. Call this operation to
 tune the algorithm parameters to achieve better results.
 
 After calling this operation, you can call the
-\code{StartMLEvaluationTaskRun} operation to assess how well your new
-parameters achieved your goals (such as improving the quality of your
-machine learning transform, or making it more cost-effective).
+\code{\link[=glue_start_ml_evaluation_task_run]{start_ml_evaluation_task_run}}
+operation to assess how well your new parameters achieved your goals
+(such as improving the quality of your machine learning transform, or
+making it more cost-effective).
 }
 \section{Request syntax}{
 \preformatted{svc$update_ml_transform(

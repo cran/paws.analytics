@@ -28,6 +28,9 @@ Streams by specifying the alias \code{aws/kinesis}.
 \item Master key owned by Kinesis Data Streams: \code{alias/aws/kinesis}
 }}
 }
+\value{
+An empty list.
+}
 \description{
 Enables or updates server-side encryption using an AWS KMS key for a
 specified stream.
@@ -47,7 +50,8 @@ encryption 25 times in a rolling 24-hour period.
 Note: It can take up to 5 seconds after the stream is in an \code{ACTIVE}
 status before all records written to the stream are encrypted. After you
 enable encryption, you can verify that encryption is applied by
-inspecting the API response from \code{PutRecord} or \code{PutRecords}.
+inspecting the API response from \code{\link[=kinesis_put_record]{put_record}} or
+\code{\link[=kinesis_put_records]{put_records}}.
 }
 \section{Request syntax}{
 \preformatted{svc$start_stream_encryption(

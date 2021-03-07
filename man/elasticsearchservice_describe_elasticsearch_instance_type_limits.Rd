@@ -11,17 +11,54 @@ elasticsearchservice_describe_elasticsearch_instance_type_limits(
 \arguments{
 \item{DomainName}{DomainName represents the name of the Domain that we are trying to
 modify. This should be present only if we are querying for Elasticsearch
-\verb{<a>Limits</a>} for existing domain.}
+\code{Limits} for existing domain.}
 
 \item{InstanceType}{[required] The instance type for an Elasticsearch cluster for which Elasticsearch
-\verb{<a>Limits</a>} are needed.}
+\code{Limits} are needed.}
 
-\item{ElasticsearchVersion}{[required] Version of Elasticsearch for which \verb{<a>Limits</a>} are needed.}
+\item{ElasticsearchVersion}{[required] Version of Elasticsearch for which \code{Limits} are needed.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  LimitsByRole = list(
+    list(
+      StorageTypes = list(
+        list(
+          StorageTypeName = "string",
+          StorageSubTypeName = "string",
+          StorageTypeLimits = list(
+            list(
+              LimitName = "string",
+              LimitValues = list(
+                "string"
+              )
+            )
+          )
+        )
+      ),
+      InstanceLimits = list(
+        InstanceCountLimits = list(
+          MinimumInstanceCount = 123,
+          MaximumInstanceCount = 123
+        )
+      ),
+      AdditionalLimits = list(
+        list(
+          LimitName = "string",
+          LimitValues = list(
+            "string"
+          )
+        )
+      )
+    )
+  )
+)
+}
 }
 \description{
 Describe Elasticsearch Limits for a given InstanceType and
 ElasticsearchVersion. When modifying existing Domain, specify the
-\verb{<a>DomainName</a>} to know what Limits are supported for modifying.
+\code{DomainName} to know what Limits are supported for modifying.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_elasticsearch_instance_type_limits(

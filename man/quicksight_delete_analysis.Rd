@@ -21,6 +21,18 @@ value is 30.}
 immediately delete the analysis, add the \code{ForceDeleteWithoutRecovery}
 option. You can't restore an analysis after it's deleted.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Status = 123,
+  Arn = "string",
+  AnalysisId = "string",
+  DeletionTime = as.POSIXct(
+    "2015-01-01"
+  ),
+  RequestId = "string"
+)
+}
+}
 \description{
 Deletes an analysis from Amazon QuickSight. You can optionally include a
 recovery window during which you can restore the analysis. If you don't
@@ -30,10 +42,10 @@ specifies the end of the recovery window. At the end of the recovery
 window, QuickSight deletes the analysis permanently.
 
 At any time before recovery window ends, you can use the
-\code{RestoreAnalysis} API operation to remove the \code{DeletionTime} stamp and
-cancel the deletion of the analysis. The analysis remains visible in the
-API until it's deleted, so you can describe it but you can't make a
-template from it.
+\code{\link[=quicksight_restore_analysis]{restore_analysis}} API operation to
+remove the \code{DeletionTime} stamp and cancel the deletion of the analysis.
+The analysis remains visible in the API until it's deleted, so you can
+describe it but you can't make a template from it.
 
 An analysis that's scheduled for deletion isn't accessible in the
 QuickSight console. To access it in the console, restore it. Deleting an

@@ -7,14 +7,15 @@ NULL
 #' a Qualification
 #'
 #' @description
-#' The `AcceptQualificationRequest` operation approves a Worker's request
-#' for a Qualification.
+#' The [`accept_qualification_request`][mturk_accept_qualification_request]
+#' operation approves a Worker's request for a Qualification.
 #' 
 #' Only the owner of the Qualification type can grant a Qualification
 #' request for that type.
 #' 
-#' A successful request for the `AcceptQualificationRequest` operation
-#' returns with no errors and an empty body.
+#' A successful request for the
+#' [`accept_qualification_request`][mturk_accept_qualification_request]
+#' operation returns with no errors and an empty body.
 #'
 #' @usage
 #' mturk_accept_qualification_request(QualificationRequestId, IntegerValue)
@@ -24,6 +25,9 @@ NULL
 #' @param IntegerValue The value of the Qualification. You can omit this value if you are using
 #' the presence or absence of the Qualification as the basis for a HIT
 #' requirement.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -57,8 +61,8 @@ mturk_accept_qualification_request <- function(QualificationRequestId, IntegerVa
 #' assignment
 #'
 #' @description
-#' The `ApproveAssignment` operation approves the results of a completed
-#' assignment.
+#' The [`approve_assignment`][mturk_approve_assignment] operation approves
+#' the results of a completed assignment.
 #' 
 #' Approving an assignment initiates two payments from the Requester's
 #' Amazon.com account
@@ -90,6 +94,9 @@ mturk_accept_qualification_request <- function(QualificationRequestId, IntegerVa
 #' of the web site.
 #' @param OverrideRejection A flag indicating that an assignment should be approved even if it was
 #' previously rejected. Defaults to `False`.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -124,21 +131,28 @@ mturk_approve_assignment <- function(AssignmentId, RequesterFeedback = NULL, Ove
 #' Qualification
 #'
 #' @description
-#' The `AssociateQualificationWithWorker` operation gives a Worker a
-#' Qualification. `AssociateQualificationWithWorker` does not require that
-#' the Worker submit a Qualification request. It gives the Qualification
-#' directly to the Worker.
+#' The
+#' [`associate_qualification_with_worker`][mturk_associate_qualification_with_worker]
+#' operation gives a Worker a Qualification.
+#' [`associate_qualification_with_worker`][mturk_associate_qualification_with_worker]
+#' does not require that the Worker submit a Qualification request. It
+#' gives the Qualification directly to the Worker.
 #' 
 #' You can only assign a Qualification of a Qualification type that you
-#' created (using the `CreateQualificationType` operation).
+#' created (using the
+#' [`create_qualification_type`][mturk_create_qualification_type]
+#' operation).
 #' 
-#' Note: `AssociateQualificationWithWorker` does not affect any pending
-#' Qualification requests for the Qualification by the Worker. If you
-#' assign a Qualification to a Worker, then later grant a Qualification
-#' request made by the Worker, the granting of the request may modify the
-#' Qualification score. To resolve a pending Qualification request without
-#' affecting the Qualification the Worker already has, reject the request
-#' with the `RejectQualificationRequest` operation.
+#' Note:
+#' [`associate_qualification_with_worker`][mturk_associate_qualification_with_worker]
+#' does not affect any pending Qualification requests for the Qualification
+#' by the Worker. If you assign a Qualification to a Worker, then later
+#' grant a Qualification request made by the Worker, the granting of the
+#' request may modify the Qualification score. To resolve a pending
+#' Qualification request without affecting the Qualification the Worker
+#' already has, reject the request with the
+#' [`reject_qualification_request`][mturk_reject_qualification_request]
+#' operation.
 #'
 #' @usage
 #' mturk_associate_qualification_with_worker(QualificationTypeId, WorkerId,
@@ -152,6 +166,9 @@ mturk_approve_assignment <- function(AssignmentId, RequesterFeedback = NULL, Ove
 #' @param SendNotification Specifies whether to send a notification email message to the Worker
 #' saying that the qualification was assigned to the Worker. Note: this is
 #' true by default.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -187,8 +204,10 @@ mturk_associate_qualification_with_worker <- function(QualificationTypeId, Worke
 #' number of assignments of an existing HIT
 #'
 #' @description
-#' The `CreateAdditionalAssignmentsForHIT` operation increases the maximum
-#' number of assignments of an existing HIT.
+#' The
+#' [`create_additional_assignments_for_hit`][mturk_create_additional_assignments_for_hit]
+#' operation increases the maximum number of assignments of an existing
+#' HIT.
 #' 
 #' To extend the maximum number of assignments, specify the number of
 #' additional assignments.
@@ -217,6 +236,9 @@ mturk_associate_qualification_with_worker <- function(QualificationTypeId, Worke
 #' system from a previous call using the same `UniqueRequestToken`,
 #' subsequent calls will return an error with a message containing the
 #' request ID.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -250,19 +272,21 @@ mturk_create_additional_assignments_for_hit <- function(HITId, NumberOfAdditiona
 #' The CreateHIT operation creates a new Human Intelligence Task (HIT)
 #'
 #' @description
-#' The `CreateHIT` operation creates a new Human Intelligence Task (HIT).
-#' The new HIT is made available for Workers to find and accept on the
-#' Amazon Mechanical Turk website.
+#' The [`create_hit`][mturk_create_hit] operation creates a new Human
+#' Intelligence Task (HIT). The new HIT is made available for Workers to
+#' find and accept on the Amazon Mechanical Turk website.
 #' 
 #' This operation allows you to specify a new HIT by passing in values for
 #' the properties of the HIT, such as its title, reward amount and number
-#' of assignments. When you pass these values to `CreateHIT`, a new HIT is
-#' created for you, with a new `HITTypeID`. The HITTypeID can be used to
-#' create additional HITs in the future without needing to specify common
-#' parameters such as the title, description and reward amount each time.
+#' of assignments. When you pass these values to
+#' [`create_hit`][mturk_create_hit], a new HIT is created for you, with a
+#' new `HITTypeID`. The HITTypeID can be used to create additional HITs in
+#' the future without needing to specify common parameters such as the
+#' title, description and reward amount each time.
 #' 
 #' An alternative way to create HITs is to first generate a HITTypeID using
-#' the `CreateHITType` operation and then call the `CreateHITWithHITType`
+#' the [`create_hit_type`][mturk_create_hit_type] operation and then call
+#' the [`create_hit_with_hit_type`][mturk_create_hit_with_hit_type]
 #' operation. This is the recommended best practice for Requesters who are
 #' creating large numbers of HITs.
 #' 
@@ -360,6 +384,56 @@ mturk_create_additional_assignments_for_hit <- function(HITId, NumberOfAdditiona
 #' @param HITLayoutParameters If the HITLayoutId is provided, any placeholder values must be filled in
 #' with values using the HITLayoutParameter structure. For more
 #' information, see HITLayout.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   HIT = list(
+#'     HITId = "string",
+#'     HITTypeId = "string",
+#'     HITGroupId = "string",
+#'     HITLayoutId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Title = "string",
+#'     Description = "string",
+#'     Question = "string",
+#'     Keywords = "string",
+#'     HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'     MaxAssignments = 123,
+#'     Reward = "string",
+#'     AutoApprovalDelayInSeconds = 123,
+#'     Expiration = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     AssignmentDurationInSeconds = 123,
+#'     RequesterAnnotation = "string",
+#'     QualificationRequirements = list(
+#'       list(
+#'         QualificationTypeId = "string",
+#'         Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'         IntegerValues = list(
+#'           123
+#'         ),
+#'         LocaleValues = list(
+#'           list(
+#'             Country = "string",
+#'             Subdivision = "string"
+#'           )
+#'         ),
+#'         RequiredToPreview = TRUE|FALSE,
+#'         ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'       )
+#'     ),
+#'     HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'     NumberOfAssignmentsPending = 123,
+#'     NumberOfAssignmentsAvailable = 123,
+#'     NumberOfAssignmentsCompleted = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -463,11 +537,11 @@ mturk_create_hit <- function(MaxAssignments = NULL, AutoApprovalDelayInSeconds =
 #' The CreateHITType operation creates a new HIT type
 #'
 #' @description
-#' The `CreateHITType` operation creates a new HIT type. This operation
-#' allows you to define a standard set of HIT properties to use when
-#' creating HITs. If you register a HIT type with values that match an
-#' existing HIT type, the HIT type ID of the existing type will be
-#' returned.
+#' The [`create_hit_type`][mturk_create_hit_type] operation creates a new
+#' HIT type. This operation allows you to define a standard set of HIT
+#' properties to use when creating HITs. If you register a HIT type with
+#' values that match an existing HIT type, the HIT type ID of the existing
+#' type will be returned.
 #'
 #' @usage
 #' mturk_create_hit_type(AutoApprovalDelayInSeconds,
@@ -501,6 +575,14 @@ mturk_create_hit <- function(MaxAssignments = NULL, AutoApprovalDelayInSeconds =
 #' All requirements must be met in order for a Worker to accept the HIT.
 #' Additionally, other actions can be restricted using the `ActionsGuarded`
 #' field on each `QualificationRequirement` structure.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   HITTypeId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -556,13 +638,14 @@ mturk_create_hit_type <- function(AutoApprovalDelayInSeconds = NULL, AssignmentD
 #' operation
 #'
 #' @description
-#' The `CreateHITWithHITType` operation creates a new Human Intelligence
-#' Task (HIT) using an existing HITTypeID generated by the `CreateHITType`
+#' The [`create_hit_with_hit_type`][mturk_create_hit_with_hit_type]
+#' operation creates a new Human Intelligence Task (HIT) using an existing
+#' HITTypeID generated by the [`create_hit_type`][mturk_create_hit_type]
 #' operation.
 #' 
-#' This is an alternative way to create HITs from the `CreateHIT`
-#' operation. This is the recommended best practice for Requesters who are
-#' creating large numbers of HITs.
+#' This is an alternative way to create HITs from the
+#' [`create_hit`][mturk_create_hit] operation. This is the recommended best
+#' practice for Requesters who are creating large numbers of HITs.
 #' 
 #' CreateHITWithHITType also supports several ways to provide question
 #' data: by providing a value for the `Question` parameter that fully
@@ -631,6 +714,56 @@ mturk_create_hit_type <- function(AutoApprovalDelayInSeconds = NULL, AssignmentD
 #' @param HITLayoutParameters If the HITLayoutId is provided, any placeholder values must be filled in
 #' with values using the HITLayoutParameter structure. For more
 #' information, see HITLayout.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   HIT = list(
+#'     HITId = "string",
+#'     HITTypeId = "string",
+#'     HITGroupId = "string",
+#'     HITLayoutId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Title = "string",
+#'     Description = "string",
+#'     Question = "string",
+#'     Keywords = "string",
+#'     HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'     MaxAssignments = 123,
+#'     Reward = "string",
+#'     AutoApprovalDelayInSeconds = 123,
+#'     Expiration = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     AssignmentDurationInSeconds = 123,
+#'     RequesterAnnotation = "string",
+#'     QualificationRequirements = list(
+#'       list(
+#'         QualificationTypeId = "string",
+#'         Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'         IntegerValues = list(
+#'           123
+#'         ),
+#'         LocaleValues = list(
+#'           list(
+#'             Country = "string",
+#'             Subdivision = "string"
+#'           )
+#'         ),
+#'         RequiredToPreview = TRUE|FALSE,
+#'         ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'       )
+#'     ),
+#'     HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'     NumberOfAssignmentsPending = 123,
+#'     NumberOfAssignmentsAvailable = 123,
+#'     NumberOfAssignmentsCompleted = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -713,8 +846,9 @@ mturk_create_hit_with_hit_type <- function(HITTypeId, MaxAssignments = NULL, Lif
 #' which is represented by a QualificationType data structure
 #'
 #' @description
-#' The `CreateQualificationType` operation creates a new Qualification
-#' type, which is represented by a `QualificationType` data structure.
+#' The [`create_qualification_type`][mturk_create_qualification_type]
+#' operation creates a new Qualification type, which is represented by a
+#' `QualificationType` data structure.
 #'
 #' @usage
 #' mturk_create_qualification_type(Name, Keywords, Description,
@@ -772,6 +906,30 @@ mturk_create_hit_with_hit_type <- function(HITTypeId, MaxAssignments = NULL, Lif
 #' @param AutoGrantedValue The Qualification value to use for automatically granted Qualifications.
 #' This parameter is used only if the AutoGranted parameter is true.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   QualificationType = list(
+#'     QualificationTypeId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Name = "string",
+#'     Description = "string",
+#'     Keywords = "string",
+#'     QualificationTypeStatus = "Active"|"Inactive",
+#'     Test = "string",
+#'     TestDurationInSeconds = 123,
+#'     AnswerKey = "string",
+#'     RetryDelayInSeconds = 123,
+#'     IsRequestable = TRUE|FALSE,
+#'     AutoGranted = TRUE|FALSE,
+#'     AutoGrantedValue = 123
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_qualification_type(
@@ -812,9 +970,10 @@ mturk_create_qualification_type <- function(Name, Keywords = NULL, Description, 
 #' working on your HITs
 #'
 #' @description
-#' The `CreateWorkerBlock` operation allows you to prevent a Worker from
-#' working on your HITs. For example, you can block a Worker who is
-#' producing poor quality work. You can block up to 100,000 Workers.
+#' The [`create_worker_block`][mturk_create_worker_block] operation allows
+#' you to prevent a Worker from working on your HITs. For example, you can
+#' block a Worker who is producing poor quality work. You can block up to
+#' 100,000 Workers.
 #'
 #' @usage
 #' mturk_create_worker_block(WorkerId, Reason)
@@ -823,6 +982,9 @@ mturk_create_qualification_type <- function(Name, Keywords = NULL, Description, 
 #' @param Reason &#91;required&#93; A message explaining the reason for blocking the Worker. This parameter
 #' enables you to keep track of your Workers. The Worker does not see this
 #' message.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -855,8 +1017,9 @@ mturk_create_worker_block <- function(WorkerId, Reason) {
 #' The DeleteHIT operation is used to delete HIT that is no longer needed
 #'
 #' @description
-#' The `DeleteHIT` operation is used to delete HIT that is no longer
-#' needed. Only the Requester who created the HIT can delete it.
+#' The [`delete_hit`][mturk_delete_hit] operation is used to delete HIT
+#' that is no longer needed. Only the Requester who created the HIT can
+#' delete it.
 #' 
 #' You can only dispose of HITs that are in the `Reviewable` state, with
 #' all of their submitted assignments already either approved or rejected.
@@ -881,6 +1044,9 @@ mturk_create_worker_block <- function(WorkerId, Reason) {
 #' mturk_delete_hit(HITId)
 #'
 #' @param HITId &#91;required&#93; The ID of the HIT to be deleted.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -913,8 +1079,9 @@ mturk_delete_hit <- function(HITId) {
 #' HIT types that are associated with the Qualification type
 #'
 #' @description
-#' The `DeleteQualificationType` deletes a Qualification type and deletes
-#' any HIT types that are associated with the Qualification type.
+#' The [`delete_qualification_type`][mturk_delete_qualification_type]
+#' deletes a Qualification type and deletes any HIT types that are
+#' associated with the Qualification type.
 #' 
 #' This operation does not revoke Qualifications already assigned to
 #' Workers because the Qualifications might be needed for active HITs. If
@@ -932,6 +1099,9 @@ mturk_delete_hit <- function(HITId) {
 #' mturk_delete_qualification_type(QualificationTypeId)
 #'
 #' @param QualificationTypeId &#91;required&#93; The ID of the QualificationType to dispose.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -964,12 +1134,13 @@ mturk_delete_qualification_type <- function(QualificationTypeId) {
 #' to work on your HITs
 #'
 #' @description
-#' The `DeleteWorkerBlock` operation allows you to reinstate a blocked
-#' Worker to work on your HITs. This operation reverses the effects of the
-#' CreateWorkerBlock operation. You need the Worker ID to use this
-#' operation. If the Worker ID is missing or invalid, this operation fails
-#' and returns the message “WorkerId is invalid.” If the specified Worker
-#' is not blocked, this operation returns successfully.
+#' The [`delete_worker_block`][mturk_delete_worker_block] operation allows
+#' you to reinstate a blocked Worker to work on your HITs. This operation
+#' reverses the effects of the CreateWorkerBlock operation. You need the
+#' Worker ID to use this operation. If the Worker ID is missing or invalid,
+#' this operation fails and returns the message “WorkerId is invalid.” If
+#' the specified Worker is not blocked, this operation returns
+#' successfully.
 #'
 #' @usage
 #' mturk_delete_worker_block(WorkerId, Reason)
@@ -977,6 +1148,9 @@ mturk_delete_qualification_type <- function(QualificationTypeId) {
 #' @param WorkerId &#91;required&#93; The ID of the Worker to unblock.
 #' @param Reason A message that explains the reason for unblocking the Worker. The Worker
 #' does not see this message.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1010,8 +1184,9 @@ mturk_delete_worker_block <- function(WorkerId, Reason = NULL) {
 #' Qualification from a user
 #'
 #' @description
-#' The `DisassociateQualificationFromWorker` revokes a previously granted
-#' Qualification from a user.
+#' The
+#' [`disassociate_qualification_from_worker`][mturk_disassociate_qualification_from_worker]
+#' revokes a previously granted Qualification from a user.
 #' 
 #' You can provide a text message explaining why the Qualification was
 #' revoked. The user who had the Qualification can see this message.
@@ -1024,6 +1199,9 @@ mturk_delete_worker_block <- function(WorkerId, Reason = NULL) {
 #' @param QualificationTypeId &#91;required&#93; The ID of the Qualification type of the Qualification to be revoked.
 #' @param Reason A text message that explains why the Qualification was revoked. The user
 #' who had the Qualification sees this message.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1058,11 +1236,20 @@ mturk_disassociate_qualification_from_worker <- function(WorkerId, Qualification
 #' Amazon Mechanical Turk account
 #'
 #' @description
-#' The `GetAccountBalance` operation retrieves the amount of money in your
-#' Amazon Mechanical Turk account.
+#' The [`get_account_balance`][mturk_get_account_balance] operation
+#' retrieves the amount of money in your Amazon Mechanical Turk account.
 #'
 #' @usage
 #' mturk_get_account_balance()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AvailableBalance = "string",
+#'   OnHoldBalance = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1093,13 +1280,89 @@ mturk_get_account_balance <- function() {
 #' Assignment
 #'
 #' @description
-#' The `GetAssignment` operation retrieves the details of the specified
-#' Assignment.
+#' The [`get_assignment`][mturk_get_assignment] operation retrieves the
+#' details of the specified Assignment.
 #'
 #' @usage
 #' mturk_get_assignment(AssignmentId)
 #'
 #' @param AssignmentId &#91;required&#93; The ID of the Assignment to be retrieved.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Assignment = list(
+#'     AssignmentId = "string",
+#'     WorkerId = "string",
+#'     HITId = "string",
+#'     AssignmentStatus = "Submitted"|"Approved"|"Rejected",
+#'     AutoApprovalTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     AcceptTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     SubmitTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     ApprovalTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     RejectionTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Deadline = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Answer = "string",
+#'     RequesterFeedback = "string"
+#'   ),
+#'   HIT = list(
+#'     HITId = "string",
+#'     HITTypeId = "string",
+#'     HITGroupId = "string",
+#'     HITLayoutId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Title = "string",
+#'     Description = "string",
+#'     Question = "string",
+#'     Keywords = "string",
+#'     HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'     MaxAssignments = 123,
+#'     Reward = "string",
+#'     AutoApprovalDelayInSeconds = 123,
+#'     Expiration = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     AssignmentDurationInSeconds = 123,
+#'     RequesterAnnotation = "string",
+#'     QualificationRequirements = list(
+#'       list(
+#'         QualificationTypeId = "string",
+#'         Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'         IntegerValues = list(
+#'           123
+#'         ),
+#'         LocaleValues = list(
+#'           list(
+#'             Country = "string",
+#'             Subdivision = "string"
+#'           )
+#'         ),
+#'         RequiredToPreview = TRUE|FALSE,
+#'         ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'       )
+#'     ),
+#'     HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'     NumberOfAssignmentsPending = 123,
+#'     NumberOfAssignmentsAvailable = 123,
+#'     NumberOfAssignmentsCompleted = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1131,17 +1394,18 @@ mturk_get_assignment <- function(AssignmentId) {
 #' The GetFileUploadURL operation generates and returns a temporary URL
 #'
 #' @description
-#' The `GetFileUploadURL` operation generates and returns a temporary URL.
-#' You use the temporary URL to retrieve a file uploaded by a Worker as an
-#' answer to a FileUploadAnswer question for a HIT. The temporary URL is
-#' generated the instant the GetFileUploadURL operation is called, and is
-#' valid for 60 seconds. You can get a temporary file upload URL any time
-#' until the HIT is disposed. After the HIT is disposed, any uploaded files
-#' are deleted, and cannot be retrieved. Pending Deprecation on December
-#' 12, 2017. The Answer Specification structure will no longer support the
-#' `FileUploadAnswer` element to be used for the QuestionForm data
-#' structure. Instead, we recommend that Requesters who want to create HITs
-#' asking Workers to upload files to use Amazon S3.
+#' The [`get_file_upload_url`][mturk_get_file_upload_url] operation
+#' generates and returns a temporary URL. You use the temporary URL to
+#' retrieve a file uploaded by a Worker as an answer to a FileUploadAnswer
+#' question for a HIT. The temporary URL is generated the instant the
+#' GetFileUploadURL operation is called, and is valid for 60 seconds. You
+#' can get a temporary file upload URL any time until the HIT is disposed.
+#' After the HIT is disposed, any uploaded files are deleted, and cannot be
+#' retrieved. Pending Deprecation on December 12, 2017. The Answer
+#' Specification structure will no longer support the `FileUploadAnswer`
+#' element to be used for the QuestionForm data structure. Instead, we
+#' recommend that Requesters who want to create HITs asking Workers to
+#' upload files to use Amazon S3.
 #'
 #' @usage
 #' mturk_get_file_upload_url(AssignmentId, QuestionIdentifier)
@@ -1150,6 +1414,14 @@ mturk_get_assignment <- function(AssignmentId) {
 #' FileUploadAnswer.
 #' @param QuestionIdentifier &#91;required&#93; The identifier of the question with a FileUploadAnswer, as specified in
 #' the QuestionForm of the HIT.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FileUploadURL = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1182,12 +1454,63 @@ mturk_get_file_upload_url <- function(AssignmentId, QuestionIdentifier) {
 #' The GetHIT operation retrieves the details of the specified HIT
 #'
 #' @description
-#' The `GetHIT` operation retrieves the details of the specified HIT.
+#' The [`get_hit`][mturk_get_hit] operation retrieves the details of the
+#' specified HIT.
 #'
 #' @usage
 #' mturk_get_hit(HITId)
 #'
 #' @param HITId &#91;required&#93; The ID of the HIT to be retrieved.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   HIT = list(
+#'     HITId = "string",
+#'     HITTypeId = "string",
+#'     HITGroupId = "string",
+#'     HITLayoutId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Title = "string",
+#'     Description = "string",
+#'     Question = "string",
+#'     Keywords = "string",
+#'     HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'     MaxAssignments = 123,
+#'     Reward = "string",
+#'     AutoApprovalDelayInSeconds = 123,
+#'     Expiration = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     AssignmentDurationInSeconds = 123,
+#'     RequesterAnnotation = "string",
+#'     QualificationRequirements = list(
+#'       list(
+#'         QualificationTypeId = "string",
+#'         Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'         IntegerValues = list(
+#'           123
+#'         ),
+#'         LocaleValues = list(
+#'           list(
+#'             Country = "string",
+#'             Subdivision = "string"
+#'           )
+#'         ),
+#'         RequiredToPreview = TRUE|FALSE,
+#'         ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'       )
+#'     ),
+#'     HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'     NumberOfAssignmentsPending = 123,
+#'     NumberOfAssignmentsAvailable = 123,
+#'     NumberOfAssignmentsCompleted = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1220,12 +1543,13 @@ mturk_get_hit <- function(HITId) {
 #' Qualification for a given Qualification type
 #'
 #' @description
-#' The `GetQualificationScore` operation returns the value of a Worker's
-#' Qualification for a given Qualification type.
+#' The [`get_qualification_score`][mturk_get_qualification_score] operation
+#' returns the value of a Worker's Qualification for a given Qualification
+#' type.
 #' 
 #' To get a Worker's Qualification, you must know the Worker's ID. The
 #' Worker's ID is included in the assignment data returned by the
-#' `ListAssignmentsForHIT` operation.
+#' [`list_assignments_for_hit`][mturk_list_assignments_for_hit] operation.
 #' 
 #' Only the owner of a Qualification type can query the value of a Worker's
 #' Qualification of that type.
@@ -1235,6 +1559,26 @@ mturk_get_hit <- function(HITId) {
 #'
 #' @param QualificationTypeId &#91;required&#93; The ID of the QualificationType.
 #' @param WorkerId &#91;required&#93; The ID of the Worker whose Qualification is being updated.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Qualification = list(
+#'     QualificationTypeId = "string",
+#'     WorkerId = "string",
+#'     GrantTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     IntegerValue = 123,
+#'     LocaleValue = list(
+#'       Country = "string",
+#'       Subdivision = "string"
+#'     ),
+#'     Status = "Granted"|"Revoked"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1268,13 +1612,37 @@ mturk_get_qualification_score <- function(QualificationTypeId, WorkerId) {
 #' Qualification type using its ID
 #'
 #' @description
-#' The `GetQualificationType`operation retrieves information about a
-#' Qualification type using its ID.
+#' The [`get_qualification_type`][mturk_get_qualification_type]operation
+#' retrieves information about a Qualification type using its ID.
 #'
 #' @usage
 #' mturk_get_qualification_type(QualificationTypeId)
 #'
 #' @param QualificationTypeId &#91;required&#93; The ID of the QualificationType.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   QualificationType = list(
+#'     QualificationTypeId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Name = "string",
+#'     Description = "string",
+#'     Keywords = "string",
+#'     QualificationTypeStatus = "Active"|"Inactive",
+#'     Test = "string",
+#'     TestDurationInSeconds = 123,
+#'     AnswerKey = "string",
+#'     RetryDelayInSeconds = 123,
+#'     IsRequestable = TRUE|FALSE,
+#'     AutoGranted = TRUE|FALSE,
+#'     AutoGrantedValue = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1307,8 +1675,9 @@ mturk_get_qualification_type <- function(QualificationTypeId) {
 #' a HIT
 #'
 #' @description
-#' The `ListAssignmentsForHIT` operation retrieves completed assignments
-#' for a HIT. You can use this operation to retrieve the results for a HIT.
+#' The [`list_assignments_for_hit`][mturk_list_assignments_for_hit]
+#' operation retrieves completed assignments for a HIT. You can use this
+#' operation to retrieve the results for a HIT.
 #' 
 #' You can get assignments for a HIT at any time, even if the HIT is not
 #' yet Reviewable. If a HIT requested multiple assignments, and has
@@ -1337,6 +1706,43 @@ mturk_get_qualification_type <- function(QualificationTypeId) {
 #' @param NextToken Pagination token
 #' @param MaxResults 
 #' @param AssignmentStatuses The status of the assignments to return: Submitted | Approved | Rejected
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   Assignments = list(
+#'     list(
+#'       AssignmentId = "string",
+#'       WorkerId = "string",
+#'       HITId = "string",
+#'       AssignmentStatus = "Submitted"|"Approved"|"Rejected",
+#'       AutoApprovalTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       AcceptTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       SubmitTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       ApprovalTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       RejectionTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Deadline = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Answer = "string",
+#'       RequesterFeedback = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1374,8 +1780,9 @@ mturk_list_assignments_for_hit <- function(HITId, NextToken = NULL, MaxResults =
 #' have paid to Workers for a given HIT or assignment
 #'
 #' @description
-#' The `ListBonusPayments` operation retrieves the amounts of bonuses you
-#' have paid to Workers for a given HIT or assignment.
+#' The [`list_bonus_payments`][mturk_list_bonus_payments] operation
+#' retrieves the amounts of bonuses you have paid to Workers for a given
+#' HIT or assignment.
 #'
 #' @usage
 #' mturk_list_bonus_payments(HITId, AssignmentId, NextToken, MaxResults)
@@ -1390,6 +1797,26 @@ mturk_list_assignments_for_hit <- function(HITId, NextToken = NULL, MaxResults =
 #' specified
 #' @param NextToken Pagination token
 #' @param MaxResults 
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NumResults = 123,
+#'   NextToken = "string",
+#'   BonusPayments = list(
+#'     list(
+#'       WorkerId = "string",
+#'       BonusAmount = "string",
+#'       AssignmentId = "string",
+#'       Reason = "string",
+#'       GrantTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1424,15 +1851,70 @@ mturk_list_bonus_payments <- function(HITId = NULL, AssignmentId = NULL, NextTok
 #' The ListHITs operation returns all of a Requester's HITs
 #'
 #' @description
-#' The `ListHITs` operation returns all of a Requester's HITs. The
-#' operation returns HITs of any status, except for HITs that have been
-#' deleted of with the DeleteHIT operation or that have been auto-deleted.
+#' The [`list_hi_ts`][mturk_list_hi_ts] operation returns all of a
+#' Requester's HITs. The operation returns HITs of any status, except for
+#' HITs that have been deleted of with the DeleteHIT operation or that have
+#' been auto-deleted.
 #'
 #' @usage
 #' mturk_list_hi_ts(NextToken, MaxResults)
 #'
 #' @param NextToken Pagination token
 #' @param MaxResults 
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   HITs = list(
+#'     list(
+#'       HITId = "string",
+#'       HITTypeId = "string",
+#'       HITGroupId = "string",
+#'       HITLayoutId = "string",
+#'       CreationTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Title = "string",
+#'       Description = "string",
+#'       Question = "string",
+#'       Keywords = "string",
+#'       HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'       MaxAssignments = 123,
+#'       Reward = "string",
+#'       AutoApprovalDelayInSeconds = 123,
+#'       Expiration = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       AssignmentDurationInSeconds = 123,
+#'       RequesterAnnotation = "string",
+#'       QualificationRequirements = list(
+#'         list(
+#'           QualificationTypeId = "string",
+#'           Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'           IntegerValues = list(
+#'             123
+#'           ),
+#'           LocaleValues = list(
+#'             list(
+#'               Country = "string",
+#'               Subdivision = "string"
+#'             )
+#'           ),
+#'           RequiredToPreview = TRUE|FALSE,
+#'           ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'         )
+#'       ),
+#'       HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'       NumberOfAssignmentsPending = 123,
+#'       NumberOfAssignmentsAvailable = 123,
+#'       NumberOfAssignmentsCompleted = 123
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1466,10 +1948,13 @@ mturk_list_hi_ts <- function(NextToken = NULL, MaxResults = NULL) {
 #' given Qualification type for a Qualification requirement
 #'
 #' @description
-#' The `ListHITsForQualificationType` operation returns the HITs that use
-#' the given Qualification type for a Qualification requirement. The
-#' operation returns HITs of any status, except for HITs that have been
-#' deleted with the `DeleteHIT` operation or that have been auto-deleted.
+#' The
+#' [`list_hi_ts_for_qualification_type`][mturk_list_hi_ts_for_qualification_type]
+#' operation returns the HITs that use the given Qualification type for a
+#' Qualification requirement. The operation returns HITs of any status,
+#' except for HITs that have been deleted with the
+#' [`delete_hit`][mturk_delete_hit] operation or that have been
+#' auto-deleted.
 #'
 #' @usage
 #' mturk_list_hi_ts_for_qualification_type(QualificationTypeId, NextToken,
@@ -1478,6 +1963,60 @@ mturk_list_hi_ts <- function(NextToken = NULL, MaxResults = NULL) {
 #' @param QualificationTypeId &#91;required&#93; The ID of the Qualification type to use when querying HITs.
 #' @param NextToken Pagination Token
 #' @param MaxResults Limit the number of results returned.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   HITs = list(
+#'     list(
+#'       HITId = "string",
+#'       HITTypeId = "string",
+#'       HITGroupId = "string",
+#'       HITLayoutId = "string",
+#'       CreationTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Title = "string",
+#'       Description = "string",
+#'       Question = "string",
+#'       Keywords = "string",
+#'       HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'       MaxAssignments = 123,
+#'       Reward = "string",
+#'       AutoApprovalDelayInSeconds = 123,
+#'       Expiration = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       AssignmentDurationInSeconds = 123,
+#'       RequesterAnnotation = "string",
+#'       QualificationRequirements = list(
+#'         list(
+#'           QualificationTypeId = "string",
+#'           Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'           IntegerValues = list(
+#'             123
+#'           ),
+#'           LocaleValues = list(
+#'             list(
+#'               Country = "string",
+#'               Subdivision = "string"
+#'             )
+#'           ),
+#'           RequiredToPreview = TRUE|FALSE,
+#'           ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'         )
+#'       ),
+#'       HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'       NumberOfAssignmentsPending = 123,
+#'       NumberOfAssignmentsAvailable = 123,
+#'       NumberOfAssignmentsCompleted = 123
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1512,10 +2051,11 @@ mturk_list_hi_ts_for_qualification_type <- function(QualificationTypeId, NextTok
 #' Qualifications of a particular Qualification type
 #'
 #' @description
-#' The `ListQualificationRequests` operation retrieves requests for
-#' Qualifications of a particular Qualification type. The owner of the
-#' Qualification type calls this operation to poll for pending requests,
-#' and accepts them using the AcceptQualification operation.
+#' The [`list_qualification_requests`][mturk_list_qualification_requests]
+#' operation retrieves requests for Qualifications of a particular
+#' Qualification type. The owner of the Qualification type calls this
+#' operation to poll for pending requests, and accepts them using the
+#' AcceptQualification operation.
 #'
 #' @usage
 #' mturk_list_qualification_requests(QualificationTypeId, NextToken,
@@ -1524,6 +2064,27 @@ mturk_list_hi_ts_for_qualification_type <- function(QualificationTypeId, NextTok
 #' @param QualificationTypeId The ID of the QualificationType.
 #' @param NextToken 
 #' @param MaxResults The maximum number of results to return in a single call.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NumResults = 123,
+#'   NextToken = "string",
+#'   QualificationRequests = list(
+#'     list(
+#'       QualificationRequestId = "string",
+#'       QualificationTypeId = "string",
+#'       WorkerId = "string",
+#'       Test = "string",
+#'       Answer = "string",
+#'       SubmitTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1558,8 +2119,9 @@ mturk_list_qualification_requests <- function(QualificationTypeId = NULL, NextTo
 #' types, filtered by an optional search term
 #'
 #' @description
-#' The `ListQualificationTypes` operation returns a list of Qualification
-#' types, filtered by an optional search term.
+#' The [`list_qualification_types`][mturk_list_qualification_types]
+#' operation returns a list of Qualification types, filtered by an optional
+#' search term.
 #'
 #' @usage
 #' mturk_list_qualification_types(Query, MustBeRequestable,
@@ -1577,6 +2139,34 @@ mturk_list_qualification_requests <- function(QualificationTypeId = NULL, NextTo
 #' returned. If false, the operation returns all Qualification types.
 #' @param NextToken 
 #' @param MaxResults The maximum number of results to return in a single call.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NumResults = 123,
+#'   NextToken = "string",
+#'   QualificationTypes = list(
+#'     list(
+#'       QualificationTypeId = "string",
+#'       CreationTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Name = "string",
+#'       Description = "string",
+#'       Keywords = "string",
+#'       QualificationTypeStatus = "Active"|"Inactive",
+#'       Test = "string",
+#'       TestDurationInSeconds = 123,
+#'       AnswerKey = "string",
+#'       RetryDelayInSeconds = 123,
+#'       IsRequestable = TRUE|FALSE,
+#'       AutoGranted = TRUE|FALSE,
+#'       AutoGrantedValue = 123
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1614,12 +2204,14 @@ mturk_list_qualification_types <- function(Query = NULL, MustBeRequestable, Must
 #' Policies for a given HIT
 #'
 #' @description
-#' The `ListReviewPolicyResultsForHIT` operation retrieves the computed
-#' results and the actions taken in the course of executing your Review
-#' Policies for a given HIT. For information about how to specify Review
-#' Policies when you call CreateHIT, see Review Policies. The
-#' ListReviewPolicyResultsForHIT operation can return results for both
-#' Assignment-level and HIT-level review results.
+#' The
+#' [`list_review_policy_results_for_hit`][mturk_list_review_policy_results_for_hit]
+#' operation retrieves the computed results and the actions taken in the
+#' course of executing your Review Policies for a given HIT. For
+#' information about how to specify Review Policies when you call
+#' CreateHIT, see Review Policies. The ListReviewPolicyResultsForHIT
+#' operation can return results for both Assignment-level and HIT-level
+#' review results.
 #'
 #' @usage
 #' mturk_list_review_policy_results_for_hit(HITId, PolicyLevels,
@@ -1635,6 +2227,105 @@ mturk_list_qualification_types <- function(Query = NULL, MustBeRequestable, Must
 #' by the Review Policies.
 #' @param NextToken Pagination token
 #' @param MaxResults Limit the number of results returned.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   HITId = "string",
+#'   AssignmentReviewPolicy = list(
+#'     PolicyName = "string",
+#'     Parameters = list(
+#'       list(
+#'         Key = "string",
+#'         Values = list(
+#'           "string"
+#'         ),
+#'         MapEntries = list(
+#'           list(
+#'             Key = "string",
+#'             Values = list(
+#'               "string"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   HITReviewPolicy = list(
+#'     PolicyName = "string",
+#'     Parameters = list(
+#'       list(
+#'         Key = "string",
+#'         Values = list(
+#'           "string"
+#'         ),
+#'         MapEntries = list(
+#'           list(
+#'             Key = "string",
+#'             Values = list(
+#'               "string"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   AssignmentReviewReport = list(
+#'     ReviewResults = list(
+#'       list(
+#'         ActionId = "string",
+#'         SubjectId = "string",
+#'         SubjectType = "string",
+#'         QuestionId = "string",
+#'         Key = "string",
+#'         Value = "string"
+#'       )
+#'     ),
+#'     ReviewActions = list(
+#'       list(
+#'         ActionId = "string",
+#'         ActionName = "string",
+#'         TargetId = "string",
+#'         TargetType = "string",
+#'         Status = "Intended"|"Succeeded"|"Failed"|"Cancelled",
+#'         CompleteTime = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         Result = "string",
+#'         ErrorCode = "string"
+#'       )
+#'     )
+#'   ),
+#'   HITReviewReport = list(
+#'     ReviewResults = list(
+#'       list(
+#'         ActionId = "string",
+#'         SubjectId = "string",
+#'         SubjectType = "string",
+#'         QuestionId = "string",
+#'         Key = "string",
+#'         Value = "string"
+#'       )
+#'     ),
+#'     ReviewActions = list(
+#'       list(
+#'         ActionId = "string",
+#'         ActionName = "string",
+#'         TargetId = "string",
+#'         TargetType = "string",
+#'         Status = "Intended"|"Succeeded"|"Failed"|"Cancelled",
+#'         CompleteTime = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         Result = "string",
+#'         ErrorCode = "string"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1675,9 +2366,9 @@ mturk_list_review_policy_results_for_hit <- function(HITId, PolicyLevels = NULL,
 #' calling the operation
 #'
 #' @description
-#' The `ListReviewableHITs` operation retrieves the HITs with Status equal
-#' to Reviewable or Status equal to Reviewing that belong to the Requester
-#' calling the operation.
+#' The [`list_reviewable_hi_ts`][mturk_list_reviewable_hi_ts] operation
+#' retrieves the HITs with Status equal to Reviewable or Status equal to
+#' Reviewing that belong to the Requester calling the operation.
 #'
 #' @usage
 #' mturk_list_reviewable_hi_ts(HITTypeId, Status, NextToken, MaxResults)
@@ -1688,6 +2379,60 @@ mturk_list_review_policy_results_for_hit <- function(HITId, PolicyLevels = NULL,
 #' value.
 #' @param NextToken Pagination Token
 #' @param MaxResults Limit the number of results returned.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   HITs = list(
+#'     list(
+#'       HITId = "string",
+#'       HITTypeId = "string",
+#'       HITGroupId = "string",
+#'       HITLayoutId = "string",
+#'       CreationTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Title = "string",
+#'       Description = "string",
+#'       Question = "string",
+#'       Keywords = "string",
+#'       HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+#'       MaxAssignments = 123,
+#'       Reward = "string",
+#'       AutoApprovalDelayInSeconds = 123,
+#'       Expiration = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       AssignmentDurationInSeconds = 123,
+#'       RequesterAnnotation = "string",
+#'       QualificationRequirements = list(
+#'         list(
+#'           QualificationTypeId = "string",
+#'           Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+#'           IntegerValues = list(
+#'             123
+#'           ),
+#'           LocaleValues = list(
+#'             list(
+#'               Country = "string",
+#'               Subdivision = "string"
+#'             )
+#'           ),
+#'           RequiredToPreview = TRUE|FALSE,
+#'           ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+#'         )
+#'       ),
+#'       HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+#'       NumberOfAssignmentsPending = 123,
+#'       NumberOfAssignmentsAvailable = 123,
+#'       NumberOfAssignmentsCompleted = 123
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1732,6 +2477,21 @@ mturk_list_reviewable_hi_ts <- function(HITTypeId = NULL, Status = NULL, NextTok
 #' @param NextToken Pagination token
 #' @param MaxResults 
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   WorkerBlocks = list(
+#'     list(
+#'       WorkerId = "string",
+#'       Reason = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_worker_blocks(
@@ -1764,8 +2524,10 @@ mturk_list_worker_blocks <- function(NextToken = NULL, MaxResults = NULL) {
 #' Workers that have been associated with a given Qualification type
 #'
 #' @description
-#' The `ListWorkersWithQualificationType` operation returns all of the
-#' Workers that have been associated with a given Qualification type.
+#' The
+#' [`list_workers_with_qualification_type`][mturk_list_workers_with_qualification_type]
+#' operation returns all of the Workers that have been associated with a
+#' given Qualification type.
 #'
 #' @usage
 #' mturk_list_workers_with_qualification_type(QualificationTypeId, Status,
@@ -1775,6 +2537,30 @@ mturk_list_worker_blocks <- function(NextToken = NULL, MaxResults = NULL) {
 #' @param Status The status of the Qualifications to return. Can be `Granted | Revoked`.
 #' @param NextToken Pagination Token
 #' @param MaxResults Limit the number of results returned.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextToken = "string",
+#'   NumResults = 123,
+#'   Qualifications = list(
+#'     list(
+#'       QualificationTypeId = "string",
+#'       WorkerId = "string",
+#'       GrantTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       IntegerValue = 123,
+#'       LocaleValue = list(
+#'         Country = "string",
+#'         Subdivision = "string"
+#'       ),
+#'       Status = "Granted"|"Revoked"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1810,11 +2596,12 @@ mturk_list_workers_with_qualification_type <- function(QualificationTypeId, Stat
 #' you specify with the Worker ID
 #'
 #' @description
-#' The `NotifyWorkers` operation sends an email to one or more Workers that
-#' you specify with the Worker ID. You can specify up to 100 Worker IDs to
-#' send the same message with a single call to the NotifyWorkers operation.
-#' The NotifyWorkers operation will send a notification email to a Worker
-#' only if you have previously approved or rejected work from the Worker.
+#' The [`notify_workers`][mturk_notify_workers] operation sends an email to
+#' one or more Workers that you specify with the Worker ID. You can specify
+#' up to 100 Worker IDs to send the same message with a single call to the
+#' NotifyWorkers operation. The NotifyWorkers operation will send a
+#' notification email to a Worker only if you have previously approved or
+#' rejected work from the Worker.
 #'
 #' @usage
 #' mturk_notify_workers(Subject, MessageText, WorkerIds)
@@ -1825,6 +2612,20 @@ mturk_list_workers_with_qualification_type <- function(QualificationTypeId, Stat
 #' characters
 #' @param WorkerIds &#91;required&#93; A list of Worker IDs you wish to notify. You can notify upto 100 Workers
 #' at a time.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NotifyWorkersFailureStatuses = list(
+#'     list(
+#'       NotifyWorkersFailureCode = "SoftFailure"|"HardFailure",
+#'       NotifyWorkersFailureMessage = "string",
+#'       WorkerId = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1861,8 +2662,8 @@ mturk_notify_workers <- function(Subject, MessageText, WorkerIds) {
 #' assignment
 #'
 #' @description
-#' The `RejectAssignment` operation rejects the results of a completed
-#' assignment.
+#' The [`reject_assignment`][mturk_reject_assignment] operation rejects the
+#' results of a completed assignment.
 #' 
 #' You can include an optional feedback message with the rejection, which
 #' the Worker can see in the Status section of the web site. When you
@@ -1880,6 +2681,9 @@ mturk_notify_workers <- function(Subject, MessageText, WorkerIds) {
 #' created by the Requester.
 #' @param RequesterFeedback &#91;required&#93; A message for the Worker, which the Worker can see in the Status section
 #' of the web site.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1913,8 +2717,8 @@ mturk_reject_assignment <- function(AssignmentId, RequesterFeedback) {
 #' Qualification
 #'
 #' @description
-#' The `RejectQualificationRequest` operation rejects a user's request for
-#' a Qualification.
+#' The [`reject_qualification_request`][mturk_reject_qualification_request]
+#' operation rejects a user's request for a Qualification.
 #' 
 #' You can provide a text message explaining why the request was rejected.
 #' The Worker who made the request can see this message.
@@ -1923,9 +2727,13 @@ mturk_reject_assignment <- function(AssignmentId, RequesterFeedback) {
 #' mturk_reject_qualification_request(QualificationRequestId, Reason)
 #'
 #' @param QualificationRequestId &#91;required&#93; The ID of the Qualification request, as returned by the
-#' `ListQualificationRequests` operation.
+#' [`list_qualification_requests`][mturk_list_qualification_requests]
+#' operation.
 #' @param Reason A text message explaining why the request was rejected, to be shown to
 #' the Worker who made the request.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1959,15 +2767,16 @@ mturk_reject_qualification_request <- function(QualificationRequestId, Reason = 
 #' Worker
 #'
 #' @description
-#' The `SendBonus` operation issues a payment of money from your account to
-#' a Worker. This payment happens separately from the reward you pay to the
-#' Worker when you approve the Worker's assignment. The SendBonus operation
-#' requires the Worker's ID and the assignment ID as parameters to initiate
-#' payment of the bonus. You must include a message that explains the
-#' reason for the bonus payment, as the Worker may not be expecting the
-#' payment. Amazon Mechanical Turk collects a fee for bonus payments,
-#' similar to the HIT listing fee. This operation fails if your account
-#' does not have enough funds to pay for both the bonus and the fees.
+#' The [`send_bonus`][mturk_send_bonus] operation issues a payment of money
+#' from your account to a Worker. This payment happens separately from the
+#' reward you pay to the Worker when you approve the Worker's assignment.
+#' The SendBonus operation requires the Worker's ID and the assignment ID
+#' as parameters to initiate payment of the bonus. You must include a
+#' message that explains the reason for the bonus payment, as the Worker
+#' may not be expecting the payment. Amazon Mechanical Turk collects a fee
+#' for bonus payments, similar to the HIT listing fee. This operation fails
+#' if your account does not have enough funds to pay for both the bonus and
+#' the fees.
 #'
 #' @usage
 #' mturk_send_bonus(WorkerId, BonusAmount, AssignmentId, Reason,
@@ -1986,6 +2795,9 @@ mturk_reject_qualification_request <- function(QualificationRequestId, Reason = 
 #' succeeded on the server. If the bonus already exists in the system from
 #' a previous call using the same UniqueRequestToken, subsequent calls will
 #' return an error with a message containing the request ID.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2023,12 +2835,13 @@ mturk_send_bonus <- function(WorkerId, BonusAmount, AssignmentId, Reason, Unique
 #' provided notification specification
 #'
 #' @description
-#' The `SendTestEventNotification` operation causes Amazon Mechanical Turk
-#' to send a notification message as if a HIT event occurred, according to
-#' the provided notification specification. This allows you to test
-#' notifications without setting up notifications for a real HIT type and
-#' trying to trigger them using the website. When you call this operation,
-#' the service attempts to send the test notification immediately.
+#' The [`send_test_event_notification`][mturk_send_test_event_notification]
+#' operation causes Amazon Mechanical Turk to send a notification message
+#' as if a HIT event occurred, according to the provided notification
+#' specification. This allows you to test notifications without setting up
+#' notifications for a real HIT type and trying to trigger them using the
+#' website. When you call this operation, the service attempts to send the
+#' test notification immediately.
 #'
 #' @usage
 #' mturk_send_test_event_notification(Notification, TestEventType)
@@ -2040,6 +2853,9 @@ mturk_send_bonus <- function(WorkerId, BonusAmount, AssignmentId, Reason, Unique
 #' is included in the test message even if the notification specification
 #' does not include the event type. The notification specification does not
 #' filter out the test event.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2080,15 +2896,18 @@ mturk_send_test_event_notification <- function(Notification, TestEventType) {
 #' time of a HIT
 #'
 #' @description
-#' The `UpdateExpirationForHIT` operation allows you update the expiration
-#' time of a HIT. If you update it to a time in the past, the HIT will be
-#' immediately expired.
+#' The [`update_expiration_for_hit`][mturk_update_expiration_for_hit]
+#' operation allows you update the expiration time of a HIT. If you update
+#' it to a time in the past, the HIT will be immediately expired.
 #'
 #' @usage
 #' mturk_update_expiration_for_hit(HITId, ExpireAt)
 #'
 #' @param HITId &#91;required&#93; The HIT to update.
 #' @param ExpireAt &#91;required&#93; The date and time at which you want the HIT to expire
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2123,10 +2942,10 @@ mturk_update_expiration_for_hit <- function(HITId, ExpireAt) {
 #' The UpdateHITReviewStatus operation updates the status of a HIT
 #'
 #' @description
-#' The `UpdateHITReviewStatus` operation updates the status of a HIT. If
-#' the status is Reviewable, this operation can update the status to
-#' Reviewing, or it can revert a Reviewing HIT back to the Reviewable
-#' status.
+#' The [`update_hit_review_status`][mturk_update_hit_review_status]
+#' operation updates the status of a HIT. If the status is Reviewable, this
+#' operation can update the status to Reviewing, or it can revert a
+#' Reviewing HIT back to the Reviewable status.
 #'
 #' @usage
 #' mturk_update_hit_review_status(HITId, Revert)
@@ -2139,6 +2958,9 @@ mturk_update_expiration_for_hit <- function(HITId, ExpireAt) {
 #' 
 #' -   Setting this to true will only transition a HIT from `Reviewing` to
 #'     `Reviewable`
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2172,17 +2994,20 @@ mturk_update_hit_review_status <- function(HITId, Revert = NULL) {
 #' properties of a HIT
 #'
 #' @description
-#' The `UpdateHITTypeOfHIT` operation allows you to change the HITType
-#' properties of a HIT. This operation disassociates the HIT from its old
-#' HITType properties and associates it with the new HITType properties.
-#' The HIT takes on the properties of the new HITType in place of the old
-#' ones.
+#' The [`update_hit_type_of_hit`][mturk_update_hit_type_of_hit] operation
+#' allows you to change the HITType properties of a HIT. This operation
+#' disassociates the HIT from its old HITType properties and associates it
+#' with the new HITType properties. The HIT takes on the properties of the
+#' new HITType in place of the old ones.
 #'
 #' @usage
 #' mturk_update_hit_type_of_hit(HITId, HITTypeId)
 #'
 #' @param HITId &#91;required&#93; The HIT to update.
 #' @param HITTypeId &#91;required&#93; The ID of the new HIT type.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2216,17 +3041,18 @@ mturk_update_hit_type_of_hit <- function(HITId, HITTypeId) {
 #' re-enables notifications for a HIT type
 #'
 #' @description
-#' The `UpdateNotificationSettings` operation creates, updates, disables or
-#' re-enables notifications for a HIT type. If you call the
-#' UpdateNotificationSettings operation for a HIT type that already has a
-#' notification specification, the operation replaces the old specification
-#' with a new one. You can call the UpdateNotificationSettings operation to
-#' enable or disable notifications for the HIT type, without having to
-#' modify the notification specification itself by providing updates to the
-#' Active status without specifying a new notification specification. To
-#' change the Active status of a HIT type's notifications, the HIT type
-#' must already have a notification specification, or one must be provided
-#' in the same call to `UpdateNotificationSettings`.
+#' The [`update_notification_settings`][mturk_update_notification_settings]
+#' operation creates, updates, disables or re-enables notifications for a
+#' HIT type. If you call the UpdateNotificationSettings operation for a HIT
+#' type that already has a notification specification, the operation
+#' replaces the old specification with a new one. You can call the
+#' UpdateNotificationSettings operation to enable or disable notifications
+#' for the HIT type, without having to modify the notification
+#' specification itself by providing updates to the Active status without
+#' specifying a new notification specification. To change the Active status
+#' of a HIT type's notifications, the HIT type must already have a
+#' notification specification, or one must be provided in the same call to
+#' [`update_notification_settings`][mturk_update_notification_settings].
 #'
 #' @usage
 #' mturk_update_notification_settings(HITTypeId, Notification, Active)
@@ -2238,6 +3064,9 @@ mturk_update_hit_type_of_hit <- function(HITId, HITTypeId) {
 #' according to the notification specification. You must specify either the
 #' Notification parameter or the Active parameter for the call to
 #' UpdateNotificationSettings to succeed.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2280,10 +3109,10 @@ mturk_update_notification_settings <- function(HITTypeId, Notification = NULL, A
 #' data structure
 #'
 #' @description
-#' The `UpdateQualificationType` operation modifies the attributes of an
-#' existing Qualification type, which is represented by a QualificationType
-#' data structure. Only the owner of a Qualification type can modify its
-#' attributes.
+#' The [`update_qualification_type`][mturk_update_qualification_type]
+#' operation modifies the attributes of an existing Qualification type,
+#' which is represented by a QualificationType data structure. Only the
+#' owner of a Qualification type can modify its attributes.
 #' 
 #' Most attributes of a Qualification type can be changed after the type
 #' has been created. However, the Name and Keywords fields cannot be
@@ -2353,6 +3182,30 @@ mturk_update_notification_settings <- function(HITTypeId, Notification = NULL, A
 #' be true.
 #' @param AutoGrantedValue The Qualification value to use for automatically granted Qualifications.
 #' This parameter is used only if the AutoGranted parameter is true.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   QualificationType = list(
+#'     QualificationTypeId = "string",
+#'     CreationTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Name = "string",
+#'     Description = "string",
+#'     Keywords = "string",
+#'     QualificationTypeStatus = "Active"|"Inactive",
+#'     Test = "string",
+#'     TestDurationInSeconds = 123,
+#'     AnswerKey = "string",
+#'     RetryDelayInSeconds = 123,
+#'     IsRequestable = TRUE|FALSE,
+#'     AutoGranted = TRUE|FALSE,
+#'     AutoGrantedValue = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```

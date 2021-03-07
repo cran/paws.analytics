@@ -8,9 +8,18 @@ emr_add_job_flow_steps(JobFlowId, Steps)
 }
 \arguments{
 \item{JobFlowId}{[required] A string that uniquely identifies the job flow. This identifier is
-returned by RunJobFlow and can also be obtained from ListClusters.}
+returned by \code{\link[=emr_run_job_flow]{run_job_flow}} and can also be obtained
+from \code{\link[=emr_list_clusters]{list_clusters}}.}
 
 \item{Steps}{[required] A list of StepConfig to be executed by the job flow.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  StepIds = list(
+    "string"
+  )
+)
+}
 }
 \description{
 AddJobFlowSteps adds new steps to a running cluster. A maximum of 256

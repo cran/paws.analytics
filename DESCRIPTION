@@ -1,6 +1,6 @@
 Package: paws.analytics
 Title: Amazon Web Services Analytics Services
-Version: 0.1.10
+Version: 0.1.11
 Authors@R: 
     c(person(given = "David",
              family = "Kretch",
@@ -46,10 +46,10 @@ Collate: 'athena_service.R' 'athena_interfaces.R' 'athena_operations.R'
         'quicksight_service.R' 'quicksight_interfaces.R'
         'quicksight_operations.R'
 NeedsCompilation: no
-Packaged: 2021-01-16 20:40:44 UTC; david.kretch
+Packaged: 2021-03-07 21:05:15 UTC; david.kretch
 Author: David Kretch [aut, cre],
   Adam Banker [aut],
   Amazon.com, Inc. [cph]
 Maintainer: David Kretch <david.kretch@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-01-16 21:00:02 UTC
+Date/Publication: 2021-03-07 22:50:05 UTC

@@ -16,11 +16,24 @@ ID for the AWS account that contains your Amazon QuickSight account.}
 
 \item{Namespace}{[required] The namespace. Currently, you should set this to \code{default}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Group = list(
+    Arn = "string",
+    GroupName = "string",
+    Description = "string",
+    PrincipalId = "string"
+  ),
+  RequestId = "string",
+  Status = 123
+)
+}
+}
 \description{
 Creates an Amazon QuickSight group.
 
 The permissions resource is
-\verb{arn:aws:quicksight:us-east-1:<i>&lt;relevant-aws-account-id&gt;</i>:group/default/<i>&lt;group-name&gt;</i> }.
+\verb{arn:aws:quicksight:us-east-1:<relevant-aws-account-id>:group/default/<group-name> }.
 
 The response is a group object.
 }

@@ -12,11 +12,27 @@ kinesisanalyticsv2_delete_application_cloud_watch_logging_option(
 \item{ApplicationName}{[required] The application name.}
 
 \item{CurrentApplicationVersionId}{[required] The version ID of the application. You can retrieve the application
-version ID using DescribeApplication.}
+version ID using
+\code{\link[=kinesisanalyticsv2_describe_application]{describe_application}}.}
 
 \item{CloudWatchLoggingOptionId}{[required] The \code{CloudWatchLoggingOptionId} of the Amazon CloudWatch logging option
 to delete. You can get the \code{CloudWatchLoggingOptionId} by using the
-DescribeApplication operation.}
+\code{\link[=kinesisanalyticsv2_describe_application]{describe_application}}
+operation.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  ApplicationARN = "string",
+  ApplicationVersionId = 123,
+  CloudWatchLoggingOptionDescriptions = list(
+    list(
+      CloudWatchLoggingOptionId = "string",
+      LogStreamARN = "string",
+      RoleARN = "string"
+    )
+  )
+)
+}
 }
 \description{
 Deletes an Amazon CloudWatch log stream from an Kinesis Data Analytics

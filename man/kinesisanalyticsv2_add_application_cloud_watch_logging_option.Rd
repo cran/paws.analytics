@@ -12,9 +12,24 @@ kinesisanalyticsv2_add_application_cloud_watch_logging_option(
 \item{ApplicationName}{[required] The Kinesis Data Analytics application name.}
 
 \item{CurrentApplicationVersionId}{[required] The version ID of the Kinesis Data Analytics application. You can
-retrieve the application version ID using DescribeApplication.}
+retrieve the application version ID using
+\code{\link[=kinesisanalyticsv2_describe_application]{describe_application}}.}
 
 \item{CloudWatchLoggingOption}{[required] Provides the Amazon CloudWatch log stream Amazon Resource Name (ARN).}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  ApplicationARN = "string",
+  ApplicationVersionId = 123,
+  CloudWatchLoggingOptionDescriptions = list(
+    list(
+      CloudWatchLoggingOptionId = "string",
+      LogStreamARN = "string",
+      RoleARN = "string"
+    )
+  )
+)
+}
 }
 \description{
 Adds an Amazon CloudWatch log stream to monitor application

@@ -13,6 +13,9 @@ provided, the AWS account ID is used by default.}
 \item{Name}{[required] The name of the database to delete. For Hive compatibility, this must be
 all lowercase.}
 }
+\value{
+An empty list.
+}
 \description{
 Removes a specified database from a Data Catalog.
 
@@ -23,10 +26,15 @@ these "orphaned" resources asynchronously in a timely manner, at the
 discretion of the service.
 
 To ensure the immediate deletion of all related resources, before
-calling \code{DeleteDatabase}, use \code{DeleteTableVersion} or
-\code{BatchDeleteTableVersion}, \code{DeletePartition} or \code{BatchDeletePartition},
-\code{DeleteUserDefinedFunction}, and \code{DeleteTable} or \code{BatchDeleteTable}, to
-delete any resources that belong to the database.
+calling \code{\link[=glue_delete_database]{delete_database}}, use
+\code{\link[=glue_delete_table_version]{delete_table_version}} or
+\code{\link[=glue_batch_delete_table_version]{batch_delete_table_version}},
+\code{\link[=glue_delete_partition]{delete_partition}} or
+\code{\link[=glue_batch_delete_partition]{batch_delete_partition}},
+\code{\link[=glue_delete_user_defined_function]{delete_user_defined_function}}, and
+\code{\link[=glue_delete_table]{delete_table}} or
+\code{\link[=glue_batch_delete_table]{batch_delete_table}}, to delete any resources
+that belong to the database.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_database(

@@ -8,7 +8,31 @@ elasticsearchservice_delete_package(PackageID)
 }
 \arguments{
 \item{PackageID}{[required] Internal ID of the package that you want to delete. Use
-\code{DescribePackages} to find this value.}
+\code{\link[=elasticsearchservice_describe_packages]{describe_packages}} to find
+this value.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  PackageDetails = list(
+    PackageID = "string",
+    PackageName = "string",
+    PackageType = "TXT-DICTIONARY",
+    PackageDescription = "string",
+    PackageStatus = "COPYING"|"COPY_FAILED"|"VALIDATING"|"VALIDATION_FAILED"|"AVAILABLE"|"DELETING"|"DELETED"|"DELETE_FAILED",
+    CreatedAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    LastUpdatedAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    AvailablePackageVersion = "string",
+    ErrorDetails = list(
+      ErrorType = "string",
+      ErrorMessage = "string"
+    )
+  )
+)
+}
 }
 \description{
 Delete the package.

@@ -30,9 +30,10 @@ In \code{SourceEntity}, you specify the type of object you're using as
 source. You can only create a dashboard from a template, so you use a
 \code{SourceTemplate} entity. If you need to create a dashboard from an
 analysis, first convert the analysis to a template by using the
-CreateTemplate API operation. For \code{SourceTemplate}, specify the Amazon
-Resource Name (ARN) of the source template. The \code{SourceTemplate}ARN can
-contain any AWS Account and any QuickSight-supported AWS Region.
+\code{\link[=quicksight_create_template]{create_template}} API operation. For
+\code{SourceTemplate}, specify the Amazon Resource Name (ARN) of the source
+template. The \code{SourceTemplate}ARN can contain any AWS Account and any
+QuickSight-supported AWS Region.
 
 Use the \code{DataSetReferences} entity within \code{SourceTemplate} to list the
 replacement datasets for the placeholders listed in the original. The
@@ -64,9 +65,20 @@ dashboard. If you add a value for this field, it overrides the value
 that is used in the source entity. The theme ARN must exist in the same
 AWS account where you create the dashboard.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Arn = "string",
+  VersionArn = "string",
+  DashboardId = "string",
+  CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+  Status = 123,
+  RequestId = "string"
+)
+}
+}
 \description{
 Creates a dashboard from a template. To first create a template, see the
-\verb{<a>CreateTemplate</a>} API operation.
+\code{\link[=quicksight_create_template]{create_template}} API operation.
 
 A dashboard is an entity in QuickSight that identifies QuickSight
 reports, created from analyses. You can share QuickSight dashboards.

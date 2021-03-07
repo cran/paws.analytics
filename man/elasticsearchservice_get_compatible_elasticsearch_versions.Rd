@@ -9,9 +9,22 @@ elasticsearchservice_get_compatible_elasticsearch_versions(DomainName)
 \arguments{
 \item{DomainName}{}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  CompatibleElasticsearchVersions = list(
+    list(
+      SourceVersion = "string",
+      TargetVersions = list(
+        "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Returns a list of upgrade compatible Elastisearch versions. You can
-optionally pass a \verb{<a>DomainName</a>} to get all upgrade compatible
+optionally pass a \code{DomainName} to get all upgrade compatible
 Elasticsearch versions for that specific domain.
 }
 \section{Request syntax}{

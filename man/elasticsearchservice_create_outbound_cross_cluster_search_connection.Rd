@@ -9,14 +9,34 @@ elasticsearchservice_create_outbound_cross_cluster_search_connection(
   SourceDomainInfo, DestinationDomainInfo, ConnectionAlias)
 }
 \arguments{
-\item{SourceDomainInfo}{[required] Specifies the \verb{<a>DomainInformation</a>} for the source Elasticsearch
-domain.}
+\item{SourceDomainInfo}{[required] Specifies the \code{DomainInformation} for the source Elasticsearch domain.}
 
-\item{DestinationDomainInfo}{[required] Specifies the \verb{<a>DomainInformation</a>} for the destination
-Elasticsearch domain.}
+\item{DestinationDomainInfo}{[required] Specifies the \code{DomainInformation} for the destination Elasticsearch
+domain.}
 
 \item{ConnectionAlias}{[required] Specifies the connection alias that will be used by the customer for
 this connection.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  SourceDomainInfo = list(
+    OwnerId = "string",
+    DomainName = "string",
+    Region = "string"
+  ),
+  DestinationDomainInfo = list(
+    OwnerId = "string",
+    DomainName = "string",
+    Region = "string"
+  ),
+  ConnectionAlias = "string",
+  ConnectionStatus = list(
+    StatusCode = "PENDING_ACCEPTANCE"|"VALIDATING"|"VALIDATION_FAILED"|"PROVISIONING"|"ACTIVE"|"REJECTED"|"DELETING"|"DELETED",
+    Message = "string"
+  ),
+  CrossClusterSearchConnectionId = "string"
+)
+}
 }
 \description{
 Creates a new cross-cluster search connection from a source domain to a

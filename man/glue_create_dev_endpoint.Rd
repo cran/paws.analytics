@@ -30,9 +30,9 @@ key per client.
 
 If you previously created an endpoint with a public key, you must remove
 that key to be able to set a list of public keys. Call the
-\code{UpdateDevEndpoint} API with the public key content in the
-\code{deletePublicKeys} attribute, and the list of new keys in the
-\code{addPublicKeys} attribute.}
+\code{\link[=glue_update_dev_endpoint]{update_dev_endpoint}} API with the public
+key content in the \code{deletePublicKeys} attribute, and the list of new
+keys in the \code{addPublicKeys} attribute.}
 
 \item{NumberOfNodes}{The number of AWS Glue Data Processing Units (DPUs) to allocate to this
 \code{DevEndpoint}.}
@@ -66,9 +66,10 @@ Development endpoints that are created without specifying a Glue version
 default to Glue 0.9.
 
 You can specify a version of Python support for development endpoints by
-using the \code{Arguments} parameter in the \code{CreateDevEndpoint} or
-\code{UpdateDevEndpoint} APIs. If no arguments are provided, the version
-defaults to Python 2.}
+using the \code{Arguments} parameter in the
+\code{\link[=glue_create_dev_endpoint]{create_dev_endpoint}} or
+\code{\link[=glue_update_dev_endpoint]{update_dev_endpoint}} APIs. If no arguments
+are provided, the version defaults to Python 2.}
 
 \item{NumberOfWorkers}{The number of workers of a defined \code{workerType} that are allocated to
 the development endpoint.
@@ -97,6 +98,36 @@ to the DevEndpoint. For more information about tags in AWS Glue, see
 the developer guide.}
 
 \item{Arguments}{A map of arguments used to configure the \code{DevEndpoint}.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  EndpointName = "string",
+  Status = "string",
+  SecurityGroupIds = list(
+    "string"
+  ),
+  SubnetId = "string",
+  RoleArn = "string",
+  YarnEndpointAddress = "string",
+  ZeppelinRemoteSparkInterpreterPort = 123,
+  NumberOfNodes = 123,
+  WorkerType = "Standard"|"G.1X"|"G.2X",
+  GlueVersion = "string",
+  NumberOfWorkers = 123,
+  AvailabilityZone = "string",
+  VpcId = "string",
+  ExtraPythonLibsS3Path = "string",
+  ExtraJarsS3Path = "string",
+  FailureReason = "string",
+  SecurityConfiguration = "string",
+  CreatedTimestamp = as.POSIXct(
+    "2015-01-01"
+  ),
+  Arguments = list(
+    "string"
+  )
+)
+}
 }
 \description{
 Creates a new development endpoint.

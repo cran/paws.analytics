@@ -29,11 +29,23 @@ listed in the original. The schema in each dataset must match its
 placeholder.}
 
 \item{VersionDescription}{A description of the current template version that is being updated.
-Every time you call \code{UpdateTemplate}, you create a new version of the
-template. Each version of the template maintains a description of the
-version in the \code{VersionDescription} field.}
+Every time you call \code{\link[=quicksight_update_template]{update_template}}, you
+create a new version of the template. Each version of the template
+maintains a description of the version in the \code{VersionDescription}
+field.}
 
 \item{Name}{The name for the template.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  TemplateId = "string",
+  Arn = "string",
+  VersionArn = "string",
+  CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+  Status = 123,
+  RequestId = "string"
+)
+}
 }
 \description{
 Updates a template from an existing Amazon QuickSight analysis or

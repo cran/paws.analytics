@@ -18,9 +18,12 @@ of the web site.}
 \item{OverrideRejection}{A flag indicating that an assignment should be approved even if it was
 previously rejected. Defaults to \code{False}.}
 }
+\value{
+An empty list.
+}
 \description{
-The \code{ApproveAssignment} operation approves the results of a completed
-assignment.
+The \code{\link[=mturk_approve_assignment]{approve_assignment}} operation approves
+the results of a completed assignment.
 
 Approving an assignment initiates two payments from the Requester's
 Amazon.com account

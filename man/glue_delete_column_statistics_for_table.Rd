@@ -17,11 +17,14 @@ none is supplied, the AWS account ID is used by default.}
 
 \item{ColumnName}{[required] The name of the column.}
 }
+\value{
+An empty list.
+}
 \description{
 Retrieves table statistics of columns.
 
 The Identity and Access Management (IAM) permission required for this
-operation is \code{DeleteTable}.
+operation is \code{\link[=glue_delete_table]{delete_table}}.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_column_statistics_for_table(

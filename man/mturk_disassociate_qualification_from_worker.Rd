@@ -16,9 +16,13 @@ mturk_disassociate_qualification_from_worker(WorkerId,
 \item{Reason}{A text message that explains why the Qualification was revoked. The user
 who had the Qualification sees this message.}
 }
+\value{
+An empty list.
+}
 \description{
-The \code{DisassociateQualificationFromWorker} revokes a previously granted
-Qualification from a user.
+The
+\code{\link[=mturk_disassociate_qualification_from_worker]{disassociate_qualification_from_worker}}
+revokes a previously granted Qualification from a user.
 
 You can provide a text message explaining why the Qualification was
 revoked. The user who had the Qualification can see this message.

@@ -10,8 +10,7 @@ elasticsearchservice_describe_outbound_cross_cluster_search_connections(
 }
 \arguments{
 \item{Filters}{A list of filters used to match properties for outbound cross-cluster
-search connection. Available \verb{<a>Filter</a>} names for this operation
-are:
+search connection. Available \code{Filter} names for this operation are:
 \itemize{
 \item cross-cluster-search-connection-id
 \item destination-domain-info.domain-name
@@ -25,6 +24,32 @@ specified, defaults to 100.}
 
 \item{NextToken}{NextToken is sent in case the earlier API call results contain the
 NextToken. It is used for pagination.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  CrossClusterSearchConnections = list(
+    list(
+      SourceDomainInfo = list(
+        OwnerId = "string",
+        DomainName = "string",
+        Region = "string"
+      ),
+      DestinationDomainInfo = list(
+        OwnerId = "string",
+        DomainName = "string",
+        Region = "string"
+      ),
+      CrossClusterSearchConnectionId = "string",
+      ConnectionAlias = "string",
+      ConnectionStatus = list(
+        StatusCode = "PENDING_ACCEPTANCE"|"VALIDATING"|"VALIDATION_FAILED"|"PROVISIONING"|"ACTIVE"|"REJECTED"|"DELETING"|"DELETED",
+        Message = "string"
+      )
+    )
+  ),
+  NextToken = "string"
+)
+}
 }
 \description{
 Lists all the outbound cross-cluster search connections for a source

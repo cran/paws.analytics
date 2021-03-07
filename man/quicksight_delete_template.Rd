@@ -13,8 +13,18 @@ deleting.}
 \item{TemplateId}{[required] An ID for the template you want to delete.}
 
 \item{VersionNumber}{Specifies the version of the template that you want to delete. If you
-don't provide a version number, \code{DeleteTemplate} deletes all versions of
+don't provide a version number,
+\code{\link[=quicksight_delete_template]{delete_template}} deletes all versions of
 the template.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  RequestId = "string",
+  Arn = "string",
+  TemplateId = "string",
+  Status = 123
+)
+}
 }
 \description{
 Deletes a template.

@@ -15,11 +15,66 @@ mturk_list_hi_ts_for_qualification_type(QualificationTypeId, NextToken,
 
 \item{MaxResults}{Limit the number of results returned.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  NextToken = "string",
+  NumResults = 123,
+  HITs = list(
+    list(
+      HITId = "string",
+      HITTypeId = "string",
+      HITGroupId = "string",
+      HITLayoutId = "string",
+      CreationTime = as.POSIXct(
+        "2015-01-01"
+      ),
+      Title = "string",
+      Description = "string",
+      Question = "string",
+      Keywords = "string",
+      HITStatus = "Assignable"|"Unassignable"|"Reviewable"|"Reviewing"|"Disposed",
+      MaxAssignments = 123,
+      Reward = "string",
+      AutoApprovalDelayInSeconds = 123,
+      Expiration = as.POSIXct(
+        "2015-01-01"
+      ),
+      AssignmentDurationInSeconds = 123,
+      RequesterAnnotation = "string",
+      QualificationRequirements = list(
+        list(
+          QualificationTypeId = "string",
+          Comparator = "LessThan"|"LessThanOrEqualTo"|"GreaterThan"|"GreaterThanOrEqualTo"|"EqualTo"|"NotEqualTo"|"Exists"|"DoesNotExist"|"In"|"NotIn",
+          IntegerValues = list(
+            123
+          ),
+          LocaleValues = list(
+            list(
+              Country = "string",
+              Subdivision = "string"
+            )
+          ),
+          RequiredToPreview = TRUE|FALSE,
+          ActionsGuarded = "Accept"|"PreviewAndAccept"|"DiscoverPreviewAndAccept"
+        )
+      ),
+      HITReviewStatus = "NotReviewed"|"MarkedForReview"|"ReviewedAppropriate"|"ReviewedInappropriate",
+      NumberOfAssignmentsPending = 123,
+      NumberOfAssignmentsAvailable = 123,
+      NumberOfAssignmentsCompleted = 123
+    )
+  )
+)
+}
+}
 \description{
-The \code{ListHITsForQualificationType} operation returns the HITs that use
-the given Qualification type for a Qualification requirement. The
-operation returns HITs of any status, except for HITs that have been
-deleted with the \code{DeleteHIT} operation or that have been auto-deleted.
+The
+\code{\link[=mturk_list_hi_ts_for_qualification_type]{list_hi_ts_for_qualification_type}}
+operation returns the HITs that use the given Qualification type for a
+Qualification requirement. The operation returns HITs of any status,
+except for HITs that have been deleted with the
+\code{\link[=mturk_delete_hit]{delete_hit}} operation or that have been
+auto-deleted.
 }
 \section{Request syntax}{
 \preformatted{svc$list_hi_ts_for_qualification_type(

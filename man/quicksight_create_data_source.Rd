@@ -19,7 +19,8 @@ account.}
 \item{Type}{[required] The type of the data source. Currently, the supported types for this
 operation are:
 \verb{ATHENA, AURORA, AURORA_POSTGRESQL, MARIADB, MYSQL, POSTGRESQL, PRESTO, REDSHIFT, S3, SNOWFLAKE, SPARK, SQLSERVER, TERADATA}.
-Use \code{ListDataSources} to return a list of all data sources.}
+Use \code{\link[=quicksight_list_data_sources]{list_data_sources}} to return a list
+of all data sources.}
 
 \item{DataSourceParameters}{The parameters that QuickSight uses to connect to your underlying
 source.}
@@ -38,6 +39,16 @@ to your underlying source.}
 
 \item{Tags}{Contains a map of the key-value pairs for the resource tag or tags
 assigned to the data source.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Arn = "string",
+  DataSourceId = "string",
+  CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+  RequestId = "string",
+  Status = 123
+)
+}
 }
 \description{
 Creates a data source.

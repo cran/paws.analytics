@@ -44,8 +44,8 @@ operations:
 A set of custom permissions includes any combination of these
 restrictions. Currently, you need to create the profile names for custom
 permission sets by using the QuickSight console. Then, you use the
-\code{RegisterUser} API operation to assign the named set of permissions to a
-QuickSight user.
+\code{\link[=quicksight_register_user]{register_user}} API operation to assign the
+named set of permissions to a QuickSight user.
 
 QuickSight custom permissions are applied through IAM policies.
 Therefore, they override the permissions typically granted by assigning
@@ -60,6 +60,23 @@ subscriptions that use SAML 2.0-Based Federation for Single Sign-On
 permissions from this user. Using this parameter resets the user to the
 state it was in before a custom permissions profile was applied. This
 parameter defaults to NULL and it doesn't accept any other value.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  User = list(
+    Arn = "string",
+    UserName = "string",
+    Email = "string",
+    Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+    IdentityType = "IAM"|"QUICKSIGHT",
+    Active = TRUE|FALSE,
+    PrincipalId = "string",
+    CustomPermissionsName = "string"
+  ),
+  RequestId = "string",
+  Status = 123
+)
+}
 }
 \description{
 Updates an Amazon QuickSight user.

@@ -13,7 +13,7 @@ kinesisanalytics_add_application_reference_data_source(ApplicationName,
 
 \item{CurrentApplicationVersionId}{[required] Version of the application for which you are adding the reference data
 source. You can use the
-\href{https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html}{DescribeApplication}
+\code{\link[=kinesisanalytics_describe_application]{describe_application}}
 operation to get the current application version. If the version
 specified is not the current version, the
 \code{ConcurrentModificationException} is returned.}
@@ -25,6 +25,9 @@ key name, and the resulting in-application table that is created. You
 must also provide an IAM role with the necessary permissions that Amazon
 Kinesis Analytics can assume to read the object from your S3 bucket on
 your behalf.}
+}
+\value{
+An empty list.
 }
 \description{
 This documentation is for version 1 of the Amazon Kinesis Data Analytics

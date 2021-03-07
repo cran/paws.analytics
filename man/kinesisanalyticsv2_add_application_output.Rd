@@ -13,15 +13,45 @@ kinesisanalyticsv2_add_application_output(ApplicationName,
 configuration.}
 
 \item{CurrentApplicationVersionId}{[required] The version of the application to which you want to add the output
-configuration. You can use the DescribeApplication operation to get the
-current application version. If the version specified is not the current
-version, the \code{ConcurrentModificationException} is returned.}
+configuration. You can use the
+\code{\link[=kinesisanalyticsv2_describe_application]{describe_application}}
+operation to get the current application version. If the version
+specified is not the current version, the
+\code{ConcurrentModificationException} is returned.}
 
 \item{Output}{[required] An array of objects, each describing one output configuration. In the
 output configuration, you specify the name of an in-application stream,
 a destination (that is, a Kinesis data stream, a Kinesis Data Firehose
 delivery stream, or an AWS Lambda function), and record the formation to
 use when writing to the destination.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  ApplicationARN = "string",
+  ApplicationVersionId = 123,
+  OutputDescriptions = list(
+    list(
+      OutputId = "string",
+      Name = "string",
+      KinesisStreamsOutputDescription = list(
+        ResourceARN = "string",
+        RoleARN = "string"
+      ),
+      KinesisFirehoseOutputDescription = list(
+        ResourceARN = "string",
+        RoleARN = "string"
+      ),
+      LambdaOutputDescription = list(
+        ResourceARN = "string",
+        RoleARN = "string"
+      ),
+      DestinationSchema = list(
+        RecordFormatType = "JSON"|"CSV"
+      )
+    )
+  )
+)
+}
 }
 \description{
 Adds an external destination to your SQL-based Kinesis Data Analytics
@@ -41,7 +71,8 @@ analyze the errors.
 
 Any configuration update, including adding a streaming source using this
 operation, results in a new version of the application. You can use the
-DescribeApplication operation to find the current application version.
+\code{\link[=kinesisanalyticsv2_describe_application]{describe_application}}
+operation to find the current application version.
 }
 \section{Request syntax}{
 \preformatted{svc$add_application_output(

@@ -9,13 +9,42 @@ cloudsearch_describe_domains(DomainNames)
 \arguments{
 \item{DomainNames}{The names of the domains you want to include in the response.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  DomainStatusList = list(
+    list(
+      DomainId = "string",
+      DomainName = "string",
+      ARN = "string",
+      Created = TRUE|FALSE,
+      Deleted = TRUE|FALSE,
+      DocService = list(
+        Endpoint = "string"
+      ),
+      SearchService = list(
+        Endpoint = "string"
+      ),
+      RequiresIndexDocuments = TRUE|FALSE,
+      Processing = TRUE|FALSE,
+      SearchInstanceType = "string",
+      SearchPartitionCount = 123,
+      SearchInstanceCount = 123,
+      Limits = list(
+        MaximumReplicationCount = 123,
+        MaximumPartitionCount = 123
+      )
+    )
+  )
+)
+}
+}
 \description{
 Gets information about the search domains owned by this account. Can be
 limited to specific domains. Shows all domains by default. To get the
 number of searchable documents in a domain, use the console or submit a
 \code{matchall} request to your domain's search endpoint:
-\verb{q=matchall&amp;amp;q.parser=structured&amp;amp;size=0}. For more
-information, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html}{Getting Information about a Search Domain}
+\verb{q=matchall&amp;q.parser=structured&amp;size=0}. For more information,
+see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html}{Getting Information about a Search Domain}
 in the \emph{Amazon CloudSearch Developer Guide}.
 }
 \section{Request syntax}{

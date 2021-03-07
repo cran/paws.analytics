@@ -15,6 +15,19 @@ retrieve the list, you don't need to specify this parameter in the first
 request. However, in subsequent requests, you add the last application
 name from the previous response to get the next page of applications.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ApplicationSummaries = list(
+    list(
+      ApplicationName = "string",
+      ApplicationARN = "string",
+      ApplicationStatus = "DELETING"|"STARTING"|"STOPPING"|"READY"|"RUNNING"|"UPDATING"
+    )
+  ),
+  HasMoreApplications = TRUE|FALSE
+)
+}
+}
 \description{
 This documentation is for version 1 of the Amazon Kinesis Data Analytics
 API, which only supports SQL applications. Version 2 of the API supports
@@ -30,7 +43,7 @@ the value of this to the last application name from the previous
 response.
 
 If you want detailed information about a specific application, use
-\href{https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html}{DescribeApplication}.
+\code{\link[=kinesisanalytics_describe_application]{describe_application}}.
 
 This operation requires permissions to perform the
 \code{kinesisanalytics:ListApplications} action.

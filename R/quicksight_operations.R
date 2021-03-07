@@ -15,6 +15,17 @@ NULL
 #' @param DataSetId &#91;required&#93; The ID of the dataset used in the ingestion.
 #' @param IngestionId &#91;required&#93; An ID for the ingestion.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   IngestionId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$cancel_ingestion(
@@ -49,9 +60,11 @@ quicksight_cancel_ingestion <- function(AwsAccountId, DataSetId, IngestionId) {
 #' @description
 #' Creates Amazon QuickSight customizations the current AWS Region.
 #' Currently, you can add a custom default theme by using the
-#' `CreateAccountCustomization` or `UpdateAccountCustomization` API
-#' operation. To further customize QuickSight by removing QuickSight sample
-#' assets and videos for all new users, see [Customizing
+#' [`create_account_customization`][quicksight_create_account_customization]
+#' or
+#' [`update_account_customization`][quicksight_update_account_customization]
+#' API operation. To further customize QuickSight by removing QuickSight
+#' sample assets and videos for all new users, see [Customizing
 #' QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/customizing-quicksight.html)
 #' in the *Amazon QuickSight User Guide.*
 #' 
@@ -59,15 +72,19 @@ quicksight_cancel_ingestion <- function(AwsAccountId, DataSetId, IngestionId) {
 #' namespace, for a QuickSight namespace instead. Customizations that apply
 #' to a namespace always override customizations that apply to an AWS
 #' account. To find out which customizations apply, use the
-#' `DescribeAccountCustomization` API operation.
+#' [`describe_account_customization`][quicksight_describe_account_customization]
+#' API operation.
 #' 
-#' Before you use the `CreateAccountCustomization` API operation to add a
-#' theme as the namespace default, make sure that you first share the theme
-#' with the namespace. If you don't share it with the namespace, the theme
-#' isn't visible to your users even if you make it the default theme. To
-#' check if the theme is shared, view the current permissions by using the
-#' ` <a>DescribeThemePermissions</a> ` API operation. To share the theme,
-#' grant permissions by using the ` <a>UpdateThemePermissions</a> ` API
+#' Before you use the
+#' [`create_account_customization`][quicksight_create_account_customization]
+#' API operation to add a theme as the namespace default, make sure that
+#' you first share the theme with the namespace. If you don't share it with
+#' the namespace, the theme isn't visible to your users even if you make it
+#' the default theme. To check if the theme is shared, view the current
+#' permissions by using the
+#' [`describe_theme_permissions`][quicksight_describe_theme_permissions]
+#' API operation. To share the theme, grant permissions by using the
+#' [`update_theme_permissions`][quicksight_update_theme_permissions] API
 #' operation.
 #'
 #' @usage
@@ -81,10 +98,25 @@ quicksight_cancel_ingestion <- function(AwsAccountId, DataSetId, IngestionId) {
 #' 
 #' For example, you can add a default theme by setting
 #' `AccountCustomization` to the midnight theme:
-#' `"AccountCustomization": \{ "DefaultTheme": "arn:aws:quicksight::aws:theme/MIDNIGHT" \}`.
+#' `"AccountCustomization": { "DefaultTheme": "arn:aws:quicksight::aws:theme/MIDNIGHT" }`.
 #' Or, you can add a custom theme by specifying
-#' `"AccountCustomization": \{ "DefaultTheme": "arn:aws:quicksight:us-west-2:111122223333:theme/bdb844d0-0fe9-4d9d-b520-0fe602d93639" \}`.
+#' `"AccountCustomization": { "DefaultTheme": "arn:aws:quicksight:us-west-2:111122223333:theme/bdb844d0-0fe9-4d9d-b520-0fe602d93639" }`.
 #' @param Tags A list of the tags that you want to attach to this resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   AwsAccountId = "string",
+#'   Namespace = "string",
+#'   AccountCustomization = list(
+#'     DefaultTheme = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -155,6 +187,18 @@ quicksight_create_account_customization <- function(AwsAccountId, Namespace = NU
 #' to it.
 #' @param Tags Contains a map of the key-value pairs for the resource tag or tags
 #' assigned to the analysis.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   AnalysisId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -251,7 +295,7 @@ quicksight_create_analysis <- function(AwsAccountId, AnalysisId, Name, Parameter
 #'
 #' @description
 #' Creates a dashboard from a template. To first create a template, see the
-#' ` <a>CreateTemplate</a> ` API operation.
+#' [`create_template`][quicksight_create_template] API operation.
 #' 
 #' A dashboard is an entity in QuickSight that identifies QuickSight
 #' reports, created from analyses. You can share QuickSight dashboards.
@@ -280,9 +324,10 @@ quicksight_create_analysis <- function(AwsAccountId, AnalysisId, Name, Parameter
 #' source. You can only create a dashboard from a template, so you use a
 #' `SourceTemplate` entity. If you need to create a dashboard from an
 #' analysis, first convert the analysis to a template by using the
-#' CreateTemplate API operation. For `SourceTemplate`, specify the Amazon
-#' Resource Name (ARN) of the source template. The `SourceTemplate`ARN can
-#' contain any AWS Account and any QuickSight-supported AWS Region.
+#' [`create_template`][quicksight_create_template] API operation. For
+#' `SourceTemplate`, specify the Amazon Resource Name (ARN) of the source
+#' template. The `SourceTemplate`ARN can contain any AWS Account and any
+#' QuickSight-supported AWS Region.
 #' 
 #' Use the `DataSetReferences` entity within `SourceTemplate` to list the
 #' replacement datasets for the placeholders listed in the original. The
@@ -310,6 +355,19 @@ quicksight_create_analysis <- function(AwsAccountId, AnalysisId, Name, Parameter
 #' dashboard. If you add a value for this field, it overrides the value
 #' that is used in the source entity. The theme ARN must exist in the same
 #' AWS account where you create the dashboard.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   DashboardId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -439,10 +497,22 @@ quicksight_create_dashboard <- function(AwsAccountId, DashboardId, Name, Paramet
 #' @param Permissions A list of resource permissions on the dataset.
 #' @param RowLevelPermissionDataSet The row-level security configuration for the data that you want to
 #' create.
-#' @param ColumnLevelPermissionRules A set of one or more definitions of a
-#' ` <a>ColumnLevelPermissionRule</a> `.
+#' @param ColumnLevelPermissionRules A set of one or more definitions of a ` ColumnLevelPermissionRule `.
 #' @param Tags Contains a map of the key-value pairs for the resource tag or tags
 #' assigned to the dataset.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSetId = "string",
+#'   IngestionArn = "string",
+#'   IngestionId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -635,7 +705,8 @@ quicksight_create_data_set <- function(AwsAccountId, DataSetId, Name, PhysicalTa
 #' @param Type &#91;required&#93; The type of the data source. Currently, the supported types for this
 #' operation are:
 #' `ATHENA, AURORA, AURORA_POSTGRESQL, MARIADB, MYSQL, POSTGRESQL, PRESTO, REDSHIFT, S3, SNOWFLAKE, SPARK, SQLSERVER, TERADATA`.
-#' Use `ListDataSources` to return a list of all data sources.
+#' Use [`list_data_sources`][quicksight_list_data_sources] to return a list
+#' of all data sources.
 #' @param DataSourceParameters The parameters that QuickSight uses to connect to your underlying
 #' source.
 #' @param Credentials The credentials QuickSight that uses to connect to your underlying
@@ -648,6 +719,18 @@ quicksight_create_data_set <- function(AwsAccountId, DataSetId, Name, PhysicalTa
 #' to your underlying source.
 #' @param Tags Contains a map of the key-value pairs for the resource tag or tags
 #' assigned to the data source.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSourceId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -896,7 +979,7 @@ quicksight_create_data_source <- function(AwsAccountId, DataSourceId, Name, Type
 #' Creates an Amazon QuickSight group.
 #' 
 #' The permissions resource is
-#' `arn:aws:quicksight:us-east-1:<i>&lt;relevant-aws-account-id&gt;</i>:group/default/<i>&lt;group-name&gt;</i> `.
+#' `arn:aws:quicksight:us-east-1:<relevant-aws-account-id>:group/default/<group-name> `.
 #' 
 #' The response is a group object.
 #'
@@ -908,6 +991,21 @@ quicksight_create_data_source <- function(AwsAccountId, DataSourceId, Name, Type
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the group is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Group = list(
+#'     Arn = "string",
+#'     GroupName = "string",
+#'     Description = "string",
+#'     PrincipalId = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -953,6 +1051,19 @@ quicksight_create_group <- function(GroupName, Description = NULL, AwsAccountId,
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the group is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   GroupMember = list(
+#'     Arn = "string",
+#'     MemberName = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1018,6 +1129,24 @@ quicksight_create_group_membership <- function(MemberName, GroupName, AwsAccount
 #' to.
 #' @param Namespace &#91;required&#93; The namespace that contains the assignment.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AssignmentName = "string",
+#'   AssignmentId = "string",
+#'   AssignmentStatus = "ENABLED"|"DRAFT"|"DISABLED",
+#'   PolicyArn = "string",
+#'   Identities = list(
+#'     list(
+#'       "string"
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_iam_policy_assignment(
@@ -1054,9 +1183,7 @@ quicksight_create_iam_policy_assignment <- function(AwsAccountId, AssignmentName
 }
 .quicksight$operations$create_iam_policy_assignment <- quicksight_create_iam_policy_assignment
 
-#' Creates and starts a new SPICE ingestion on a dataset Any ingestions
-#' operating on tagged datasets inherit the same tags automatically for use
-#' in access control
+#' Creates and starts a new SPICE ingestion on a dataset
 #'
 #' @description
 #' Creates and starts a new SPICE ingestion on a dataset
@@ -1074,6 +1201,18 @@ quicksight_create_iam_policy_assignment <- function(AwsAccountId, AssignmentName
 #' @param DataSetId &#91;required&#93; The ID of the dataset used in the ingestion.
 #' @param IngestionId &#91;required&#93; An ID for the ingestion.
 #' @param AwsAccountId &#91;required&#93; The AWS account ID.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   IngestionId = "string",
+#'   IngestionStatus = "INITIALIZED"|"QUEUED"|"RUNNING"|"FAILED"|"COMPLETED"|"CANCELLED",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1131,6 +1270,20 @@ quicksight_create_ingestion <- function(DataSetId, IngestionId, AwsAccountId) {
 #' supports users with an identity type of `QUICKSIGHT`.
 #' @param Tags The tags that you want to associate with the namespace that you're
 #' creating.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   Name = "string",
+#'   CapacityRegion = "string",
+#'   CreationStatus = "CREATED"|"CREATING"|"DELETING"|"RETRYABLE_FAILURE"|"NON_RETRYABLE_FAILURE",
+#'   IdentityStore = "QUICKSIGHT",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1208,9 +1361,22 @@ quicksight_create_namespace <- function(AwsAccountId, Namespace, IdentityStore, 
 #' assigned to the resource.
 #' @param VersionDescription A description of the current template version being created. This API
 #' operation creates the first version of the template. Every time
-#' `UpdateTemplate` is called, a new version is created. Each version of
-#' the template maintains a description of the version in the
-#' `VersionDescription` field.
+#' [`update_template`][quicksight_update_template] is called, a new version
+#' is created. Each version of the template maintains a description of the
+#' version in the `VersionDescription` field.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   TemplateId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1287,6 +1453,20 @@ quicksight_create_template <- function(AwsAccountId, TemplateId, Name = NULL, Pe
 #' that start with `$` are reserved by QuickSight.
 #' @param TemplateVersionNumber &#91;required&#93; The version number of the template.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateAlias = list(
+#'     AliasName = "string",
+#'     Arn = "string",
+#'     TemplateVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_template_alias(
@@ -1338,16 +1518,30 @@ quicksight_create_template_alias <- function(AwsAccountId, TemplateId, AliasName
 #' @param Name &#91;required&#93; A display name for the theme.
 #' @param BaseThemeId &#91;required&#93; The ID of the theme that a custom theme will inherit from. All themes
 #' inherit from one of the starting themes defined by Amazon QuickSight.
-#' For a list of the starting themes, use `ListThemes` or choose **Themes**
-#' from within a QuickSight analysis.
+#' For a list of the starting themes, use
+#' [`list_themes`][quicksight_list_themes] or choose **Themes** from within
+#' a QuickSight analysis.
 #' @param VersionDescription A description of the first version of the theme that you're creating.
-#' Every time `UpdateTheme` is called, a new version is created. Each
-#' version of the theme has a description of the version in the
-#' `VersionDescription` field.
+#' Every time [`update_theme`][quicksight_update_theme] is called, a new
+#' version is created. Each version of the theme has a description of the
+#' version in the `VersionDescription` field.
 #' @param Configuration &#91;required&#93; The theme configuration, which contains the theme display properties.
 #' @param Permissions A valid grouping of resource permissions to apply to the new theme.
 #' @param Tags A map of the key-value pairs for the resource tag or tags that you want
 #' to add to the resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   ThemeId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1455,6 +1649,20 @@ quicksight_create_theme <- function(AwsAccountId, ThemeId, Name, BaseThemeId, Ve
 #' are reserved by Amazon QuickSight.
 #' @param ThemeVersionNumber &#91;required&#93; The version number of the theme.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeAlias = list(
+#'     Arn = "string",
+#'     AliasName = "string",
+#'     ThemeVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_theme_alias(
@@ -1499,6 +1707,15 @@ quicksight_create_theme_alias <- function(AwsAccountId, ThemeId, AliasName, Them
 #' customizations from in this AWS Region.
 #' @param Namespace The QuickSight namespace that you're deleting the customizations from.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_account_customization(
@@ -1538,10 +1755,10 @@ quicksight_delete_account_customization <- function(AwsAccountId, Namespace = NU
 #' window, QuickSight deletes the analysis permanently.
 #' 
 #' At any time before recovery window ends, you can use the
-#' `RestoreAnalysis` API operation to remove the `DeletionTime` stamp and
-#' cancel the deletion of the analysis. The analysis remains visible in the
-#' API until it's deleted, so you can describe it but you can't make a
-#' template from it.
+#' [`restore_analysis`][quicksight_restore_analysis] API operation to
+#' remove the `DeletionTime` stamp and cancel the deletion of the analysis.
+#' The analysis remains visible in the API until it's deleted, so you can
+#' describe it but you can't make a template from it.
 #' 
 #' An analysis that's scheduled for deletion isn't accessible in the
 #' QuickSight console. To access it in the console, restore it. Deleting an
@@ -1560,6 +1777,20 @@ quicksight_delete_account_customization <- function(AwsAccountId, Namespace = NU
 #' @param ForceDeleteWithoutRecovery This option defaults to the value `NoForceDeleteWithoutRecovery`. To
 #' immediately delete the analysis, add the `ForceDeleteWithoutRecovery`
 #' option. You can't restore an analysis after it's deleted.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Status = 123,
+#'   Arn = "string",
+#'   AnalysisId = "string",
+#'   DeletionTime = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1605,6 +1836,17 @@ quicksight_delete_analysis <- function(AwsAccountId, AnalysisId, RecoveryWindowI
 #' @param VersionNumber The version number of the dashboard. If the version number property is
 #' provided, only the specified version of the dashboard is deleted.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Status = 123,
+#'   Arn = "string",
+#'   DashboardId = "string",
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_dashboard(
@@ -1645,6 +1887,17 @@ quicksight_delete_dashboard <- function(AwsAccountId, DashboardId, VersionNumber
 #' @param AwsAccountId &#91;required&#93; The AWS account ID.
 #' @param DataSetId &#91;required&#93; The ID for the dataset that you want to create. This ID is unique per
 #' AWS Region for each AWS account.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSetId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1687,6 +1940,17 @@ quicksight_delete_data_set <- function(AwsAccountId, DataSetId) {
 #' @param DataSourceId &#91;required&#93; The ID of the data source. This ID is unique per AWS Region for each AWS
 #' account.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSourceId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_data_source(
@@ -1727,6 +1991,15 @@ quicksight_delete_data_source <- function(AwsAccountId, DataSourceId) {
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the group is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1774,6 +2047,15 @@ quicksight_delete_group <- function(GroupName, AwsAccountId, Namespace) {
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_group_membership(
@@ -1816,6 +2098,16 @@ quicksight_delete_group_membership <- function(MemberName, GroupName, AwsAccount
 #' @param AwsAccountId &#91;required&#93; The AWS account ID where you want to delete the IAM policy assignment.
 #' @param AssignmentName &#91;required&#93; The name of the assignment.
 #' @param Namespace &#91;required&#93; The namespace that contains the assignment.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AssignmentName = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1862,6 +2154,15 @@ quicksight_delete_iam_policy_assignment <- function(AwsAccountId, AssignmentName
 #' namespace from.
 #' @param Namespace &#91;required&#93; The namespace that you want to delete.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_namespace(
@@ -1902,8 +2203,20 @@ quicksight_delete_namespace <- function(AwsAccountId, Namespace) {
 #' deleting.
 #' @param TemplateId &#91;required&#93; An ID for the template you want to delete.
 #' @param VersionNumber Specifies the version of the template that you want to delete. If you
-#' don't provide a version number, `DeleteTemplate` deletes all versions of
+#' don't provide a version number,
+#' [`delete_template`][quicksight_delete_template] deletes all versions of
 #' the template.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Arn = "string",
+#'   TemplateId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1951,6 +2264,18 @@ quicksight_delete_template <- function(AwsAccountId, TemplateId, VersionNumber =
 #' specify the latest version of the template by providing the keyword
 #' `$LATEST` in the `AliasName` parameter.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Status = 123,
+#'   TemplateId = "string",
+#'   AliasName = "string",
+#'   Arn = "string",
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_template_alias(
@@ -1993,7 +2318,19 @@ quicksight_delete_template_alias <- function(AwsAccountId, TemplateId, AliasName
 #' @param VersionNumber The version of the theme that you want to delete.
 #' 
 #' **Note:** If you don't provide a version number, you're using this call
-#' to `DeleteTheme` to delete all versions of the theme.
+#' to [`delete_theme`][quicksight_delete_theme] to delete all versions of
+#' the theme.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   RequestId = "string",
+#'   Status = 123,
+#'   ThemeId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2038,6 +2375,18 @@ quicksight_delete_theme <- function(AwsAccountId, ThemeId, VersionNumber = NULL)
 #' @param AwsAccountId &#91;required&#93; The ID of the AWS account that contains the theme alias to delete.
 #' @param ThemeId &#91;required&#93; The ID for the theme that the specified alias is for.
 #' @param AliasName &#91;required&#93; The unique name for the theme alias to delete.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AliasName = "string",
+#'   Arn = "string",
+#'   RequestId = "string",
+#'   Status = 123,
+#'   ThemeId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2085,6 +2434,15 @@ quicksight_delete_theme_alias <- function(AwsAccountId, ThemeId, AliasName) {
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_user(
@@ -2127,6 +2485,15 @@ quicksight_delete_user <- function(UserName, AwsAccountId, Namespace) {
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the user is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2209,8 +2576,9 @@ quicksight_delete_user_by_principal_id <- function(PrincipalId, AwsAccountId, Na
 #'     Settings that you apply to a namespace override settings that you
 #'     apply to an AWS account. All settings are isolated to a single AWS
 #'     Region. To apply them in other AWS Regions, run the
-#'     `CreateAccountCustomization` command in each AWS Region where you
-#'     want to apply the same customizations.
+#'     [`create_account_customization`][quicksight_create_account_customization]
+#'     command in each AWS Region where you want to apply the same
+#'     customizations.
 #'
 #' @usage
 #' quicksight_describe_account_customization(AwsAccountId, Namespace,
@@ -2226,6 +2594,21 @@ quicksight_delete_user_by_principal_id <- function(PrincipalId, AwsAccountId, Na
 #' customizations to apply to the console. Omit this flag, or set it to
 #' `no-resolved`, to reveal customizations that are configured at different
 #' levels.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   AwsAccountId = "string",
+#'   Namespace = "string",
+#'   AccountCustomization = list(
+#'     DefaultTheme = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2269,6 +2652,21 @@ quicksight_describe_account_customization <- function(AwsAccountId, Namespace = 
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that contains the settings that you want to
 #' list.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AccountSettings = list(
+#'     AccountName = "string",
+#'     Edition = "STANDARD"|"ENTERPRISE",
+#'     DefaultNamespace = "string",
+#'     NotificationEmail = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_account_settings(
@@ -2308,6 +2706,43 @@ quicksight_describe_account_settings <- function(AwsAccountId) {
 #' the AWS account that the analysis is in.
 #' @param AnalysisId &#91;required&#93; The ID of the analysis that you're describing. The ID is part of the URL
 #' of the analysis.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Analysis = list(
+#'     AnalysisId = "string",
+#'     Arn = "string",
+#'     Name = "string",
+#'     Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'     Errors = list(
+#'       list(
+#'         Type = "ACCESS_DENIED"|"SOURCE_NOT_FOUND"|"DATA_SET_NOT_FOUND"|"INTERNAL_FAILURE"|"PARAMETER_VALUE_INCOMPATIBLE"|"PARAMETER_TYPE_INVALID"|"PARAMETER_NOT_FOUND"|"COLUMN_TYPE_MISMATCH"|"COLUMN_GEOGRAPHIC_ROLE_MISMATCH"|"COLUMN_REPLACEMENT_MISSING",
+#'         Message = "string"
+#'       )
+#'     ),
+#'     DataSetArns = list(
+#'       "string"
+#'     ),
+#'     ThemeArn = "string",
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Sheets = list(
+#'       list(
+#'         SheetId = "string",
+#'         Name = "string"
+#'       )
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2350,6 +2785,25 @@ quicksight_describe_analysis <- function(AwsAccountId, AnalysisId) {
 #' is in.
 #' @param AnalysisId &#91;required&#93; The ID of the analysis whose permissions you're describing. The ID is
 #' part of the analysis URL.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AnalysisId = "string",
+#'   AnalysisArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2395,6 +2849,55 @@ quicksight_describe_analysis_permissions <- function(AwsAccountId, AnalysisId) {
 #' the latest published dashboard version is described.
 #' @param AliasName The alias name.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Dashboard = list(
+#'     DashboardId = "string",
+#'     Arn = "string",
+#'     Name = "string",
+#'     Version = list(
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Errors = list(
+#'         list(
+#'           Type = "ACCESS_DENIED"|"SOURCE_NOT_FOUND"|"DATA_SET_NOT_FOUND"|"INTERNAL_FAILURE"|"PARAMETER_VALUE_INCOMPATIBLE"|"PARAMETER_TYPE_INVALID"|"PARAMETER_NOT_FOUND"|"COLUMN_TYPE_MISMATCH"|"COLUMN_GEOGRAPHIC_ROLE_MISMATCH"|"COLUMN_REPLACEMENT_MISSING",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       VersionNumber = 123,
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       Arn = "string",
+#'       SourceEntityArn = "string",
+#'       DataSetArns = list(
+#'         "string"
+#'       ),
+#'       Description = "string",
+#'       ThemeArn = "string",
+#'       Sheets = list(
+#'         list(
+#'           SheetId = "string",
+#'           Name = "string"
+#'         )
+#'       )
+#'     ),
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastPublishedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_dashboard(
@@ -2437,6 +2940,25 @@ quicksight_describe_dashboard <- function(AwsAccountId, DashboardId, VersionNumb
 #' describing permissions for.
 #' @param DashboardId &#91;required&#93; The ID for the dashboard, also added to the IAM policy.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardId = "string",
+#'   DashboardArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_dashboard_permissions(
@@ -2476,6 +2998,165 @@ quicksight_describe_dashboard_permissions <- function(AwsAccountId, DashboardId)
 #' @param AwsAccountId &#91;required&#93; The AWS account ID.
 #' @param DataSetId &#91;required&#93; The ID for the dataset that you want to create. This ID is unique per
 #' AWS Region for each AWS account.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSet = list(
+#'     Arn = "string",
+#'     DataSetId = "string",
+#'     Name = "string",
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     PhysicalTableMap = list(
+#'       list(
+#'         RelationalTable = list(
+#'           DataSourceArn = "string",
+#'           Catalog = "string",
+#'           Schema = "string",
+#'           Name = "string",
+#'           InputColumns = list(
+#'             list(
+#'               Name = "string",
+#'               Type = "STRING"|"INTEGER"|"DECIMAL"|"DATETIME"|"BIT"|"BOOLEAN"|"JSON"
+#'             )
+#'           )
+#'         ),
+#'         CustomSql = list(
+#'           DataSourceArn = "string",
+#'           Name = "string",
+#'           SqlQuery = "string",
+#'           Columns = list(
+#'             list(
+#'               Name = "string",
+#'               Type = "STRING"|"INTEGER"|"DECIMAL"|"DATETIME"|"BIT"|"BOOLEAN"|"JSON"
+#'             )
+#'           )
+#'         ),
+#'         S3Source = list(
+#'           DataSourceArn = "string",
+#'           UploadSettings = list(
+#'             Format = "CSV"|"TSV"|"CLF"|"ELF"|"XLSX"|"JSON",
+#'             StartFromRow = 123,
+#'             ContainsHeader = TRUE|FALSE,
+#'             TextQualifier = "DOUBLE_QUOTE"|"SINGLE_QUOTE",
+#'             Delimiter = "string"
+#'           ),
+#'           InputColumns = list(
+#'             list(
+#'               Name = "string",
+#'               Type = "STRING"|"INTEGER"|"DECIMAL"|"DATETIME"|"BIT"|"BOOLEAN"|"JSON"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     LogicalTableMap = list(
+#'       list(
+#'         Alias = "string",
+#'         DataTransforms = list(
+#'           list(
+#'             ProjectOperation = list(
+#'               ProjectedColumns = list(
+#'                 "string"
+#'               )
+#'             ),
+#'             FilterOperation = list(
+#'               ConditionExpression = "string"
+#'             ),
+#'             CreateColumnsOperation = list(
+#'               Columns = list(
+#'                 list(
+#'                   ColumnName = "string",
+#'                   ColumnId = "string",
+#'                   Expression = "string"
+#'                 )
+#'               )
+#'             ),
+#'             RenameColumnOperation = list(
+#'               ColumnName = "string",
+#'               NewColumnName = "string"
+#'             ),
+#'             CastColumnTypeOperation = list(
+#'               ColumnName = "string",
+#'               NewColumnType = "STRING"|"INTEGER"|"DECIMAL"|"DATETIME",
+#'               Format = "string"
+#'             ),
+#'             TagColumnOperation = list(
+#'               ColumnName = "string",
+#'               Tags = list(
+#'                 list(
+#'                   ColumnGeographicRole = "COUNTRY"|"STATE"|"COUNTY"|"CITY"|"POSTCODE"|"LONGITUDE"|"LATITUDE",
+#'                   ColumnDescription = list(
+#'                     Text = "string"
+#'                   )
+#'                 )
+#'               )
+#'             )
+#'           )
+#'         ),
+#'         Source = list(
+#'           JoinInstruction = list(
+#'             LeftOperand = "string",
+#'             RightOperand = "string",
+#'             LeftJoinKeyProperties = list(
+#'               UniqueKey = TRUE|FALSE
+#'             ),
+#'             RightJoinKeyProperties = list(
+#'               UniqueKey = TRUE|FALSE
+#'             ),
+#'             Type = "INNER"|"OUTER"|"LEFT"|"RIGHT",
+#'             OnClause = "string"
+#'           ),
+#'           PhysicalTableId = "string"
+#'         )
+#'       )
+#'     ),
+#'     OutputColumns = list(
+#'       list(
+#'         Name = "string",
+#'         Description = "string",
+#'         Type = "STRING"|"INTEGER"|"DECIMAL"|"DATETIME"
+#'       )
+#'     ),
+#'     ImportMode = "SPICE"|"DIRECT_QUERY",
+#'     ConsumedSpiceCapacityInBytes = 123,
+#'     ColumnGroups = list(
+#'       list(
+#'         GeoSpatialColumnGroup = list(
+#'           Name = "string",
+#'           CountryCode = "US",
+#'           Columns = list(
+#'             "string"
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     RowLevelPermissionDataSet = list(
+#'       Namespace = "string",
+#'       Arn = "string",
+#'       PermissionPolicy = "GRANT_ACCESS"|"DENY_ACCESS"
+#'     ),
+#'     ColumnLevelPermissionRules = list(
+#'       list(
+#'         Principals = list(
+#'           "string"
+#'         ),
+#'         ColumnNames = list(
+#'           "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2520,6 +3201,25 @@ quicksight_describe_data_set <- function(AwsAccountId, DataSetId) {
 #' @param DataSetId &#91;required&#93; The ID for the dataset that you want to create. This ID is unique per
 #' AWS Region for each AWS account.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSetArn = "string",
+#'   DataSetId = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_data_set_permissions(
@@ -2560,6 +3260,222 @@ quicksight_describe_data_set_permissions <- function(AwsAccountId, DataSetId) {
 #' @param DataSourceId &#91;required&#93; The ID of the data source. This ID is unique per AWS Region for each AWS
 #' account.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSource = list(
+#'     Arn = "string",
+#'     DataSourceId = "string",
+#'     Name = "string",
+#'     Type = "ADOBE_ANALYTICS"|"AMAZON_ELASTICSEARCH"|"ATHENA"|"AURORA"|"AURORA_POSTGRESQL"|"AWS_IOT_ANALYTICS"|"GITHUB"|"JIRA"|"MARIADB"|"MYSQL"|"ORACLE"|"POSTGRESQL"|"PRESTO"|"REDSHIFT"|"S3"|"SALESFORCE"|"SERVICENOW"|"SNOWFLAKE"|"SPARK"|"SQLSERVER"|"TERADATA"|"TWITTER"|"TIMESTREAM",
+#'     Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     DataSourceParameters = list(
+#'       AmazonElasticsearchParameters = list(
+#'         Domain = "string"
+#'       ),
+#'       AthenaParameters = list(
+#'         WorkGroup = "string"
+#'       ),
+#'       AuroraParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       AuroraPostgreSqlParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       AwsIotAnalyticsParameters = list(
+#'         DataSetName = "string"
+#'       ),
+#'       JiraParameters = list(
+#'         SiteBaseUrl = "string"
+#'       ),
+#'       MariaDbParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       MySqlParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       OracleParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       PostgreSqlParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       PrestoParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Catalog = "string"
+#'       ),
+#'       RdsParameters = list(
+#'         InstanceId = "string",
+#'         Database = "string"
+#'       ),
+#'       RedshiftParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string",
+#'         ClusterId = "string"
+#'       ),
+#'       S3Parameters = list(
+#'         ManifestFileLocation = list(
+#'           Bucket = "string",
+#'           Key = "string"
+#'         )
+#'       ),
+#'       ServiceNowParameters = list(
+#'         SiteBaseUrl = "string"
+#'       ),
+#'       SnowflakeParameters = list(
+#'         Host = "string",
+#'         Database = "string",
+#'         Warehouse = "string"
+#'       ),
+#'       SparkParameters = list(
+#'         Host = "string",
+#'         Port = 123
+#'       ),
+#'       SqlServerParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       TeradataParameters = list(
+#'         Host = "string",
+#'         Port = 123,
+#'         Database = "string"
+#'       ),
+#'       TwitterParameters = list(
+#'         Query = "string",
+#'         MaxRows = 123
+#'       )
+#'     ),
+#'     AlternateDataSourceParameters = list(
+#'       list(
+#'         AmazonElasticsearchParameters = list(
+#'           Domain = "string"
+#'         ),
+#'         AthenaParameters = list(
+#'           WorkGroup = "string"
+#'         ),
+#'         AuroraParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         AuroraPostgreSqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         AwsIotAnalyticsParameters = list(
+#'           DataSetName = "string"
+#'         ),
+#'         JiraParameters = list(
+#'           SiteBaseUrl = "string"
+#'         ),
+#'         MariaDbParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         MySqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         OracleParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         PostgreSqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         PrestoParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Catalog = "string"
+#'         ),
+#'         RdsParameters = list(
+#'           InstanceId = "string",
+#'           Database = "string"
+#'         ),
+#'         RedshiftParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string",
+#'           ClusterId = "string"
+#'         ),
+#'         S3Parameters = list(
+#'           ManifestFileLocation = list(
+#'             Bucket = "string",
+#'             Key = "string"
+#'           )
+#'         ),
+#'         ServiceNowParameters = list(
+#'           SiteBaseUrl = "string"
+#'         ),
+#'         SnowflakeParameters = list(
+#'           Host = "string",
+#'           Database = "string",
+#'           Warehouse = "string"
+#'         ),
+#'         SparkParameters = list(
+#'           Host = "string",
+#'           Port = 123
+#'         ),
+#'         SqlServerParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         TeradataParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         TwitterParameters = list(
+#'           Query = "string",
+#'           MaxRows = 123
+#'         )
+#'       )
+#'     ),
+#'     VpcConnectionProperties = list(
+#'       VpcConnectionArn = "string"
+#'     ),
+#'     SslProperties = list(
+#'       DisableSsl = TRUE|FALSE
+#'     ),
+#'     ErrorInfo = list(
+#'       Type = "ACCESS_DENIED"|"COPY_SOURCE_NOT_FOUND"|"TIMEOUT"|"ENGINE_VERSION_NOT_SUPPORTED"|"UNKNOWN_HOST"|"GENERIC_SQL_FAILURE"|"CONFLICT"|"UNKNOWN",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_data_source(
@@ -2599,6 +3515,25 @@ quicksight_describe_data_source <- function(AwsAccountId, DataSourceId) {
 #' @param AwsAccountId &#91;required&#93; The AWS account ID.
 #' @param DataSourceId &#91;required&#93; The ID of the data source. This ID is unique per AWS Region for each AWS
 #' account.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSourceArn = "string",
+#'   DataSourceId = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2642,6 +3577,21 @@ quicksight_describe_data_source_permissions <- function(AwsAccountId, DataSource
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the group is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Group = list(
+#'     Arn = "string",
+#'     GroupName = "string",
+#'     Description = "string",
+#'     PrincipalId = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2688,6 +3638,27 @@ quicksight_describe_group <- function(GroupName, AwsAccountId, Namespace) {
 #' @param AssignmentName &#91;required&#93; The name of the assignment, also called a rule.
 #' @param Namespace &#91;required&#93; The namespace that contains the assignment.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   IAMPolicyAssignment = list(
+#'     AwsAccountId = "string",
+#'     AssignmentId = "string",
+#'     AssignmentName = "string",
+#'     PolicyArn = "string",
+#'     Identities = list(
+#'       list(
+#'         "string"
+#'       )
+#'     ),
+#'     AssignmentStatus = "ENABLED"|"DRAFT"|"DISABLED"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_iam_policy_assignment(
@@ -2729,6 +3700,39 @@ quicksight_describe_iam_policy_assignment <- function(AwsAccountId, AssignmentNa
 #' @param DataSetId &#91;required&#93; The ID of the dataset used in the ingestion.
 #' @param IngestionId &#91;required&#93; An ID for the ingestion.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Ingestion = list(
+#'     Arn = "string",
+#'     IngestionId = "string",
+#'     IngestionStatus = "INITIALIZED"|"QUEUED"|"RUNNING"|"FAILED"|"COMPLETED"|"CANCELLED",
+#'     ErrorInfo = list(
+#'       Type = "FAILURE_TO_ASSUME_ROLE"|"INGESTION_SUPERSEDED"|"INGESTION_CANCELED"|"DATA_SET_DELETED"|"DATA_SET_NOT_SPICE"|"S3_UPLOADED_FILE_DELETED"|"S3_MANIFEST_ERROR"|"DATA_TOLERANCE_EXCEPTION"|"SPICE_TABLE_NOT_FOUND"|"DATA_SET_SIZE_LIMIT_EXCEEDED"|"ROW_SIZE_LIMIT_EXCEEDED"|"ACCOUNT_CAPACITY_LIMIT_EXCEEDED"|"CUSTOMER_ERROR"|"DATA_SOURCE_NOT_FOUND"|"IAM_ROLE_NOT_AVAILABLE"|"CONNECTION_FAILURE"|"SQL_TABLE_NOT_FOUND"|"PERMISSION_DENIED"|"SSL_CERTIFICATE_VALIDATION_FAILURE"|"OAUTH_TOKEN_FAILURE"|"SOURCE_API_LIMIT_EXCEEDED_FAILURE"|"PASSWORD_AUTHENTICATION_FAILURE"|"SQL_SCHEMA_MISMATCH_ERROR"|"INVALID_DATE_FORMAT"|"INVALID_DATAPREP_SYNTAX"|"SOURCE_RESOURCE_LIMIT_EXCEEDED"|"SQL_INVALID_PARAMETER_VALUE"|"QUERY_TIMEOUT"|"SQL_NUMERIC_OVERFLOW"|"UNRESOLVABLE_HOST"|"UNROUTABLE_HOST"|"SQL_EXCEPTION"|"S3_FILE_INACCESSIBLE"|"IOT_FILE_NOT_FOUND"|"IOT_DATA_SET_FILE_EMPTY"|"INVALID_DATA_SOURCE_CONFIG"|"DATA_SOURCE_AUTH_FAILED"|"DATA_SOURCE_CONNECTION_FAILED"|"FAILURE_TO_PROCESS_JSON_FILE"|"INTERNAL_SERVICE_ERROR",
+#'       Message = "string"
+#'     ),
+#'     RowInfo = list(
+#'       RowsIngested = 123,
+#'       RowsDropped = 123
+#'     ),
+#'     QueueInfo = list(
+#'       WaitingOnIngestion = "string",
+#'       QueuedIngestion = "string"
+#'     ),
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     IngestionTimeInSeconds = 123,
+#'     IngestionSizeInBytes = 123,
+#'     RequestSource = "MANUAL"|"SCHEDULED",
+#'     RequestType = "INITIAL_INGESTION"|"EDIT"|"INCREMENTAL_REFRESH"|"FULL_REFRESH"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_ingestion(
@@ -2769,6 +3773,26 @@ quicksight_describe_ingestion <- function(AwsAccountId, DataSetId, IngestionId) 
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that contains the QuickSight namespace that
 #' you want to describe.
 #' @param Namespace &#91;required&#93; The namespace that you want to describe.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Namespace = list(
+#'     Name = "string",
+#'     Arn = "string",
+#'     CapacityRegion = "string",
+#'     CreationStatus = "CREATED"|"CREATING"|"DELETING"|"RETRYABLE_FAILURE"|"NON_RETRYABLE_FAILURE",
+#'     IdentityStore = "QUICKSIGHT",
+#'     NamespaceError = list(
+#'       Type = "PERMISSION_DENIED"|"INTERNAL_SERVICE_ERROR",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2819,6 +3843,72 @@ quicksight_describe_namespace <- function(AwsAccountId, Namespace) {
 #' `$LATEST` in the `AliasName` parameter. The keyword `$PUBLISHED` doesn't
 #' apply to templates.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Template = list(
+#'     Arn = "string",
+#'     Name = "string",
+#'     Version = list(
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Errors = list(
+#'         list(
+#'           Type = "SOURCE_NOT_FOUND"|"DATA_SET_NOT_FOUND"|"INTERNAL_FAILURE"|"ACCESS_DENIED",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       VersionNumber = 123,
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       DataSetConfigurations = list(
+#'         list(
+#'           Placeholder = "string",
+#'           DataSetSchema = list(
+#'             ColumnSchemaList = list(
+#'               list(
+#'                 Name = "string",
+#'                 DataType = "string",
+#'                 GeographicRole = "string"
+#'               )
+#'             )
+#'           ),
+#'           ColumnGroupSchemaList = list(
+#'             list(
+#'               Name = "string",
+#'               ColumnGroupColumnSchemaList = list(
+#'                 list(
+#'                   Name = "string"
+#'                 )
+#'               )
+#'             )
+#'           )
+#'         )
+#'       ),
+#'       Description = "string",
+#'       SourceEntityArn = "string",
+#'       ThemeArn = "string",
+#'       Sheets = list(
+#'         list(
+#'           SheetId = "string",
+#'           Name = "string"
+#'         )
+#'       )
+#'     ),
+#'     TemplateId = "string",
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_template(
@@ -2866,6 +3956,20 @@ quicksight_describe_template <- function(AwsAccountId, TemplateId, VersionNumber
 #' `$LATEST` in the `AliasName` parameter. The keyword `$PUBLISHED` doesn't
 #' apply to templates.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateAlias = list(
+#'     AliasName = "string",
+#'     Arn = "string",
+#'     TemplateVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_template_alias(
@@ -2906,6 +4010,25 @@ quicksight_describe_template_alias <- function(AwsAccountId, TemplateId, AliasNa
 #' @param AwsAccountId &#91;required&#93; The ID of the AWS account that contains the template that you're
 #' describing.
 #' @param TemplateId &#91;required&#93; The ID for the template.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateId = "string",
+#'   TemplateArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2956,6 +4079,87 @@ quicksight_describe_template_permissions <- function(AwsAccountId, TemplateId) {
 #' `$LATEST` in the `AliasName` parameter. The keyword `$PUBLISHED` doesn't
 #' apply to themes.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Theme = list(
+#'     Arn = "string",
+#'     Name = "string",
+#'     ThemeId = "string",
+#'     Version = list(
+#'       VersionNumber = 123,
+#'       Arn = "string",
+#'       Description = "string",
+#'       BaseThemeId = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Configuration = list(
+#'         DataColorPalette = list(
+#'           Colors = list(
+#'             "string"
+#'           ),
+#'           MinMaxGradient = list(
+#'             "string"
+#'           ),
+#'           EmptyFillColor = "string"
+#'         ),
+#'         UIColorPalette = list(
+#'           PrimaryForeground = "string",
+#'           PrimaryBackground = "string",
+#'           SecondaryForeground = "string",
+#'           SecondaryBackground = "string",
+#'           Accent = "string",
+#'           AccentForeground = "string",
+#'           Danger = "string",
+#'           DangerForeground = "string",
+#'           Warning = "string",
+#'           WarningForeground = "string",
+#'           Success = "string",
+#'           SuccessForeground = "string",
+#'           Dimension = "string",
+#'           DimensionForeground = "string",
+#'           Measure = "string",
+#'           MeasureForeground = "string"
+#'         ),
+#'         Sheet = list(
+#'           Tile = list(
+#'             Border = list(
+#'               Show = TRUE|FALSE
+#'             )
+#'           ),
+#'           TileLayout = list(
+#'             Gutter = list(
+#'               Show = TRUE|FALSE
+#'             ),
+#'             Margin = list(
+#'               Show = TRUE|FALSE
+#'             )
+#'           )
+#'         )
+#'       ),
+#'       Errors = list(
+#'         list(
+#'           Type = "INTERNAL_FAILURE",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED"
+#'     ),
+#'     CreatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdatedTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     Type = "QUICKSIGHT"|"CUSTOM"|"ALL"
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_theme(
@@ -2999,6 +4203,20 @@ quicksight_describe_theme <- function(AwsAccountId, ThemeId, VersionNumber = NUL
 #' @param ThemeId &#91;required&#93; The ID for the theme.
 #' @param AliasName &#91;required&#93; The name of the theme alias that you want to describe.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeAlias = list(
+#'     Arn = "string",
+#'     AliasName = "string",
+#'     ThemeVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_theme_alias(
@@ -3040,6 +4258,25 @@ quicksight_describe_theme_alias <- function(AwsAccountId, ThemeId, AliasName) {
 #' describing.
 #' @param ThemeId &#91;required&#93; The ID for the theme that you want to describe permissions for.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeId = "string",
+#'   ThemeArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$describe_theme_permissions(
@@ -3080,6 +4317,25 @@ quicksight_describe_theme_permissions <- function(AwsAccountId, ThemeId) {
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the user is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   User = list(
+#'     Arn = "string",
+#'     UserName = "string",
+#'     Email = "string",
+#'     Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+#'     IdentityType = "IAM"|"QUICKSIGHT",
+#'     Active = TRUE|FALSE,
+#'     PrincipalId = "string",
+#'     CustomPermissionsName = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3184,6 +4440,16 @@ quicksight_describe_user <- function(UserName, AwsAccountId, Namespace) {
 #' "`--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS`",
 #' the session can access all three dashboards.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   EmbedUrl = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_dashboard_embed_url(
@@ -3228,15 +4494,16 @@ quicksight_get_dashboard_embed_url <- function(AwsAccountId, DashboardId, Identi
 #' @description
 #' Generates a session URL and authorization code that you can use to embed
 #' the Amazon QuickSight console in your web server code. Use
-#' `GetSessionEmbedUrl` where you want to provide an authoring portal that
-#' allows users to create data sources, datasets, analyses, and dashboards.
-#' The users who access an embedded QuickSight console need belong to the
-#' author or admin security cohort. If you want to restrict permissions to
-#' some of these features, add a custom permissions profile to the user
-#' with the ` <a>UpdateUser</a> ` API operation. Use
-#' ` <a>RegisterUser</a> ` API operation to add a new user with a custom
-#' permission profile attached. For more information, see the following
-#' sections in the *Amazon QuickSight User Guide*:
+#' [`get_session_embed_url`][quicksight_get_session_embed_url] where you
+#' want to provide an authoring portal that allows users to create data
+#' sources, datasets, analyses, and dashboards. The users who access an
+#' embedded QuickSight console need belong to the author or admin security
+#' cohort. If you want to restrict permissions to some of these features,
+#' add a custom permissions profile to the user with the
+#' [`update_user`][quicksight_update_user] API operation. Use
+#' [`register_user`][quicksight_register_user] API operation to add a new
+#' user with a custom permission profile attached. For more information,
+#' see the following sections in the *Amazon QuickSight User Guide*:
 #' 
 #' -   [Embedding the Amazon QuickSight
 #'     Console](https://docs.aws.amazon.com/quicksight/latest/user/embedded-analytics.html)
@@ -3260,11 +4527,11 @@ quicksight_get_dashboard_embed_url <- function(AwsAccountId, DashboardId, Identi
 #' 
 #' -   `/start/favorites`
 #' 
-#' -   `/dashboards/<i>DashboardId</i> ` - where `DashboardId` is the
-#'     actual ID key from the QuickSight console URL of the dashboard
+#' -   `/dashboards/DashboardId ` - where `DashboardId` is the actual ID
+#'     key from the QuickSight console URL of the dashboard
 #' 
-#' -   `/analyses/<i>AnalysisId</i> ` - where `AnalysisId` is the actual ID
-#'     key from the QuickSight console URL of the analysis
+#' -   `/analyses/AnalysisId ` - where `AnalysisId` is the actual ID key
+#'     from the QuickSight console URL of the analysis
 #' @param SessionLifetimeInMinutes How many minutes the session is valid. The session lifetime must be
 #' 15-600 minutes.
 #' @param UserArn The Amazon QuickSight user's Amazon Resource Name (ARN), for use with
@@ -3282,6 +4549,16 @@ quicksight_get_dashboard_embed_url <- function(AwsAccountId, DashboardId, Identi
 #' 
 #' Omit this parameter for users in the third group, IAM users and IAM
 #' role-based sessions.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   EmbedUrl = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3325,6 +4602,30 @@ quicksight_get_session_embed_url <- function(AwsAccountId, EntryPoint = NULL, Se
 #' @param AwsAccountId &#91;required&#93; The ID of the AWS account that contains the analyses.
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AnalysisSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       AnalysisId = "string",
+#'       Name = "string",
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3371,6 +4672,28 @@ quicksight_list_analyses <- function(AwsAccountId, NextToken = NULL, MaxResults 
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardVersionSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       VersionNumber = 123,
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       SourceEntityArn = "string",
+#'       Description = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_dashboard_versions(
@@ -3414,6 +4737,33 @@ quicksight_list_dashboard_versions <- function(AwsAccountId, DashboardId, NextTo
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       DashboardId = "string",
+#'       Name = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       PublishedVersionNumber = 123,
+#'       LastPublishedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3462,6 +4812,36 @@ quicksight_list_dashboards <- function(AwsAccountId, NextToken = NULL, MaxResult
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSetSummaries = list(
+#'     list(
+#'       Arn = "string",
+#'       DataSetId = "string",
+#'       Name = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       ImportMode = "SPICE"|"DIRECT_QUERY",
+#'       RowLevelPermissionDataSet = list(
+#'         Namespace = "string",
+#'         Arn = "string",
+#'         PermissionPolicy = "GRANT_ACCESS"|"DENY_ACCESS"
+#'       ),
+#'       ColumnLevelPermissionRulesApplied = TRUE|FALSE
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_data_sets(
@@ -3504,6 +4884,225 @@ quicksight_list_data_sets <- function(AwsAccountId, NextToken = NULL, MaxResults
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSources = list(
+#'     list(
+#'       Arn = "string",
+#'       DataSourceId = "string",
+#'       Name = "string",
+#'       Type = "ADOBE_ANALYTICS"|"AMAZON_ELASTICSEARCH"|"ATHENA"|"AURORA"|"AURORA_POSTGRESQL"|"AWS_IOT_ANALYTICS"|"GITHUB"|"JIRA"|"MARIADB"|"MYSQL"|"ORACLE"|"POSTGRESQL"|"PRESTO"|"REDSHIFT"|"S3"|"SALESFORCE"|"SERVICENOW"|"SNOWFLAKE"|"SPARK"|"SQLSERVER"|"TERADATA"|"TWITTER"|"TIMESTREAM",
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       DataSourceParameters = list(
+#'         AmazonElasticsearchParameters = list(
+#'           Domain = "string"
+#'         ),
+#'         AthenaParameters = list(
+#'           WorkGroup = "string"
+#'         ),
+#'         AuroraParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         AuroraPostgreSqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         AwsIotAnalyticsParameters = list(
+#'           DataSetName = "string"
+#'         ),
+#'         JiraParameters = list(
+#'           SiteBaseUrl = "string"
+#'         ),
+#'         MariaDbParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         MySqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         OracleParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         PostgreSqlParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         PrestoParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Catalog = "string"
+#'         ),
+#'         RdsParameters = list(
+#'           InstanceId = "string",
+#'           Database = "string"
+#'         ),
+#'         RedshiftParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string",
+#'           ClusterId = "string"
+#'         ),
+#'         S3Parameters = list(
+#'           ManifestFileLocation = list(
+#'             Bucket = "string",
+#'             Key = "string"
+#'           )
+#'         ),
+#'         ServiceNowParameters = list(
+#'           SiteBaseUrl = "string"
+#'         ),
+#'         SnowflakeParameters = list(
+#'           Host = "string",
+#'           Database = "string",
+#'           Warehouse = "string"
+#'         ),
+#'         SparkParameters = list(
+#'           Host = "string",
+#'           Port = 123
+#'         ),
+#'         SqlServerParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         TeradataParameters = list(
+#'           Host = "string",
+#'           Port = 123,
+#'           Database = "string"
+#'         ),
+#'         TwitterParameters = list(
+#'           Query = "string",
+#'           MaxRows = 123
+#'         )
+#'       ),
+#'       AlternateDataSourceParameters = list(
+#'         list(
+#'           AmazonElasticsearchParameters = list(
+#'             Domain = "string"
+#'           ),
+#'           AthenaParameters = list(
+#'             WorkGroup = "string"
+#'           ),
+#'           AuroraParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           AuroraPostgreSqlParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           AwsIotAnalyticsParameters = list(
+#'             DataSetName = "string"
+#'           ),
+#'           JiraParameters = list(
+#'             SiteBaseUrl = "string"
+#'           ),
+#'           MariaDbParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           MySqlParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           OracleParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           PostgreSqlParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           PrestoParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Catalog = "string"
+#'           ),
+#'           RdsParameters = list(
+#'             InstanceId = "string",
+#'             Database = "string"
+#'           ),
+#'           RedshiftParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string",
+#'             ClusterId = "string"
+#'           ),
+#'           S3Parameters = list(
+#'             ManifestFileLocation = list(
+#'               Bucket = "string",
+#'               Key = "string"
+#'             )
+#'           ),
+#'           ServiceNowParameters = list(
+#'             SiteBaseUrl = "string"
+#'           ),
+#'           SnowflakeParameters = list(
+#'             Host = "string",
+#'             Database = "string",
+#'             Warehouse = "string"
+#'           ),
+#'           SparkParameters = list(
+#'             Host = "string",
+#'             Port = 123
+#'           ),
+#'           SqlServerParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           TeradataParameters = list(
+#'             Host = "string",
+#'             Port = 123,
+#'             Database = "string"
+#'           ),
+#'           TwitterParameters = list(
+#'             Query = "string",
+#'             MaxRows = 123
+#'           )
+#'         )
+#'       ),
+#'       VpcConnectionProperties = list(
+#'         VpcConnectionArn = "string"
+#'       ),
+#'       SslProperties = list(
+#'         DisableSsl = TRUE|FALSE
+#'       ),
+#'       ErrorInfo = list(
+#'         Type = "ACCESS_DENIED"|"COPY_SOURCE_NOT_FOUND"|"TIMEOUT"|"ENGINE_VERSION_NOT_SUPPORTED"|"UNKNOWN_HOST"|"GENERIC_SQL_FAILURE"|"CONFLICT"|"UNKNOWN",
+#'         Message = "string"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3550,6 +5149,22 @@ quicksight_list_data_sources <- function(AwsAccountId, NextToken = NULL, MaxResu
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   GroupMemberList = list(
+#'     list(
+#'       Arn = "string",
+#'       MemberName = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_group_memberships(
@@ -3594,6 +5209,24 @@ quicksight_list_group_memberships <- function(GroupName, NextToken = NULL, MaxRe
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   GroupList = list(
+#'     list(
+#'       Arn = "string",
+#'       GroupName = "string",
+#'       Description = "string",
+#'       PrincipalId = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3640,6 +5273,22 @@ quicksight_list_groups <- function(AwsAccountId, NextToken = NULL, MaxResults = 
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   IAMPolicyAssignments = list(
+#'     list(
+#'       AssignmentName = "string",
+#'       AssignmentStatus = "ENABLED"|"DRAFT"|"DISABLED"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3692,6 +5341,22 @@ quicksight_list_iam_policy_assignments <- function(AwsAccountId, AssignmentStatu
 #' @param MaxResults The maximum number of results to be returned per request.
 #' @param Namespace &#91;required&#93; The namespace of the assignment.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ActiveAssignments = list(
+#'     list(
+#'       AssignmentName = "string",
+#'       PolicyArn = "string"
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   NextToken = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_iam_policy_assignments_for_user(
@@ -3738,6 +5403,42 @@ quicksight_list_iam_policy_assignments_for_user <- function(AwsAccountId, UserNa
 #' @param AwsAccountId &#91;required&#93; The AWS account ID.
 #' @param MaxResults The maximum number of results to be returned per request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Ingestions = list(
+#'     list(
+#'       Arn = "string",
+#'       IngestionId = "string",
+#'       IngestionStatus = "INITIALIZED"|"QUEUED"|"RUNNING"|"FAILED"|"COMPLETED"|"CANCELLED",
+#'       ErrorInfo = list(
+#'         Type = "FAILURE_TO_ASSUME_ROLE"|"INGESTION_SUPERSEDED"|"INGESTION_CANCELED"|"DATA_SET_DELETED"|"DATA_SET_NOT_SPICE"|"S3_UPLOADED_FILE_DELETED"|"S3_MANIFEST_ERROR"|"DATA_TOLERANCE_EXCEPTION"|"SPICE_TABLE_NOT_FOUND"|"DATA_SET_SIZE_LIMIT_EXCEEDED"|"ROW_SIZE_LIMIT_EXCEEDED"|"ACCOUNT_CAPACITY_LIMIT_EXCEEDED"|"CUSTOMER_ERROR"|"DATA_SOURCE_NOT_FOUND"|"IAM_ROLE_NOT_AVAILABLE"|"CONNECTION_FAILURE"|"SQL_TABLE_NOT_FOUND"|"PERMISSION_DENIED"|"SSL_CERTIFICATE_VALIDATION_FAILURE"|"OAUTH_TOKEN_FAILURE"|"SOURCE_API_LIMIT_EXCEEDED_FAILURE"|"PASSWORD_AUTHENTICATION_FAILURE"|"SQL_SCHEMA_MISMATCH_ERROR"|"INVALID_DATE_FORMAT"|"INVALID_DATAPREP_SYNTAX"|"SOURCE_RESOURCE_LIMIT_EXCEEDED"|"SQL_INVALID_PARAMETER_VALUE"|"QUERY_TIMEOUT"|"SQL_NUMERIC_OVERFLOW"|"UNRESOLVABLE_HOST"|"UNROUTABLE_HOST"|"SQL_EXCEPTION"|"S3_FILE_INACCESSIBLE"|"IOT_FILE_NOT_FOUND"|"IOT_DATA_SET_FILE_EMPTY"|"INVALID_DATA_SOURCE_CONFIG"|"DATA_SOURCE_AUTH_FAILED"|"DATA_SOURCE_CONNECTION_FAILED"|"FAILURE_TO_PROCESS_JSON_FILE"|"INTERNAL_SERVICE_ERROR",
+#'         Message = "string"
+#'       ),
+#'       RowInfo = list(
+#'         RowsIngested = 123,
+#'         RowsDropped = 123
+#'       ),
+#'       QueueInfo = list(
+#'         WaitingOnIngestion = "string",
+#'         QueuedIngestion = "string"
+#'       ),
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       IngestionTimeInSeconds = 123,
+#'       IngestionSizeInBytes = 123,
+#'       RequestSource = "MANUAL"|"SCHEDULED",
+#'       RequestType = "INITIAL_INGESTION"|"EDIT"|"INCREMENTAL_REFRESH"|"FULL_REFRESH"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_ingestions(
@@ -3781,6 +5482,29 @@ quicksight_list_ingestions <- function(DataSetId, NextToken = NULL, AwsAccountId
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Namespaces = list(
+#'     list(
+#'       Name = "string",
+#'       Arn = "string",
+#'       CapacityRegion = "string",
+#'       CreationStatus = "CREATED"|"CREATING"|"DELETING"|"RETRYABLE_FAILURE"|"NON_RETRYABLE_FAILURE",
+#'       IdentityStore = "QUICKSIGHT",
+#'       NamespaceError = list(
+#'         Type = "PERMISSION_DENIED"|"INTERNAL_SERVICE_ERROR",
+#'         Message = "string"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_namespaces(
@@ -3820,6 +5544,21 @@ quicksight_list_namespaces <- function(AwsAccountId, NextToken = NULL, MaxResult
 #'
 #' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want a list of
 #' tags for.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Tags = list(
+#'     list(
+#'       Key = "string",
+#'       Value = "string"
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3863,6 +5602,23 @@ quicksight_list_tags_for_resource <- function(ResourceArn) {
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateAliasList = list(
+#'     list(
+#'       AliasName = "string",
+#'       Arn = "string",
+#'       TemplateVersionNumber = 123
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string",
+#'   NextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3912,6 +5668,27 @@ quicksight_list_template_aliases <- function(AwsAccountId, TemplateId, NextToken
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateVersionSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       VersionNumber = 123,
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       Description = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_template_versions(
@@ -3955,6 +5732,30 @@ quicksight_list_template_versions <- function(AwsAccountId, TemplateId, NextToke
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       TemplateId = "string",
+#'       Name = "string",
+#'       LatestVersionNumber = 123,
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4001,6 +5802,23 @@ quicksight_list_templates <- function(AwsAccountId, NextToken = NULL, MaxResults
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeAliasList = list(
+#'     list(
+#'       Arn = "string",
+#'       AliasName = "string",
+#'       ThemeVersionNumber = 123
+#'     )
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string",
+#'   NextToken = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_theme_aliases(
@@ -4045,6 +5863,27 @@ quicksight_list_theme_aliases <- function(AwsAccountId, ThemeId, NextToken = NUL
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeVersionSummaryList = list(
+#'     list(
+#'       VersionNumber = 123,
+#'       Arn = "string",
+#'       Description = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4099,6 +5938,30 @@ quicksight_list_theme_versions <- function(AwsAccountId, ThemeId, NextToken = NU
 #' -   `QUICKSIGHT` - Display only the starting themes defined by
 #'     QuickSight.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       Name = "string",
+#'       ThemeId = "string",
+#'       LatestVersionNumber = 123,
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_themes(
@@ -4148,6 +6011,24 @@ quicksight_list_themes <- function(AwsAccountId, NextToken = NULL, MaxResults = 
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return from this request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   GroupList = list(
+#'     list(
+#'       Arn = "string",
+#'       GroupName = "string",
+#'       Description = "string",
+#'       PrincipalId = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_user_groups(
@@ -4194,6 +6075,28 @@ quicksight_list_user_groups <- function(UserName, AwsAccountId, Namespace, NextT
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return from this request.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   UserList = list(
+#'     list(
+#'       Arn = "string",
+#'       UserName = "string",
+#'       Email = "string",
+#'       Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+#'       IdentityType = "IAM"|"QUICKSIGHT",
+#'       Active = TRUE|FALSE,
+#'       PrincipalId = "string",
+#'       CustomPermissionsName = "string"
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4288,14 +6191,14 @@ quicksight_list_users <- function(AwsAccountId, NextToken = NULL, MaxResults = N
 #' 
 #' -   Subscribe to email reports
 #' 
-#' To add custom permissions to an existing user, use ` <a>UpdateUser</a> `
-#' instead.
+#' To add custom permissions to an existing user, use
+#' [`update_user`][quicksight_update_user] instead.
 #' 
 #' A set of custom permissions includes any combination of these
 #' restrictions. Currently, you need to create the profile names for custom
 #' permission sets by using the QuickSight console. Then, you use the
-#' `RegisterUser` API operation to assign the named set of permissions to a
-#' QuickSight user.
+#' [`register_user`][quicksight_register_user] API operation to assign the
+#' named set of permissions to a QuickSight user.
 #' 
 #' QuickSight custom permissions are applied through IAM policies.
 #' Therefore, they override the permissions typically granted by assigning
@@ -4305,6 +6208,26 @@ quicksight_list_users <- function(AwsAccountId, NextToken = NULL, MaxResults = N
 #' This feature is available only to QuickSight Enterprise edition
 #' subscriptions that use SAML 2.0-Based Federation for Single Sign-On
 #' (SSO).
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   User = list(
+#'     Arn = "string",
+#'     UserName = "string",
+#'     Email = "string",
+#'     Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+#'     IdentityType = "IAM"|"QUICKSIGHT",
+#'     Active = TRUE|FALSE,
+#'     PrincipalId = "string",
+#'     CustomPermissionsName = "string"
+#'   ),
+#'   UserInvitationUrl = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4352,6 +6275,17 @@ quicksight_register_user <- function(IdentityType, Email, UserRole, IamArn = NUL
 #' @param AwsAccountId &#91;required&#93; The ID of the AWS account that contains the analysis.
 #' @param AnalysisId &#91;required&#93; The ID of the analysis that you're restoring.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Status = 123,
+#'   Arn = "string",
+#'   AnalysisId = "string",
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$restore_analysis(
@@ -4394,6 +6328,30 @@ quicksight_restore_analysis <- function(AwsAccountId, AnalysisId) {
 #' search.
 #' @param NextToken A pagination token that can be used in a subsequent request.
 #' @param MaxResults The maximum number of results to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AnalysisSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       AnalysisId = "string",
+#'       Name = "string",
+#'       Status = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4444,10 +6402,37 @@ quicksight_search_analyses <- function(AwsAccountId, Filters, NextToken = NULL, 
 #' searching for.
 #' @param Filters &#91;required&#93; The filters to apply to the search. Currently, you can search only by
 #' user name, for example,
-#' `"Filters": \\[ \{ "Name": "QUICKSIGHT_USER", "Operator": "StringEquals", "Value": "arn:aws:quicksight:us-east-1:1:user/default/UserName1" \} \\]`
+#' `"Filters": [ { "Name": "QUICKSIGHT_USER", "Operator": "StringEquals", "Value": "arn:aws:quicksight:us-east-1:1:user/default/UserName1" } ]`
 #' @param NextToken The token for the next set of results, or null if there are no more
 #' results.
 #' @param MaxResults The maximum number of results to be returned per request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardSummaryList = list(
+#'     list(
+#'       Arn = "string",
+#'       DashboardId = "string",
+#'       Name = "string",
+#'       CreatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastUpdatedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       PublishedVersionNumber = 123,
+#'       LastPublishedTime = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   ),
+#'   NextToken = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4495,11 +6480,11 @@ quicksight_search_dashboards <- function(AwsAccountId, Filters, NextToken = NULL
 #' Tags can help you organize and categorize your resources. You can also
 #' use them to scope user permissions, by granting a user permission to
 #' access or change only resources with certain tag values. You can use the
-#' `TagResource` operation with a resource that already has tags. If you
-#' specify a new tag key for the resource, this tag is appended to the list
-#' of tags associated with the resource. If you specify a tag key that is
-#' already associated with the resource, the new tag value that you specify
-#' replaces the previous value for that tag.
+#' [`tag_resource`][quicksight_tag_resource] operation with a resource that
+#' already has tags. If you specify a new tag key for the resource, this
+#' tag is appended to the list of tags associated with the resource. If you
+#' specify a tag key that is already associated with the resource, the new
+#' tag value that you specify replaces the previous value for that tag.
 #' 
 #' You can associate as many as 50 tags with a resource. QuickSight
 #' supports tagging on data set, data source, dashboard, and template.
@@ -4520,6 +6505,15 @@ quicksight_search_dashboards <- function(AwsAccountId, Filters, NextToken = NULL
 #' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to tag.
 #' @param Tags &#91;required&#93; Contains a map of the key-value pairs for the resource tag or tags
 #' assigned to the resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4566,6 +6560,15 @@ quicksight_tag_resource <- function(ResourceArn, Tags) {
 #' @param TagKeys &#91;required&#93; The keys of the key-value pairs for the resource tag or tags assigned to
 #' the resource.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$untag_resource(
@@ -4606,7 +6609,8 @@ quicksight_untag_resource <- function(ResourceArn, TagKeys) {
 #' namespace, for a QuickSight namespace instead. Customizations that apply
 #' to a namespace override customizations that apply to an AWS account. To
 #' find out which customizations apply, use the
-#' `DescribeAccountCustomization` API operation.
+#' [`describe_account_customization`][quicksight_describe_account_customization]
+#' API operation.
 #'
 #' @usage
 #' quicksight_update_account_customization(AwsAccountId, Namespace,
@@ -4616,6 +6620,21 @@ quicksight_untag_resource <- function(ResourceArn, TagKeys) {
 #' customizations for.
 #' @param Namespace The namespace that you want to update QuickSight customizations for.
 #' @param AccountCustomization &#91;required&#93; The QuickSight customizations you're updating in the current AWS Region.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   AwsAccountId = "string",
+#'   Namespace = "string",
+#'   AccountCustomization = list(
+#'     DefaultTheme = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4665,6 +6684,15 @@ quicksight_update_account_customization <- function(AwsAccountId, Namespace = NU
 #' associated with the default namespace.
 #' @param NotificationEmail The email address that you want QuickSight to send notifications to
 #' regarding your AWS account or QuickSight subscription.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4719,6 +6747,18 @@ quicksight_update_account_settings <- function(AwsAccountId, DefaultNamespace, N
 #' @param ThemeArn The Amazon Resource Name (ARN) for the theme to apply to the analysis
 #' that you're creating. To see the theme in the QuickSight console, make
 #' sure that you have access to it.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   AnalysisId = "string",
+#'   UpdateStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4816,6 +6856,25 @@ quicksight_update_analysis <- function(AwsAccountId, AnalysisId, Name, Parameter
 #' @param RevokePermissions A structure that describes the permissions to remove and the principal
 #' to remove them from.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AnalysisArn = "string",
+#'   AnalysisId = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_analysis_permissions(
@@ -4879,9 +6938,10 @@ quicksight_update_analysis_permissions <- function(AwsAccountId, AnalysisId, Gra
 #' source. You can only update a dashboard from a template, so you use a
 #' `SourceTemplate` entity. If you need to update a dashboard from an
 #' analysis, first convert the analysis to a template by using the
-#' CreateTemplate API operation. For `SourceTemplate`, specify the Amazon
-#' Resource Name (ARN) of the source template. The `SourceTemplate` ARN can
-#' contain any AWS Account and any QuickSight-supported AWS Region.
+#' [`create_template`][quicksight_create_template] API operation. For
+#' `SourceTemplate`, specify the Amazon Resource Name (ARN) of the source
+#' template. The `SourceTemplate` ARN can contain any AWS Account and any
+#' QuickSight-supported AWS Region.
 #' 
 #' Use the `DataSetReferences` entity within `SourceTemplate` to list the
 #' replacement datasets for the placeholders listed in the original. The
@@ -4910,6 +6970,19 @@ quicksight_update_analysis_permissions <- function(AwsAccountId, AnalysisId, Gra
 #' dashboard. If you add a value for this field, it overrides the value
 #' that was originally associated with the entity. The theme ARN must exist
 #' in the same AWS account where you create the dashboard.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   DashboardId = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5015,6 +7088,25 @@ quicksight_update_dashboard <- function(AwsAccountId, DashboardId, Name, SourceE
 #' @param GrantPermissions The permissions that you want to grant on this resource.
 #' @param RevokePermissions The permissions that you want to revoke from this resource.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardArn = "string",
+#'   DashboardId = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_dashboard_permissions(
@@ -5073,6 +7165,17 @@ quicksight_update_dashboard_permissions <- function(AwsAccountId, DashboardId, G
 #' @param DashboardId &#91;required&#93; The ID for the dashboard.
 #' @param VersionNumber &#91;required&#93; The version number of the dashboard.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DashboardId = "string",
+#'   DashboardArn = "string",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_dashboard_published_version(
@@ -5124,8 +7227,20 @@ quicksight_update_dashboard_published_version <- function(AwsAccountId, Dashboar
 #' @param ColumnGroups Groupings of columns that work together in certain QuickSight features.
 #' Currently, only geospatial hierarchy is supported.
 #' @param RowLevelPermissionDataSet The row-level security configuration for the data you want to create.
-#' @param ColumnLevelPermissionRules A set of one or more definitions of a
-#' ` <a>ColumnLevelPermissionRule</a> `.
+#' @param ColumnLevelPermissionRules A set of one or more definitions of a ` ColumnLevelPermissionRule `.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSetId = "string",
+#'   IngestionArn = "string",
+#'   IngestionId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5305,6 +7420,17 @@ quicksight_update_data_set <- function(AwsAccountId, DataSetId, Name, PhysicalTa
 #' @param GrantPermissions The resource permissions that you want to grant to the dataset.
 #' @param RevokePermissions The resource permissions that you want to revoke from the dataset.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSetArn = "string",
+#'   DataSetId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_data_set_permissions(
@@ -5372,6 +7498,18 @@ quicksight_update_data_set_permissions <- function(AwsAccountId, DataSetId, Gran
 #' when connecting to your underlying source.
 #' @param SslProperties Secure Socket Layer (SSL) properties that apply when QuickSight connects
 #' to your underlying source.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Arn = "string",
+#'   DataSourceId = "string",
+#'   UpdateStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5616,6 +7754,17 @@ quicksight_update_data_source <- function(AwsAccountId, DataSourceId, Name, Data
 #' @param RevokePermissions A list of resource permissions that you want to revoke on the data
 #' source.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   DataSourceArn = "string",
+#'   DataSourceId = "string",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_data_source_permissions(
@@ -5673,6 +7822,21 @@ quicksight_update_data_source_permissions <- function(AwsAccountId, DataSourceId
 #' @param AwsAccountId &#91;required&#93; The ID for the AWS account that the group is in. Currently, you use the
 #' ID for the AWS account that contains your Amazon QuickSight account.
 #' @param Namespace &#91;required&#93; The namespace. Currently, you should set this to `default`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Group = list(
+#'     Arn = "string",
+#'     GroupName = "string",
+#'     Description = "string",
+#'     PrincipalId = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5733,6 +7897,24 @@ quicksight_update_group <- function(GroupName, Description = NULL, AwsAccountId,
 #' specified in this assignment.
 #' @param Identities The QuickSight users, groups, or both that you want to assign the policy
 #' to.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AssignmentName = "string",
+#'   AssignmentId = "string",
+#'   PolicyArn = "string",
+#'   Identities = list(
+#'     list(
+#'       "string"
+#'     )
+#'   ),
+#'   AssignmentStatus = "ENABLED"|"DRAFT"|"DISABLED",
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5798,10 +7980,24 @@ quicksight_update_iam_policy_assignment <- function(AwsAccountId, AssignmentName
 #' listed in the original. The schema in each dataset must match its
 #' placeholder.
 #' @param VersionDescription A description of the current template version that is being updated.
-#' Every time you call `UpdateTemplate`, you create a new version of the
-#' template. Each version of the template maintains a description of the
-#' version in the `VersionDescription` field.
+#' Every time you call [`update_template`][quicksight_update_template], you
+#' create a new version of the template. Each version of the template
+#' maintains a description of the version in the `VersionDescription`
+#' field.
 #' @param Name The name for the template.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateId = "string",
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5866,6 +8062,20 @@ quicksight_update_template <- function(AwsAccountId, TemplateId, SourceEntity, V
 #' apply to templates.
 #' @param TemplateVersionNumber &#91;required&#93; The version number of the template.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateAlias = list(
+#'     AliasName = "string",
+#'     Arn = "string",
+#'     TemplateVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_template_alias(
@@ -5909,6 +8119,25 @@ quicksight_update_template_alias <- function(AwsAccountId, TemplateId, AliasName
 #' @param TemplateId &#91;required&#93; The ID for the template.
 #' @param GrantPermissions A list of resource permissions to be granted on the template.
 #' @param RevokePermissions A list of resource permissions to be revoked from the template.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   TemplateId = "string",
+#'   TemplateArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5969,10 +8198,23 @@ quicksight_update_template_permissions <- function(AwsAccountId, TemplateId, Gra
 #' @param BaseThemeId &#91;required&#93; The theme ID, defined by Amazon QuickSight, that a custom theme inherits
 #' from. All themes initially inherit from a default QuickSight theme.
 #' @param VersionDescription A description of the theme version that you're updating Every time that
-#' you call `UpdateTheme`, you create a new version of the theme. Each
-#' version of the theme maintains a description of the version in
-#' `VersionDescription`.
+#' you call [`update_theme`][quicksight_update_theme], you create a new
+#' version of the theme. Each version of the theme maintains a description
+#' of the version in `VersionDescription`.
 #' @param Configuration The theme configuration, which contains the theme display properties.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeId = "string",
+#'   Arn = "string",
+#'   VersionArn = "string",
+#'   CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6064,6 +8306,20 @@ quicksight_update_theme <- function(AwsAccountId, ThemeId, Name = NULL, BaseThem
 #' @param AliasName &#91;required&#93; The name of the theme alias that you want to update.
 #' @param ThemeVersionNumber &#91;required&#93; The version number of the theme that the alias should reference.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeAlias = list(
+#'     Arn = "string",
+#'     AliasName = "string",
+#'     ThemeVersionNumber = 123
+#'   ),
+#'   Status = 123,
+#'   RequestId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_theme_alias(
@@ -6149,6 +8405,25 @@ quicksight_update_theme_alias <- function(AwsAccountId, ThemeId, AliasName, Them
 #' @param ThemeId &#91;required&#93; The ID for the theme.
 #' @param GrantPermissions A list of resource permissions to be granted for the theme.
 #' @param RevokePermissions A list of resource permissions to be revoked from the theme.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ThemeId = "string",
+#'   ThemeArn = "string",
+#'   Permissions = list(
+#'     list(
+#'       Principal = "string",
+#'       Actions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6237,8 +8512,8 @@ quicksight_update_theme_permissions <- function(AwsAccountId, ThemeId, GrantPerm
 #' A set of custom permissions includes any combination of these
 #' restrictions. Currently, you need to create the profile names for custom
 #' permission sets by using the QuickSight console. Then, you use the
-#' `RegisterUser` API operation to assign the named set of permissions to a
-#' QuickSight user.
+#' [`register_user`][quicksight_register_user] API operation to assign the
+#' named set of permissions to a QuickSight user.
 #' 
 #' QuickSight custom permissions are applied through IAM policies.
 #' Therefore, they override the permissions typically granted by assigning
@@ -6252,6 +8527,25 @@ quicksight_update_theme_permissions <- function(AwsAccountId, ThemeId, GrantPerm
 #' permissions from this user. Using this parameter resets the user to the
 #' state it was in before a custom permissions profile was applied. This
 #' parameter defaults to NULL and it doesn't accept any other value.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   User = list(
+#'     Arn = "string",
+#'     UserName = "string",
+#'     Email = "string",
+#'     Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+#'     IdentityType = "IAM"|"QUICKSIGHT",
+#'     Active = TRUE|FALSE,
+#'     PrincipalId = "string",
+#'     CustomPermissionsName = "string"
+#'   ),
+#'   RequestId = "string",
+#'   Status = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```

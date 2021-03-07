@@ -26,13 +26,112 @@ by the Review Policies.}
 
 \item{MaxResults}{Limit the number of results returned.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  HITId = "string",
+  AssignmentReviewPolicy = list(
+    PolicyName = "string",
+    Parameters = list(
+      list(
+        Key = "string",
+        Values = list(
+          "string"
+        ),
+        MapEntries = list(
+          list(
+            Key = "string",
+            Values = list(
+              "string"
+            )
+          )
+        )
+      )
+    )
+  ),
+  HITReviewPolicy = list(
+    PolicyName = "string",
+    Parameters = list(
+      list(
+        Key = "string",
+        Values = list(
+          "string"
+        ),
+        MapEntries = list(
+          list(
+            Key = "string",
+            Values = list(
+              "string"
+            )
+          )
+        )
+      )
+    )
+  ),
+  AssignmentReviewReport = list(
+    ReviewResults = list(
+      list(
+        ActionId = "string",
+        SubjectId = "string",
+        SubjectType = "string",
+        QuestionId = "string",
+        Key = "string",
+        Value = "string"
+      )
+    ),
+    ReviewActions = list(
+      list(
+        ActionId = "string",
+        ActionName = "string",
+        TargetId = "string",
+        TargetType = "string",
+        Status = "Intended"|"Succeeded"|"Failed"|"Cancelled",
+        CompleteTime = as.POSIXct(
+          "2015-01-01"
+        ),
+        Result = "string",
+        ErrorCode = "string"
+      )
+    )
+  ),
+  HITReviewReport = list(
+    ReviewResults = list(
+      list(
+        ActionId = "string",
+        SubjectId = "string",
+        SubjectType = "string",
+        QuestionId = "string",
+        Key = "string",
+        Value = "string"
+      )
+    ),
+    ReviewActions = list(
+      list(
+        ActionId = "string",
+        ActionName = "string",
+        TargetId = "string",
+        TargetType = "string",
+        Status = "Intended"|"Succeeded"|"Failed"|"Cancelled",
+        CompleteTime = as.POSIXct(
+          "2015-01-01"
+        ),
+        Result = "string",
+        ErrorCode = "string"
+      )
+    )
+  ),
+  NextToken = "string"
+)
+}
+}
 \description{
-The \code{ListReviewPolicyResultsForHIT} operation retrieves the computed
-results and the actions taken in the course of executing your Review
-Policies for a given HIT. For information about how to specify Review
-Policies when you call CreateHIT, see Review Policies. The
-ListReviewPolicyResultsForHIT operation can return results for both
-Assignment-level and HIT-level review results.
+The
+\code{\link[=mturk_list_review_policy_results_for_hit]{list_review_policy_results_for_hit}}
+operation retrieves the computed results and the actions taken in the
+course of executing your Review Policies for a given HIT. For
+information about how to specify Review Policies when you call
+CreateHIT, see Review Policies. The ListReviewPolicyResultsForHIT
+operation can return results for both Assignment-level and HIT-level
+review results.
 }
 \section{Request syntax}{
 \preformatted{svc$list_review_policy_results_for_hit(

@@ -17,32 +17,38 @@ from the shard.
 
 The following are the valid Amazon Kinesis shard iterator types:
 \itemize{
-\item AT\\_SEQUENCE\\_NUMBER - Start reading from the position denoted by a
+\item AT_SEQUENCE_NUMBER - Start reading from the position denoted by a
 specific sequence number, provided in the value
 \code{StartingSequenceNumber}.
-\item AFTER\\_SEQUENCE\\_NUMBER - Start reading right after the position
+\item AFTER_SEQUENCE_NUMBER - Start reading right after the position
 denoted by a specific sequence number, provided in the value
 \code{StartingSequenceNumber}.
-\item AT\\_TIMESTAMP - Start reading from the position denoted by a
+\item AT_TIMESTAMP - Start reading from the position denoted by a
 specific time stamp, provided in the value \code{Timestamp}.
-\item TRIM\\_HORIZON - Start reading at the last untrimmed record in the
+\item TRIM_HORIZON - Start reading at the last untrimmed record in the
 shard in the system, which is the oldest data record in the shard.
 \item LATEST - Start reading just after the most recent record in the
 shard, so that you always read the most recent data in the shard.
 }}
 
 \item{StartingSequenceNumber}{The sequence number of the data record in the shard from which to start
-reading. Used with shard iterator type AT\\_SEQUENCE\\_NUMBER and
-AFTER\\_SEQUENCE\\_NUMBER.}
+reading. Used with shard iterator type AT_SEQUENCE_NUMBER and
+AFTER_SEQUENCE_NUMBER.}
 
 \item{Timestamp}{The time stamp of the data record from which to start reading. Used with
-shard iterator type AT\\_TIMESTAMP. A time stamp is the Unix epoch date
+shard iterator type AT_TIMESTAMP. A time stamp is the Unix epoch date
 with precision in milliseconds. For example,
 \verb{2016-04-04T19:58:46.480-00:00} or \code{1459799926.480}. If a record with
 this exact time stamp does not exist, the iterator returned is for the
 next (later) record. If the time stamp is older than the current trim
 horizon, the iterator returned is for the oldest untrimmed data record
-(TRIM\\_HORIZON).}
+(TRIM_HORIZON).}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  ShardIterator = "string"
+)
+}
 }
 \description{
 Gets an Amazon Kinesis shard iterator. A shard iterator expires 5
@@ -60,32 +66,42 @@ You must specify the shard iterator type. For example, you can set the
 by a specific sequence number by using the \code{AT_SEQUENCE_NUMBER} shard
 iterator type. Alternatively, the parameter can read right after the
 sequence number by using the \code{AFTER_SEQUENCE_NUMBER} shard iterator
-type, using sequence numbers returned by earlier calls to PutRecord,
-PutRecords, GetRecords, or DescribeStream. In the request, you can
+type, using sequence numbers returned by earlier calls to
+\code{\link[=kinesis_put_record]{put_record}},
+\code{\link[=kinesis_put_records]{put_records}},
+\code{\link[=kinesis_get_records]{get_records}}, or
+\code{\link[=kinesis_describe_stream]{describe_stream}}. In the request, you can
 specify the shard iterator type \code{AT_TIMESTAMP} to read records from an
 arbitrary point in time, \code{TRIM_HORIZON} to cause \code{ShardIterator} to
 point to the last untrimmed record in the shard in the system (the
 oldest data record in the shard), or \code{LATEST} so that you always read
 the most recent data in the shard.
 
-When you read repeatedly from a stream, use a GetShardIterator request
-to get the first shard iterator for use in your first GetRecords request
-and for subsequent reads use the shard iterator returned by the
-GetRecords request in \code{NextShardIterator}. A new shard iterator is
-returned by every GetRecords request in \code{NextShardIterator}, which you
-use in the \code{ShardIterator} parameter of the next GetRecords request.
+When you read repeatedly from a stream, use a
+\code{\link[=kinesis_get_shard_iterator]{get_shard_iterator}} request to get the
+first shard iterator for use in your first
+\code{\link[=kinesis_get_records]{get_records}} request and for subsequent reads
+use the shard iterator returned by the
+\code{\link[=kinesis_get_records]{get_records}} request in \code{NextShardIterator}. A
+new shard iterator is returned by every
+\code{\link[=kinesis_get_records]{get_records}} request in \code{NextShardIterator},
+which you use in the \code{ShardIterator} parameter of the next
+\code{\link[=kinesis_get_records]{get_records}} request.
 
-If a GetShardIterator request is made too often, you receive a
-\code{ProvisionedThroughputExceededException}. For more information about
-throughput limits, see GetRecords, and \href{https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html}{Streams Limits}
+If a \code{\link[=kinesis_get_shard_iterator]{get_shard_iterator}} request is made
+too often, you receive a \code{ProvisionedThroughputExceededException}. For
+more information about throughput limits, see
+\code{\link[=kinesis_get_records]{get_records}}, and \href{https://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html}{Streams Limits}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}.
 
-If the shard is closed, GetShardIterator returns a valid iterator for
-the last sequence number of the shard. A shard can be closed as a result
-of using SplitShard or MergeShards.
+If the shard is closed,
+\code{\link[=kinesis_get_shard_iterator]{get_shard_iterator}} returns a valid
+iterator for the last sequence number of the shard. A shard can be
+closed as a result of using \code{\link[=kinesis_split_shard]{split_shard}} or
+\code{\link[=kinesis_merge_shards]{merge_shards}}.
 
-GetShardIterator has a limit of five transactions per second per account
-per open shard.
+\code{\link[=kinesis_get_shard_iterator]{get_shard_iterator}} has a limit of five
+transactions per second per account per open shard.
 }
 \section{Request syntax}{
 \preformatted{svc$get_shard_iterator(

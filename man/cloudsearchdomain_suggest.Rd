@@ -13,6 +13,26 @@ cloudsearchdomain_suggest(query, suggester, size)
 
 \item{size}{Specifies the maximum number of suggestions to return.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  status = list(
+    timems = 123,
+    rid = "string"
+  ),
+  suggest = list(
+    query = "string",
+    found = 123,
+    suggestions = list(
+      list(
+        suggestion = "string",
+        score = 123,
+        id = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Retrieves autocomplete suggestions for a partial query string. You can
 use suggestions enable you to display likely matches before users finish
@@ -26,11 +46,12 @@ For more information about configuring suggesters and retrieving
 suggestions, see \href{https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html}{Getting Suggestions}
 in the \emph{Amazon CloudSearch Developer Guide}.
 
-The endpoint for submitting \code{Suggest} requests is domain-specific. You
-submit suggest requests to a domain's search endpoint. To get the search
-endpoint for your domain, use the Amazon CloudSearch configuration
-service \code{DescribeDomains} action. A domain's endpoints are also
-displayed on the domain dashboard in the Amazon CloudSearch console.
+The endpoint for submitting \code{\link[=cloudsearchdomain_suggest]{suggest}}
+requests is domain-specific. You submit suggest requests to a domain's
+search endpoint. To get the search endpoint for your domain, use the
+Amazon CloudSearch configuration service \code{DescribeDomains} action. A
+domain's endpoints are also displayed on the domain dashboard in the
+Amazon CloudSearch console.
 }
 \section{Request syntax}{
 \preformatted{svc$suggest(

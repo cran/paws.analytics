@@ -10,6 +10,137 @@ kinesisanalytics_describe_application(ApplicationName)
 \arguments{
 \item{ApplicationName}{[required] Name of the application.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ApplicationDetail = list(
+    ApplicationName = "string",
+    ApplicationDescription = "string",
+    ApplicationARN = "string",
+    ApplicationStatus = "DELETING"|"STARTING"|"STOPPING"|"READY"|"RUNNING"|"UPDATING",
+    CreateTimestamp = as.POSIXct(
+      "2015-01-01"
+    ),
+    LastUpdateTimestamp = as.POSIXct(
+      "2015-01-01"
+    ),
+    InputDescriptions = list(
+      list(
+        InputId = "string",
+        NamePrefix = "string",
+        InAppStreamNames = list(
+          "string"
+        ),
+        InputProcessingConfigurationDescription = list(
+          InputLambdaProcessorDescription = list(
+            ResourceARN = "string",
+            RoleARN = "string"
+          )
+        ),
+        KinesisStreamsInputDescription = list(
+          ResourceARN = "string",
+          RoleARN = "string"
+        ),
+        KinesisFirehoseInputDescription = list(
+          ResourceARN = "string",
+          RoleARN = "string"
+        ),
+        InputSchema = list(
+          RecordFormat = list(
+            RecordFormatType = "JSON"|"CSV",
+            MappingParameters = list(
+              JSONMappingParameters = list(
+                RecordRowPath = "string"
+              ),
+              CSVMappingParameters = list(
+                RecordRowDelimiter = "string",
+                RecordColumnDelimiter = "string"
+              )
+            )
+          ),
+          RecordEncoding = "string",
+          RecordColumns = list(
+            list(
+              Name = "string",
+              Mapping = "string",
+              SqlType = "string"
+            )
+          )
+        ),
+        InputParallelism = list(
+          Count = 123
+        ),
+        InputStartingPositionConfiguration = list(
+          InputStartingPosition = "NOW"|"TRIM_HORIZON"|"LAST_STOPPED_POINT"
+        )
+      )
+    ),
+    OutputDescriptions = list(
+      list(
+        OutputId = "string",
+        Name = "string",
+        KinesisStreamsOutputDescription = list(
+          ResourceARN = "string",
+          RoleARN = "string"
+        ),
+        KinesisFirehoseOutputDescription = list(
+          ResourceARN = "string",
+          RoleARN = "string"
+        ),
+        LambdaOutputDescription = list(
+          ResourceARN = "string",
+          RoleARN = "string"
+        ),
+        DestinationSchema = list(
+          RecordFormatType = "JSON"|"CSV"
+        )
+      )
+    ),
+    ReferenceDataSourceDescriptions = list(
+      list(
+        ReferenceId = "string",
+        TableName = "string",
+        S3ReferenceDataSourceDescription = list(
+          BucketARN = "string",
+          FileKey = "string",
+          ReferenceRoleARN = "string"
+        ),
+        ReferenceSchema = list(
+          RecordFormat = list(
+            RecordFormatType = "JSON"|"CSV",
+            MappingParameters = list(
+              JSONMappingParameters = list(
+                RecordRowPath = "string"
+              ),
+              CSVMappingParameters = list(
+                RecordRowDelimiter = "string",
+                RecordColumnDelimiter = "string"
+              )
+            )
+          ),
+          RecordEncoding = "string",
+          RecordColumns = list(
+            list(
+              Name = "string",
+              Mapping = "string",
+              SqlType = "string"
+            )
+          )
+        )
+      )
+    ),
+    CloudWatchLoggingOptionDescriptions = list(
+      list(
+        CloudWatchLoggingOptionId = "string",
+        LogStreamARN = "string",
+        RoleARN = "string"
+      )
+    ),
+    ApplicationCode = "string",
+    ApplicationVersionId = 123
+  )
+)
+}
+}
 \description{
 This documentation is for version 1 of the Amazon Kinesis Data Analytics
 API, which only supports SQL applications. Version 2 of the API supports
@@ -20,14 +151,13 @@ Returns information about a specific Amazon Kinesis Analytics
 application.
 
 If you want to retrieve a list of all applications in your account, use
-the
-\href{https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_ListApplications.html}{ListApplications}
-operation.
+the \code{\link[=kinesisanalytics_list_applications]{list_applications}} operation.
 
 This operation requires permissions to perform the
 \code{kinesisanalytics:DescribeApplication} action. You can use
-\code{DescribeApplication} to get the current application versionId, which
-you need to call other operations such as \code{Update}.
+\code{\link[=kinesisanalytics_describe_application]{describe_application}} to get
+the current application versionId, which you need to call other
+operations such as \code{Update}.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_application(

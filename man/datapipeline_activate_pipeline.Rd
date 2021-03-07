@@ -15,12 +15,16 @@ datapipeline_activate_pipeline(pipelineId, parameterValues,
 \item{startTimestamp}{The date and time to resume the pipeline. By default, the pipeline
 resumes from the last completed execution.}
 }
+\value{
+An empty list.
+}
 \description{
 Validates the specified pipeline and starts processing pipeline tasks.
 If the pipeline does not pass validation, activation fails.
 
 If you need to pause the pipeline to investigate an issue with a
-component, such as a data source or script, call DeactivatePipeline.
+component, such as a data source or script, call
+\code{\link[=datapipeline_deactivate_pipeline]{deactivate_pipeline}}.
 
 To activate a finished pipeline, modify the end date for the pipeline
 and then activate it.

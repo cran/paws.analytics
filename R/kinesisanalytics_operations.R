@@ -28,6 +28,9 @@ NULL
 #' IAM role ARN. Note: To write application messages to CloudWatch, the IAM
 #' role that is used must have the `PutLogEvents` policy action enabled.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$add_application_cloud_watch_logging_option(
@@ -76,11 +79,11 @@ kinesisanalytics_add_application_cloud_watch_logging_option <- function(Applicat
 #' You can add a streaming source either when you create an application or
 #' you can use this operation to add a streaming source after you create an
 #' application. For more information, see
-#' [CreateApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_CreateApplication.html).
+#' [`create_application`][kinesisanalytics_create_application].
 #' 
 #' Any configuration update, including adding a streaming source using this
 #' operation, results in a new version of the application. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to find the current application version.
 #' 
 #' This operation requires permissions to perform the
@@ -93,12 +96,14 @@ kinesisanalytics_add_application_cloud_watch_logging_option <- function(Applicat
 #' @param ApplicationName &#91;required&#93; Name of your existing Amazon Kinesis Analytics application to which you
 #' want to add the streaming source.
 #' @param CurrentApplicationVersionId &#91;required&#93; Current version of your Amazon Kinesis Analytics application. You can
-#' use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' use the [`describe_application`][kinesisanalytics_describe_application]
 #' operation to find the current application version.
 #' @param Input &#91;required&#93; The
 #' [Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_Input.html)
 #' to add.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -195,18 +200,21 @@ kinesisanalytics_add_application_input <- function(ApplicationName, CurrentAppli
 #' configuration.
 #' @param CurrentApplicationVersionId &#91;required&#93; Version of the application to which you want to add the input processing
 #' configuration. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the current application version. If the version
 #' specified is not the current version, the
 #' `ConcurrentModificationException` is returned.
 #' @param InputId &#91;required&#93; The ID of the input configuration to add the input processing
 #' configuration to. You can get a list of the input IDs for an application
 #' using the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation.
 #' @param InputProcessingConfiguration &#91;required&#93; The
 #' [InputProcessingConfiguration](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html)
 #' to add to the application.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -271,7 +279,7 @@ kinesisanalytics_add_application_input_processing_configuration <- function(Appl
 #' 
 #' Any configuration update, including adding a streaming source using this
 #' operation, results in a new version of the application. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to find the current application version.
 #' 
 #' For the limits on the number of application inputs and outputs you can
@@ -289,7 +297,7 @@ kinesisanalytics_add_application_input_processing_configuration <- function(Appl
 #' configuration.
 #' @param CurrentApplicationVersionId &#91;required&#93; Version of the application to which you want to add the output
 #' configuration. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the current application version. If the version
 #' specified is not the current version, the
 #' `ConcurrentModificationException` is returned.
@@ -298,6 +306,9 @@ kinesisanalytics_add_application_input_processing_configuration <- function(Appl
 #' a destination (that is, an Amazon Kinesis stream, an Amazon Kinesis
 #' Firehose delivery stream, or an AWS Lambda function), and record the
 #' formation to use when writing to the destination.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -378,7 +389,7 @@ kinesisanalytics_add_application_output <- function(ApplicationName, CurrentAppl
 #' @param ApplicationName &#91;required&#93; Name of an existing application.
 #' @param CurrentApplicationVersionId &#91;required&#93; Version of the application for which you are adding the reference data
 #' source. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the current application version. If the version
 #' specified is not the current version, the
 #' `ConcurrentModificationException` is returned.
@@ -389,6 +400,9 @@ kinesisanalytics_add_application_output <- function(ApplicationName, CurrentAppl
 #' must also provide an IAM role with the necessary permissions that Amazon
 #' Kinesis Analytics can assume to read the object from your S3 bucket on
 #' your behalf.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -556,6 +570,18 @@ kinesisanalytics_add_application_reference_data_source <- function(ApplicationNa
 #' user-defined application tags is 50. For more information, see [Using
 #' Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ApplicationSummary = list(
+#'     ApplicationName = "string",
+#'     ApplicationARN = "string",
+#'     ApplicationStatus = "DELETING"|"STARTING"|"STOPPING"|"READY"|"RUNNING"|"UPDATING"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_application(
@@ -682,7 +708,12 @@ kinesisanalytics_create_application <- function(ApplicationName, ApplicationDesc
 #' kinesisanalytics_delete_application(ApplicationName, CreateTimestamp)
 #'
 #' @param ApplicationName &#91;required&#93; Name of the Amazon Kinesis Analytics application to delete.
-#' @param CreateTimestamp &#91;required&#93; You can use the `DescribeApplication` operation to get this value.
+#' @param CreateTimestamp &#91;required&#93; You can use the
+#' [`describe_application`][kinesisanalytics_describe_application]
+#' operation to get this value.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -736,8 +767,11 @@ kinesisanalytics_delete_application <- function(ApplicationName, CreateTimestamp
 #' @param CurrentApplicationVersionId &#91;required&#93; The version ID of the Kinesis Analytics application.
 #' @param CloudWatchLoggingOptionId &#91;required&#93; The `CloudWatchLoggingOptionId` of the CloudWatch logging option to
 #' delete. You can get the `CloudWatchLoggingOptionId` by using the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -790,8 +824,11 @@ kinesisanalytics_delete_application_cloud_watch_logging_option <- function(Appli
 #' @param InputId &#91;required&#93; The ID of the input configuration from which to delete the input
 #' processing configuration. You can get a list of the input IDs for an
 #' application by using the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -845,19 +882,22 @@ kinesisanalytics_delete_application_input_processing_configuration <- function(A
 #'
 #' @param ApplicationName &#91;required&#93; Amazon Kinesis Analytics application name.
 #' @param CurrentApplicationVersionId &#91;required&#93; Amazon Kinesis Analytics application version. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the current application version. If the version
 #' specified is not the current version, the
 #' `ConcurrentModificationException` is returned.
 #' @param OutputId &#91;required&#93; The ID of the configuration to delete. Each output configuration that is
 #' added to the application, either when the application is created or
 #' later using the
-#' [AddApplicationOutput](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_AddApplicationOutput.html)
+#' [`add_application_output`][kinesisanalytics_add_application_output]
 #' operation, has a unique ID. You need to provide the ID to uniquely
 #' identify the output configuration that you want to delete from the
 #' application configuration. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the specific `OutputId`.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -902,7 +942,7 @@ kinesisanalytics_delete_application_output <- function(ApplicationName, CurrentA
 #' 
 #' If the application is running, Amazon Kinesis Analytics immediately
 #' removes the in-application table that you created using the
-#' [AddApplicationReferenceDataSource](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_AddApplicationReferenceDataSource.html)
+#' [`add_application_reference_data_source`][kinesisanalytics_add_application_reference_data_source]
 #' operation.
 #' 
 #' This operation requires permissions to perform the
@@ -914,16 +954,19 @@ kinesisanalytics_delete_application_output <- function(ApplicationName, CurrentA
 #'
 #' @param ApplicationName &#91;required&#93; Name of an existing application.
 #' @param CurrentApplicationVersionId &#91;required&#93; Version of the application. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the current application version. If the version
 #' specified is not the current version, the
 #' `ConcurrentModificationException` is returned.
 #' @param ReferenceId &#91;required&#93; ID of the reference data source. When you add a reference data source to
 #' your application using the
-#' [AddApplicationReferenceDataSource](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_AddApplicationReferenceDataSource.html),
+#' [`add_application_reference_data_source`][kinesisanalytics_add_application_reference_data_source],
 #' Amazon Kinesis Analytics assigns an ID. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get the reference ID.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -967,19 +1010,151 @@ kinesisanalytics_delete_application_reference_data_source <- function(Applicatio
 #' application.
 #' 
 #' If you want to retrieve a list of all applications in your account, use
-#' the
-#' [ListApplications](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_ListApplications.html)
-#' operation.
+#' the [`list_applications`][kinesisanalytics_list_applications] operation.
 #' 
 #' This operation requires permissions to perform the
 #' `kinesisanalytics:DescribeApplication` action. You can use
-#' `DescribeApplication` to get the current application versionId, which
-#' you need to call other operations such as `Update`.
+#' [`describe_application`][kinesisanalytics_describe_application] to get
+#' the current application versionId, which you need to call other
+#' operations such as `Update`.
 #'
 #' @usage
 #' kinesisanalytics_describe_application(ApplicationName)
 #'
 #' @param ApplicationName &#91;required&#93; Name of the application.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ApplicationDetail = list(
+#'     ApplicationName = "string",
+#'     ApplicationDescription = "string",
+#'     ApplicationARN = "string",
+#'     ApplicationStatus = "DELETING"|"STARTING"|"STOPPING"|"READY"|"RUNNING"|"UPDATING",
+#'     CreateTimestamp = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     LastUpdateTimestamp = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     InputDescriptions = list(
+#'       list(
+#'         InputId = "string",
+#'         NamePrefix = "string",
+#'         InAppStreamNames = list(
+#'           "string"
+#'         ),
+#'         InputProcessingConfigurationDescription = list(
+#'           InputLambdaProcessorDescription = list(
+#'             ResourceARN = "string",
+#'             RoleARN = "string"
+#'           )
+#'         ),
+#'         KinesisStreamsInputDescription = list(
+#'           ResourceARN = "string",
+#'           RoleARN = "string"
+#'         ),
+#'         KinesisFirehoseInputDescription = list(
+#'           ResourceARN = "string",
+#'           RoleARN = "string"
+#'         ),
+#'         InputSchema = list(
+#'           RecordFormat = list(
+#'             RecordFormatType = "JSON"|"CSV",
+#'             MappingParameters = list(
+#'               JSONMappingParameters = list(
+#'                 RecordRowPath = "string"
+#'               ),
+#'               CSVMappingParameters = list(
+#'                 RecordRowDelimiter = "string",
+#'                 RecordColumnDelimiter = "string"
+#'               )
+#'             )
+#'           ),
+#'           RecordEncoding = "string",
+#'           RecordColumns = list(
+#'             list(
+#'               Name = "string",
+#'               Mapping = "string",
+#'               SqlType = "string"
+#'             )
+#'           )
+#'         ),
+#'         InputParallelism = list(
+#'           Count = 123
+#'         ),
+#'         InputStartingPositionConfiguration = list(
+#'           InputStartingPosition = "NOW"|"TRIM_HORIZON"|"LAST_STOPPED_POINT"
+#'         )
+#'       )
+#'     ),
+#'     OutputDescriptions = list(
+#'       list(
+#'         OutputId = "string",
+#'         Name = "string",
+#'         KinesisStreamsOutputDescription = list(
+#'           ResourceARN = "string",
+#'           RoleARN = "string"
+#'         ),
+#'         KinesisFirehoseOutputDescription = list(
+#'           ResourceARN = "string",
+#'           RoleARN = "string"
+#'         ),
+#'         LambdaOutputDescription = list(
+#'           ResourceARN = "string",
+#'           RoleARN = "string"
+#'         ),
+#'         DestinationSchema = list(
+#'           RecordFormatType = "JSON"|"CSV"
+#'         )
+#'       )
+#'     ),
+#'     ReferenceDataSourceDescriptions = list(
+#'       list(
+#'         ReferenceId = "string",
+#'         TableName = "string",
+#'         S3ReferenceDataSourceDescription = list(
+#'           BucketARN = "string",
+#'           FileKey = "string",
+#'           ReferenceRoleARN = "string"
+#'         ),
+#'         ReferenceSchema = list(
+#'           RecordFormat = list(
+#'             RecordFormatType = "JSON"|"CSV",
+#'             MappingParameters = list(
+#'               JSONMappingParameters = list(
+#'                 RecordRowPath = "string"
+#'               ),
+#'               CSVMappingParameters = list(
+#'                 RecordRowDelimiter = "string",
+#'                 RecordColumnDelimiter = "string"
+#'               )
+#'             )
+#'           ),
+#'           RecordEncoding = "string",
+#'           RecordColumns = list(
+#'             list(
+#'               Name = "string",
+#'               Mapping = "string",
+#'               SqlType = "string"
+#'             )
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     CloudWatchLoggingOptionDescriptions = list(
+#'       list(
+#'         CloudWatchLoggingOptionId = "string",
+#'         LogStreamARN = "string",
+#'         RoleARN = "string"
+#'       )
+#'     ),
+#'     ApplicationCode = "string",
+#'     ApplicationVersionId = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1051,6 +1226,46 @@ kinesisanalytics_describe_application <- function(ApplicationName) {
 #' to use to preprocess the records before discovering the schema of the
 #' records.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   InputSchema = list(
+#'     RecordFormat = list(
+#'       RecordFormatType = "JSON"|"CSV",
+#'       MappingParameters = list(
+#'         JSONMappingParameters = list(
+#'           RecordRowPath = "string"
+#'         ),
+#'         CSVMappingParameters = list(
+#'           RecordRowDelimiter = "string",
+#'           RecordColumnDelimiter = "string"
+#'         )
+#'       )
+#'     ),
+#'     RecordEncoding = "string",
+#'     RecordColumns = list(
+#'       list(
+#'         Name = "string",
+#'         Mapping = "string",
+#'         SqlType = "string"
+#'       )
+#'     )
+#'   ),
+#'   ParsedInputRecords = list(
+#'     list(
+#'       "string"
+#'     )
+#'   ),
+#'   ProcessedInputRecords = list(
+#'     "string"
+#'   ),
+#'   RawInputRecords = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$discover_input_schema(
@@ -1111,7 +1326,7 @@ kinesisanalytics_discover_input_schema <- function(ResourceARN = NULL, RoleARN =
 #' response.
 #' 
 #' If you want detailed information about a specific application, use
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html).
+#' [`describe_application`][kinesisanalytics_describe_application].
 #' 
 #' This operation requires permissions to perform the
 #' `kinesisanalytics:ListApplications` action.
@@ -1124,6 +1339,21 @@ kinesisanalytics_discover_input_schema <- function(ResourceARN = NULL, RoleARN =
 #' retrieve the list, you don't need to specify this parameter in the first
 #' request. However, in subsequent requests, you add the last application
 #' name from the previous response to get the next page of applications.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ApplicationSummaries = list(
+#'     list(
+#'       ApplicationName = "string",
+#'       ApplicationARN = "string",
+#'       ApplicationStatus = "DELETING"|"STARTING"|"STOPPING"|"READY"|"RUNNING"|"UPDATING"
+#'     )
+#'   ),
+#'   HasMoreApplications = TRUE|FALSE
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1164,6 +1394,19 @@ kinesisanalytics_list_applications <- function(Limit = NULL, ExclusiveStartAppli
 #' kinesisanalytics_list_tags_for_resource(ResourceARN)
 #'
 #' @param ResourceARN &#91;required&#93; The ARN of the application for which to retrieve tags.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Tags = list(
+#'     list(
+#'       Key = "string",
+#'       Value = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1210,13 +1453,12 @@ kinesisanalytics_list_tags_for_resource <- function(ResourceARN) {
 #' 
 #' The application status must be `READY` for you to start an application.
 #' You can get the application status in the console or using the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation.
 #' 
 #' After you start the application, you can stop the application from
 #' processing the input by calling the
-#' [StopApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_StopApplication.html)
-#' operation.
+#' [`stop_application`][kinesisanalytics_stop_application] operation.
 #' 
 #' This operation requires permissions to perform the
 #' `kinesisanalytics:StartApplication` action.
@@ -1229,6 +1471,9 @@ kinesisanalytics_list_tags_for_resource <- function(ResourceARN) {
 #' consuming. Amazon Kinesis Analytics starts reading the streaming source
 #' associated with the input. You can also specify where in the streaming
 #' source you want Amazon Kinesis Analytics to start reading.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1276,7 +1521,7 @@ kinesisanalytics_start_application <- function(ApplicationName, InputConfigurati
 #' 
 #' Stops the application from processing input data. You can stop an
 #' application only if it is in the running state. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to find the application state. After the application is
 #' stopped, Amazon Kinesis Analytics stops reading data from the input, the
 #' application stops processing data, and there is no output written to the
@@ -1289,6 +1534,9 @@ kinesisanalytics_start_application <- function(ApplicationName, InputConfigurati
 #' kinesisanalytics_stop_application(ApplicationName)
 #'
 #' @param ApplicationName &#91;required&#93; Name of the running application to stop.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1331,6 +1579,9 @@ kinesisanalytics_stop_application <- function(ApplicationName) {
 #'
 #' @param ResourceARN &#91;required&#93; The ARN of the application to assign the tags.
 #' @param Tags &#91;required&#93; The key-value tags to assign to the application.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1378,6 +1629,9 @@ kinesisanalytics_tag_resource <- function(ResourceARN, Tags) {
 #' @param ResourceARN &#91;required&#93; The ARN of the Kinesis Analytics application from which to remove the
 #' tags.
 #' @param TagKeys &#91;required&#93; A list of keys of tags to remove from the specified application.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1434,9 +1688,12 @@ kinesisanalytics_untag_resource <- function(ResourceARN, TagKeys) {
 #'
 #' @param ApplicationName &#91;required&#93; Name of the Amazon Kinesis Analytics application to update.
 #' @param CurrentApplicationVersionId &#91;required&#93; The current application version ID. You can use the
-#' [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
+#' [`describe_application`][kinesisanalytics_describe_application]
 #' operation to get this value.
 #' @param ApplicationUpdate &#91;required&#93; Describes application updates.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```

@@ -9,11 +9,36 @@ cloudsearch_describe_expressions(DomainName, ExpressionNames, Deployed)
 \arguments{
 \item{DomainName}{[required] The name of the domain you want to describe.}
 
-\item{ExpressionNames}{Limits the \verb{<a>DescribeExpressions</a>} response to the specified
-expressions. If not specified, all expressions are shown.}
+\item{ExpressionNames}{Limits the \code{\link[=cloudsearch_describe_expressions]{describe_expressions}}
+response to the specified expressions. If not specified, all expressions
+are shown.}
 
 \item{Deployed}{Whether to display the deployed configuration (\code{true}) or include any
 pending changes (\code{false}). Defaults to \code{false}.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Expressions = list(
+    list(
+      Options = list(
+        ExpressionName = "string",
+        ExpressionValue = "string"
+      ),
+      Status = list(
+        CreationDate = as.POSIXct(
+          "2015-01-01"
+        ),
+        UpdateDate = as.POSIXct(
+          "2015-01-01"
+        ),
+        UpdateVersion = 123,
+        State = "RequiresIndexDocuments"|"Processing"|"Active"|"FailedToValidate",
+        PendingDeletion = TRUE|FALSE
+      )
+    )
+  )
+)
+}
 }
 \description{
 Gets the expressions configured for the search domain. Can be limited to

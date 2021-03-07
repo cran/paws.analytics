@@ -13,13 +13,17 @@ mturk_delete_worker_block(WorkerId, Reason)
 \item{Reason}{A message that explains the reason for unblocking the Worker. The Worker
 does not see this message.}
 }
+\value{
+An empty list.
+}
 \description{
-The \code{DeleteWorkerBlock} operation allows you to reinstate a blocked
-Worker to work on your HITs. This operation reverses the effects of the
-CreateWorkerBlock operation. You need the Worker ID to use this
-operation. If the Worker ID is missing or invalid, this operation fails
-and returns the message “WorkerId is invalid.” If the specified Worker
-is not blocked, this operation returns successfully.
+The \code{\link[=mturk_delete_worker_block]{delete_worker_block}} operation allows
+you to reinstate a blocked Worker to work on your HITs. This operation
+reverses the effects of the CreateWorkerBlock operation. You need the
+Worker ID to use this operation. If the Worker ID is missing or invalid,
+this operation fails and returns the message “WorkerId is invalid.” If
+the specified Worker is not blocked, this operation returns
+successfully.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_worker_block(

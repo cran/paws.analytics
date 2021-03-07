@@ -25,6 +25,14 @@ value to less than 500 shards.
 
 \item{ScalingType}{[required] The scaling type. Uniform scaling creates shards of equal size.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  StreamName = "string",
+  CurrentShardCount = 123,
+  TargetShardCount = 123
+)
+}
+}
 \description{
 Updates the shard count of the specified stream to the specified number
 of shards.
@@ -43,9 +51,9 @@ created, in addition to the final shards. These short-lived shards count
 towards your total shard limit for your account in the Region.
 
 When using this operation, we recommend that you specify a target shard
-count that is a multiple of 25\\% (25\\%, 50\\%, 75\\%, 100\\%). You can specify
+count that is a multiple of 25\% (25\%, 50\%, 75\%, 100\%). You can specify
 any target value within your shard limit. However, if you specify a
-target that isn't a multiple of 25\\%, the scaling action might take
+target that isn't a multiple of 25\%, the scaling action might take
 longer to complete.
 
 This operation has the following default limits. By default, you cannot

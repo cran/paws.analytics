@@ -63,14 +63,14 @@ operations:
 \item Subscribe to email reports
 }
 
-To add custom permissions to an existing user, use \verb{<a>UpdateUser</a>}
-instead.
+To add custom permissions to an existing user, use
+\code{\link[=quicksight_update_user]{update_user}} instead.
 
 A set of custom permissions includes any combination of these
 restrictions. Currently, you need to create the profile names for custom
 permission sets by using the QuickSight console. Then, you use the
-\code{RegisterUser} API operation to assign the named set of permissions to a
-QuickSight user.
+\code{\link[=quicksight_register_user]{register_user}} API operation to assign the
+named set of permissions to a QuickSight user.
 
 QuickSight custom permissions are applied through IAM policies.
 Therefore, they override the permissions typically granted by assigning
@@ -80,6 +80,24 @@ QuickSight users to one of the default security cohorts in QuickSight
 This feature is available only to QuickSight Enterprise edition
 subscriptions that use SAML 2.0-Based Federation for Single Sign-On
 (SSO).}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  User = list(
+    Arn = "string",
+    UserName = "string",
+    Email = "string",
+    Role = "ADMIN"|"AUTHOR"|"READER"|"RESTRICTED_AUTHOR"|"RESTRICTED_READER",
+    IdentityType = "IAM"|"QUICKSIGHT",
+    Active = TRUE|FALSE,
+    PrincipalId = "string",
+    CustomPermissionsName = "string"
+  ),
+  UserInvitationUrl = "string",
+  RequestId = "string",
+  Status = 123
+)
+}
 }
 \description{
 Creates an Amazon QuickSight user, whose identity is associated with the

@@ -29,8 +29,18 @@ Currently, only geospatial hierarchy is supported.}
 
 \item{RowLevelPermissionDataSet}{The row-level security configuration for the data you want to create.}
 
-\item{ColumnLevelPermissionRules}{A set of one or more definitions of a
-\verb{<a>ColumnLevelPermissionRule</a>}.}
+\item{ColumnLevelPermissionRules}{A set of one or more definitions of a \code{ColumnLevelPermissionRule}.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Arn = "string",
+  DataSetId = "string",
+  IngestionArn = "string",
+  IngestionId = "string",
+  RequestId = "string",
+  Status = 123
+)
+}
 }
 \description{
 Updates a dataset.

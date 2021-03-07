@@ -22,6 +22,19 @@ customizations to apply to the console. Omit this flag, or set it to
 \code{no-resolved}, to reveal customizations that are configured at different
 levels.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Arn = "string",
+  AwsAccountId = "string",
+  Namespace = "string",
+  AccountCustomization = list(
+    DefaultTheme = "string"
+  ),
+  RequestId = "string",
+  Status = 123
+)
+}
+}
 \description{
 Describes the customizations associated with the provided AWS account
 and Amazon QuickSight namespace in an AWS Region. The QuickSight console
@@ -64,8 +77,9 @@ customizations can apply to an AWS account or to a namespace.
 Settings that you apply to a namespace override settings that you
 apply to an AWS account. All settings are isolated to a single AWS
 Region. To apply them in other AWS Regions, run the
-\code{CreateAccountCustomization} command in each AWS Region where you
-want to apply the same customizations.
+\code{\link[=quicksight_create_account_customization]{create_account_customization}}
+command in each AWS Region where you want to apply the same
+customizations.
 }
 }
 \section{Request syntax}{

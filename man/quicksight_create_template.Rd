@@ -37,9 +37,20 @@ assigned to the resource.}
 
 \item{VersionDescription}{A description of the current template version being created. This API
 operation creates the first version of the template. Every time
-\code{UpdateTemplate} is called, a new version is created. Each version of
-the template maintains a description of the version in the
-\code{VersionDescription} field.}
+\code{\link[=quicksight_update_template]{update_template}} is called, a new version
+is created. Each version of the template maintains a description of the
+version in the \code{VersionDescription} field.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Arn = "string",
+  VersionArn = "string",
+  TemplateId = "string",
+  CreationStatus = "CREATION_IN_PROGRESS"|"CREATION_SUCCESSFUL"|"CREATION_FAILED"|"UPDATE_IN_PROGRESS"|"UPDATE_SUCCESSFUL"|"UPDATE_FAILED"|"DELETED",
+  Status = 123,
+  RequestId = "string"
+)
+}
 }
 \description{
 Creates a template from an existing QuickSight analysis or template. You

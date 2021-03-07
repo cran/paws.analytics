@@ -20,6 +20,14 @@ provided.
 \item{SchemaDefinition}{[required] The schema definition using the \code{DataFormat} setting for the
 \code{SchemaName}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  SchemaVersionId = "string",
+  VersionNumber = 123,
+  Status = "AVAILABLE"|"PENDING"|"FAILURE"|"DELETING"
+)
+}
+}
 \description{
 Adds a new version to the existing schema. Returns an error if new
 version of schema does not meet the compatibility requirements of the
@@ -31,8 +39,8 @@ If this is the first schema definition to be registered in the Schema
 Registry, this API will store the schema version and return immediately.
 Otherwise, this call has the potential to run longer than other
 operations due to compatibility modes. You can call the
-\code{GetSchemaVersion} API with the \code{SchemaVersionId} to check compatibility
-modes.
+\code{\link[=glue_get_schema_version]{get_schema_version}} API with the
+\code{SchemaVersionId} to check compatibility modes.
 
 If the same schema definition is already stored in Schema Registry as a
 version, the schema ID of the existing schema is returned to the caller.
