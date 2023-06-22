@@ -18,12 +18,12 @@ cluster. The runtime role can be a cross-account IAM role. The runtime
 role ARN is a combination of account ID, role name, and role type using
 the following format: \code{arn:partition:service:region:account:resource}.
 
-For example, \verb{arn:aws:iam::1234567890:role/ReadOnly} is a correctly
+For example, \verb{arn:aws:IAM::1234567890:role/ReadOnly} is a correctly
 formatted runtime role ARN.}
 }
 \description{
 AddJobFlowSteps adds new steps to a running cluster. A maximum of 256 steps are allowed in each job flow.
 
-See \url{https://paws-r.github.io/docs/emr/add_job_flow_steps.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/emr_add_job_flow_steps/} for full documentation.
 }
 \keyword{internal}

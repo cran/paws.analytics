@@ -5,15 +5,16 @@
 \title{Gets an Amazon Kinesis shard iterator}
 \usage{
 kinesis_get_shard_iterator(
-  StreamName,
+  StreamName = NULL,
   ShardId,
   ShardIteratorType,
   StartingSequenceNumber = NULL,
-  Timestamp = NULL
+  Timestamp = NULL,
+  StreamARN = NULL
 )
 }
 \arguments{
-\item{StreamName}{[required] The name of the Amazon Kinesis data stream.}
+\item{StreamName}{The name of the Amazon Kinesis data stream.}
 
 \item{ShardId}{[required] The shard ID of the Kinesis Data Streams shard to get the iterator for.}
 
@@ -48,10 +49,12 @@ this exact time stamp does not exist, the iterator returned is for the
 next (later) record. If the time stamp is older than the current trim
 horizon, the iterator returned is for the oldest untrimmed data record
 (TRIM_HORIZON).}
+
+\item{StreamARN}{The ARN of the stream.}
 }
 \description{
 Gets an Amazon Kinesis shard iterator. A shard iterator expires 5 minutes after it is returned to the requester.
 
-See \url{https://paws-r.github.io/docs/kinesis/get_shard_iterator.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kinesis_get_shard_iterator/} for full documentation.
 }
 \keyword{internal}

@@ -27,7 +27,7 @@ search results are filtered based on the user or their group access to
 documents.}
 
 \item{HierarchicalAccessControlList}{The list of
-\href{https://docs.aws.amazon.com/kendra/latest/dg/API_Principal.html}{principal}
+\href{https://docs.aws.amazon.com/kendra/latest/APIReference/API_Principal.html}{principal}
 lists that define the hierarchy for which documents users should have
 access to.}
 
@@ -40,6 +40,6 @@ configuration.}
 \description{
 Creates an access configuration for your documents. This includes user and group access information for your documents. This is useful for user context filtering, where search results are filtered based on the user or their group access to documents.
 
-See \url{https://paws-r.github.io/docs/kendra/create_access_control_configuration.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_create_access_control_configuration/} for full documentation.
 }
 \keyword{internal}

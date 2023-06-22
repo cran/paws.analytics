@@ -18,7 +18,8 @@ quicksight_create_data_set(
   RowLevelPermissionTagConfiguration = NULL,
   ColumnLevelPermissionRules = NULL,
   Tags = NULL,
-  DataSetUsageConfiguration = NULL
+  DataSetUsageConfiguration = NULL,
+  DatasetParameters = NULL
 )
 }
 \arguments{
@@ -57,10 +58,12 @@ only.}
 assigned to the dataset.}
 
 \item{DataSetUsageConfiguration}{}
+
+\item{DatasetParameters}{The parameter declarations of the dataset.}
 }
 \description{
 Creates a dataset. This operation doesn't support datasets that include uploaded files as a source.
 
-See \url{https://paws-r.github.io/docs/quicksight/create_data_set.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/quicksight_create_data_set/} for full documentation.
 }
 \keyword{internal}

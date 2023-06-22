@@ -18,11 +18,12 @@ kendra_create_experience(
 
 \item{IndexId}{[required] The identifier of the index for your Amazon Kendra experience.}
 
-\item{RoleArn}{The Amazon Resource Name (ARN) of a role with permission to access
-\code{\link[=kendra_query]{query}} API, \code{QuerySuggestions} API,
-\code{\link[=kendra_submit_feedback]{submit_feedback}} API, and Amazon Web Services
-SSO that stores your user and group information. For more information,
-see \href{https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html}{IAM roles for Amazon Kendra}.}
+\item{RoleArn}{The Amazon Resource Name (ARN) of an IAM role with permission to access
+\code{\link[=kendra_query]{query}} API,
+\code{\link[=kendra_get_query_suggestions]{get_query_suggestions}} API, and other
+required APIs. The role also must include permission to access IAM
+Identity Center (successor to Single Sign-On) that stores your user and
+group information. For more information, see \href{https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html}{IAM access roles for Amazon Kendra}.}
 
 \item{Configuration}{Configuration information for your Amazon Kendra experience. This
 includes \code{ContentSourceConfiguration}, which specifies the data source
@@ -40,6 +41,6 @@ token creates only one Amazon Kendra experience.}
 \description{
 Creates an Amazon Kendra experience such as a search application. For more information on creating a search application experience, including using the Python and Java SDKs, see \href{https://docs.aws.amazon.com/kendra/latest/dg/deploying-search-experience-no-code.html}{Building a search experience with no code}.
 
-See \url{https://paws-r.github.io/docs/kendra/create_experience.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_create_experience/} for full documentation.
 }
 \keyword{internal}

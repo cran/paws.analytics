@@ -10,7 +10,8 @@ kendra_update_query_suggestions_config(
   QueryLogLookBackWindowInDays = NULL,
   IncludeQueriesWithoutUserInformation = NULL,
   MinimumNumberOfQueryingUsers = NULL,
-  MinimumQueryCount = NULL
+  MinimumQueryCount = NULL,
+  AttributeSuggestionsConfig = NULL
 )
 }
 \arguments{
@@ -64,10 +65,13 @@ this affects the quality of suggestions as it sets a low bar for a query
 to be considered popular to suggest to users.
 
 How you tune this setting depends on your specific needs.}
+
+\item{AttributeSuggestionsConfig}{Configuration information for the document fields/attributes that you
+want to base query suggestions on.}
 }
 \description{
 Updates the settings of query suggestions for an index.
 
-See \url{https://paws-r.github.io/docs/kendra/update_query_suggestions_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_update_query_suggestions_config/} for full documentation.
 }
 \keyword{internal}

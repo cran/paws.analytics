@@ -12,8 +12,8 @@ cloudsearch_delete_suggester(DomainName, SuggesterName)
 \item{SuggesterName}{[required] Specifies the name of the suggester you want to delete.}
 }
 \description{
-Deletes a suggester. For more information, see <a href="https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html" target="_blank">Getting Search Suggestions</a> in the \emph{Amazon CloudSearch Developer Guide}.
+Deletes a suggester. For more information, see \if{html}{\out{<a href="https://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html" target="_blank">}}Getting Search Suggestions\if{html}{\out{</a>}} in the \emph{Amazon CloudSearch Developer Guide}.
 
-See \url{https://paws-r.github.io/docs/cloudsearch/delete_suggester.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/cloudsearch_delete_suggester/} for full documentation.
 }
 \keyword{internal}

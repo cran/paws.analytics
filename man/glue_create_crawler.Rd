@@ -58,7 +58,7 @@ crawl only folders that were added since the last crawler run.}
 
 \item{Configuration}{Crawler configuration information. This versioned JSON string allows
 users to specify aspects of a crawler's behavior. For more information,
-see \href{https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html}{Configuring a Crawler}.}
+see \href{https://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html}{Setting crawler configuration options}.}
 
 \item{CrawlerSecurityConfiguration}{The name of the \code{SecurityConfiguration} structure to be used by this
 crawler.}
@@ -71,6 +71,6 @@ the developer guide.}
 \description{
 Creates a new crawler with specified targets, role, configuration, and optional schedule. At least one crawl target must be specified, in the \code{s3Targets} field, the \code{jdbcTargets} field, or the \code{DynamoDBTargets} field.
 
-See \url{https://paws-r.github.io/docs/glue/create_crawler.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/glue_create_crawler/} for full documentation.
 }
 \keyword{internal}

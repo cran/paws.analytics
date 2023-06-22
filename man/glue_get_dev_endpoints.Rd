@@ -2,7 +2,8 @@
 % Please edit documentation in R/glue_operations.R
 \name{glue_get_dev_endpoints}
 \alias{glue_get_dev_endpoints}
-\title{Retrieves all the development endpoints in this AWS account}
+\title{Retrieves all the development endpoints in this Amazon Web Services
+account}
 \usage{
 glue_get_dev_endpoints(MaxResults = NULL, NextToken = NULL)
 }
@@ -12,8 +13,8 @@ glue_get_dev_endpoints(MaxResults = NULL, NextToken = NULL)
 \item{NextToken}{A continuation token, if this is a continuation call.}
 }
 \description{
-Retrieves all the development endpoints in this AWS account.
+Retrieves all the development endpoints in this Amazon Web Services account.
 
-See \url{https://paws-r.github.io/docs/glue/get_dev_endpoints.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/glue_get_dev_endpoints/} for full documentation.
 }
 \keyword{internal}

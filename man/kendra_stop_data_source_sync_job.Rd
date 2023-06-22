@@ -7,14 +7,14 @@
 kendra_stop_data_source_sync_job(Id, IndexId)
 }
 \arguments{
-\item{Id}{[required] The identifier of the data source for which to stop the synchronization
-jobs.}
+\item{Id}{[required] The identifier of the data source connector for which to stop the
+synchronization jobs.}
 
-\item{IndexId}{[required] The identifier of the index that contains the data source.}
+\item{IndexId}{[required] The identifier of the index used with the data source connector.}
 }
 \description{
 Stops a synchronization job that is currently running. You can't stop a scheduled synchronization job.
 
-See \url{https://paws-r.github.io/docs/kendra/stop_data_source_sync_job.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_stop_data_source_sync_job/} for full documentation.
 }
 \keyword{internal}

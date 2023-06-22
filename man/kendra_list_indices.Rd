@@ -9,14 +9,13 @@ kendra_list_indices(NextToken = NULL, MaxResults = NULL)
 \arguments{
 \item{NextToken}{If the previous response was incomplete (because there is more data to
 retrieve), Amazon Kendra returns a pagination token in the response. You
-can use this pagination token to retrieve the next set of indexes
-(\code{DataSourceSummaryItems}).}
+can use this pagination token to retrieve the next set of indexes.}
 
-\item{MaxResults}{The maximum number of data sources to return.}
+\item{MaxResults}{The maximum number of indices to return.}
 }
 \description{
 Lists the Amazon Kendra indexes that you created.
 
-See \url{https://paws-r.github.io/docs/kendra/list_indices.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_list_indices/} for full documentation.
 }
 \keyword{internal}

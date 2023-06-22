@@ -22,9 +22,9 @@ kendra_update_experience(
 
 \item{RoleArn}{The Amazon Resource Name (ARN) of a role with permission to access
 \code{\link[=kendra_query]{query}} API, \code{QuerySuggestions} API,
-\code{\link[=kendra_submit_feedback]{submit_feedback}} API, and Amazon Web Services
-SSO that stores your user and group information. For more information,
-see \href{https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html}{IAM roles for Amazon Kendra}.}
+\code{\link[=kendra_submit_feedback]{submit_feedback}} API, and IAM Identity Center
+that stores your user and group information. For more information, see
+\href{https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html}{IAM roles for Amazon Kendra}.}
 
 \item{Configuration}{Configuration information you want to update for your Amazon Kendra
 experience.}
@@ -34,6 +34,6 @@ experience.}
 \description{
 Updates your Amazon Kendra experience such as a search application. For more information on creating a search application experience, see \href{https://docs.aws.amazon.com/kendra/latest/dg/deploying-search-experience-no-code.html}{Building a search experience with no code}.
 
-See \url{https://paws-r.github.io/docs/kendra/update_experience.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_update_experience/} for full documentation.
 }
 \keyword{internal}

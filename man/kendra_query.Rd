@@ -21,10 +21,12 @@ kendra_query(
 )
 }
 \arguments{
-\item{IndexId}{[required] The unique identifier of the index to search. The identifier is returned
-in the response from the \code{\link[=kendra_create_index]{create_index}} API.}
+\item{IndexId}{[required] The identifier of the index to search. The identifier is returned in the
+response from the \code{\link[=kendra_create_index]{create_index}} API.}
 
-\item{QueryText}{The text to search for.}
+\item{QueryText}{The input query text for the search. Amazon Kendra truncates queries at
+30 token words, which excludes punctuation and stop words. Truncation
+still applies if you use Boolean or more advanced, complex queries.}
 
 \item{AttributeFilter}{Enables filtered searches based on document attributes. You can only
 provide one attribute filter; however, the \code{AndAllFilters}, \code{NotFilter},
@@ -87,6 +89,6 @@ information, such as the user's email address, as the \code{VisitorId}.}
 \description{
 Searches an active index. Use this API to search your documents using query. The \code{\link[=kendra_query]{query}} API enables to do faceted search and to filter results based on document attributes.
 
-See \url{https://paws-r.github.io/docs/kendra/query.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_query/} for full documentation.
 }
 \keyword{internal}

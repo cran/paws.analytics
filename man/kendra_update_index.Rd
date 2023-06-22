@@ -43,13 +43,14 @@ index.}
 
 \item{UserContextPolicy}{The user context policy.}
 
-\item{UserGroupResolutionConfiguration}{Enables fetching access levels of groups and users from an Amazon Web
-Services Single Sign On identity source. To configure this, see
-\href{https://docs.aws.amazon.com/kendra/latest/dg/API_UserGroupResolutionConfiguration.html}{UserGroupResolutionConfiguration}.}
+\item{UserGroupResolutionConfiguration}{Enables fetching access levels of groups and users from an IAM Identity
+Center (successor to Single Sign-On) identity source. To configure this,
+see
+\href{https://docs.aws.amazon.com/kendra/latest/APIReference/API_UserGroupResolutionConfiguration.html}{UserGroupResolutionConfiguration}.}
 }
 \description{
 Updates an existing Amazon Kendra index.
 
-See \url{https://paws-r.github.io/docs/kendra/update_index.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kendra_update_index/} for full documentation.
 }
 \keyword{internal}

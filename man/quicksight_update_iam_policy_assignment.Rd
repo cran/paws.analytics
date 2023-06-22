@@ -17,8 +17,8 @@ quicksight_update_iam_policy_assignment(
 \item{AwsAccountId}{[required] The ID of the Amazon Web Services account that contains the IAM policy
 assignment.}
 
-\item{AssignmentName}{[required] The name of the assignment, also called a rule. This name must be unique
-within an Amazon Web Services account.}
+\item{AssignmentName}{[required] The name of the assignment, also called a rule. The name must be unique
+within the Amazon Web Services account.}
 
 \item{Namespace}{[required] The namespace of the assignment.}
 
@@ -41,6 +41,6 @@ policy to.}
 \description{
 Updates an existing IAM policy assignment. This operation updates only the optional parameter or parameters that are specified in the request. This overwrites all of the users included in \code{Identities}.
 
-See \url{https://paws-r.github.io/docs/quicksight/update_iam_policy_assignment.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/quicksight_update_iam_policy_assignment/} for full documentation.
 }
 \keyword{internal}

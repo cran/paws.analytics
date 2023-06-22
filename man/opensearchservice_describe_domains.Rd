@@ -2,17 +2,19 @@
 % Please edit documentation in R/opensearchservice_operations.R
 \name{opensearchservice_describe_domains}
 \alias{opensearchservice_describe_domains}
-\title{Returns domain configuration information about the specified domains,
-including the domain ID, domain endpoint, and domain ARN}
+\title{Returns domain configuration information about the specified Amazon
+OpenSearch Service domains}
 \usage{
 opensearchservice_describe_domains(DomainNames)
 }
 \arguments{
-\item{DomainNames}{[required] The domains for which you want information.}
+\item{DomainNames}{[required] Array of OpenSearch Service domain names that you want information
+about. If you don't specify any domains, OpenSearch Service returns
+information about all domains owned by the account.}
 }
 \description{
-Returns domain configuration information about the specified domains, including the domain ID, domain endpoint, and domain ARN.
+Returns domain configuration information about the specified Amazon OpenSearch Service domains.
 
-See \url{https://paws-r.github.io/docs/opensearchservice/describe_domains.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/opensearchservice_describe_domains/} for full documentation.
 }
 \keyword{internal}

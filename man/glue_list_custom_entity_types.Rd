@@ -4,16 +4,18 @@
 \alias{glue_list_custom_entity_types}
 \title{Lists all the custom patterns that have been created}
 \usage{
-glue_list_custom_entity_types(NextToken = NULL, MaxResults = NULL)
+glue_list_custom_entity_types(NextToken = NULL, MaxResults = NULL, Tags = NULL)
 }
 \arguments{
 \item{NextToken}{A paginated token to offset the results.}
 
 \item{MaxResults}{The maximum number of results to return.}
+
+\item{Tags}{A list of key-value pair tags.}
 }
 \description{
 Lists all the custom patterns that have been created.
 
-See \url{https://paws-r.github.io/docs/glue/list_custom_entity_types.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/glue_list_custom_entity_types/} for full documentation.
 }
 \keyword{internal}

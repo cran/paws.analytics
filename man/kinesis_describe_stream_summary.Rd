@@ -5,14 +5,16 @@
 \title{Provides a summarized description of the specified Kinesis data stream
 without the shard list}
 \usage{
-kinesis_describe_stream_summary(StreamName)
+kinesis_describe_stream_summary(StreamName = NULL, StreamARN = NULL)
 }
 \arguments{
-\item{StreamName}{[required] The name of the stream to describe.}
+\item{StreamName}{The name of the stream to describe.}
+
+\item{StreamARN}{The ARN of the stream.}
 }
 \description{
 Provides a summarized description of the specified Kinesis data stream without the shard list.
 
-See \url{https://paws-r.github.io/docs/kinesis/describe_stream_summary.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kinesis_describe_stream_summary/} for full documentation.
 }
 \keyword{internal}

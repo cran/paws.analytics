@@ -8,7 +8,7 @@ kinesis_register_stream_consumer(StreamARN, ConsumerName)
 }
 \arguments{
 \item{StreamARN}{[required] The ARN of the Kinesis data stream that you want to register the
-consumer with. For more info, see \href{https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams}{Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces}.}
+consumer with. For more info, see \href{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html#arn-syntax-kinesis-streams}{Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces}.}
 
 \item{ConsumerName}{[required] For a given Kinesis data stream, each consumer must have a unique name.
 However, consumer names don't have to be unique across data streams.}
@@ -16,6 +16,6 @@ However, consumer names don't have to be unique across data streams.}
 \description{
 Registers a consumer with a Kinesis data stream. When you use this operation, the consumer you register can then call SubscribeToShard to receive data from the stream using enhanced fan-out, at a rate of up to 2 MiB per second for every shard you subscribe to. This rate is unaffected by the total number of consumers that read from the same stream.
 
-See \url{https://paws-r.github.io/docs/kinesis/register_stream_consumer.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kinesis_register_stream_consumer/} for full documentation.
 }
 \keyword{internal}

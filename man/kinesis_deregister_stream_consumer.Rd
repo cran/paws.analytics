@@ -12,7 +12,7 @@ kinesis_deregister_stream_consumer(
 }
 \arguments{
 \item{StreamARN}{The ARN of the Kinesis data stream that the consumer is registered with.
-For more information, see \href{https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams}{Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces}.}
+For more information, see \href{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference-arns.html#arn-syntax-kinesis-streams}{Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces}.}
 
 \item{ConsumerName}{The name that you gave to the consumer.}
 
@@ -26,6 +26,6 @@ ARN.}
 \description{
 To deregister a consumer, provide its ARN. Alternatively, you can provide the ARN of the data stream and the name you gave the consumer when you registered it. You may also provide all three parameters, as long as they don't conflict with each other. If you don't know the name or ARN of the consumer that you want to deregister, you can use the \code{\link[=kinesis_list_stream_consumers]{list_stream_consumers}} operation to get a list of the descriptions of all the consumers that are currently registered with a given data stream. The description of a consumer contains its name and ARN.
 
-See \url{https://paws-r.github.io/docs/kinesis/deregister_stream_consumer.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kinesis_deregister_stream_consumer/} for full documentation.
 }
 \keyword{internal}

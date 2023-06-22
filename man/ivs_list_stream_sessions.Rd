@@ -10,7 +10,7 @@ ivs_list_stream_sessions(channelArn, maxResults = NULL, nextToken = NULL)
 \arguments{
 \item{channelArn}{[required] Channel ARN used to filter the list.}
 
-\item{maxResults}{Maximum number of streams to return. Default: 50.}
+\item{maxResults}{Maximum number of streams to return. Default: 100.}
 
 \item{nextToken}{The first stream to retrieve. This is used for pagination; see the
 \code{nextToken} response field.}
@@ -18,6 +18,6 @@ ivs_list_stream_sessions(channelArn, maxResults = NULL, nextToken = NULL)
 \description{
 Gets a summary of current and previous streams for a specified channel in your account, in the AWS region where the API request is processed.
 
-See \url{https://paws-r.github.io/docs/ivs/list_stream_sessions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ivs_list_stream_sessions/} for full documentation.
 }
 \keyword{internal}

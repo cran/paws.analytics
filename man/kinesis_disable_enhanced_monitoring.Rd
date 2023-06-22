@@ -4,10 +4,14 @@
 \alias{kinesis_disable_enhanced_monitoring}
 \title{Disables enhanced monitoring}
 \usage{
-kinesis_disable_enhanced_monitoring(StreamName, ShardLevelMetrics)
+kinesis_disable_enhanced_monitoring(
+  StreamName = NULL,
+  ShardLevelMetrics,
+  StreamARN = NULL
+)
 }
 \arguments{
-\item{StreamName}{[required] The name of the Kinesis data stream for which to disable enhanced
+\item{StreamName}{The name of the Kinesis data stream for which to disable enhanced
 monitoring.}
 
 \item{ShardLevelMetrics}{[required] List of shard-level metrics to disable.
@@ -27,10 +31,12 @@ disables every metric.
 
 For more information, see \href{https://docs.aws.amazon.com/streams/latest/dev/monitoring-with-cloudwatch.html}{Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch}
 in the \emph{Amazon Kinesis Data Streams Developer Guide}.}
+
+\item{StreamARN}{The ARN of the stream.}
 }
 \description{
 Disables enhanced monitoring.
 
-See \url{https://paws-r.github.io/docs/kinesis/disable_enhanced_monitoring.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/kinesis_disable_enhanced_monitoring/} for full documentation.
 }
 \keyword{internal}

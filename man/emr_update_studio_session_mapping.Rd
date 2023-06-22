@@ -21,14 +21,14 @@ information, see
 \href{https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserId}{UserId}
 and
 \href{https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-GroupId}{GroupId}
-in the \emph{Amazon Web Services SSO Identity Store API Reference}. Either
+in the \emph{IAM Identity Center Identity Store API Reference}. Either
 \code{IdentityName} or \code{IdentityId} must be specified.}
 
 \item{IdentityName}{The name of the user or group to update. For more information, see
 \href{https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_User.html#singlesignon-Type-User-UserName}{UserName}
 and
 \href{https://docs.aws.amazon.com/singlesignon/latest/IdentityStoreAPIReference/API_Group.html#singlesignon-Type-Group-DisplayName}{DisplayName}
-in the \emph{Amazon Web Services SSO Identity Store API Reference}. Either
+in the \emph{IAM Identity Center Identity Store API Reference}. Either
 \code{IdentityName} or \code{IdentityId} must be specified.}
 
 \item{IdentityType}{[required] Specifies whether the identity to update is a user or a group.}
@@ -39,6 +39,6 @@ the specified user or group.}
 \description{
 Updates the session policy attached to the user or group for the specified Amazon EMR Studio.
 
-See \url{https://paws-r.github.io/docs/emr/update_studio_session_mapping.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/emr_update_studio_session_mapping/} for full documentation.
 }
 \keyword{internal}

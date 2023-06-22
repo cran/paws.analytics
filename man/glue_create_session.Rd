@@ -31,9 +31,13 @@ glue_create_session(
 
 \item{Command}{[required] The \code{SessionCommand} that runs the job.}
 
-\item{Timeout}{The number of seconds before request times out.}
+\item{Timeout}{The number of minutes before session times out. Default for Spark ETL
+jobs is 48 hours (2880 minutes), the maximum session lifetime for this
+job type. Consult the documentation for other job types.}
 
-\item{IdleTimeout}{The number of seconds when idle before request times out.}
+\item{IdleTimeout}{The number of minutes when idle before session times out. Default for
+Spark ETL jobs is value of Timeout. Consult the documentation for other
+job types.}
 
 \item{DefaultArguments}{A map array of key-value pairs. Max is 75 pairs.}
 
@@ -75,6 +79,6 @@ Glue supports. The GlueVersion must be greater than 2.0.}
 \description{
 Creates a new session.
 
-See \url{https://paws-r.github.io/docs/glue/create_session.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/glue_create_session/} for full documentation.
 }
 \keyword{internal}

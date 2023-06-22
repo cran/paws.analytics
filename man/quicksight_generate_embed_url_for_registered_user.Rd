@@ -23,7 +23,8 @@ that you're embedding.}
 \item{UserArn}{[required] The Amazon Resource Name for the registered user.}
 
 \item{ExperienceConfiguration}{[required] The experience you are embedding. For registered users, you can embed
-Amazon QuickSight dashboards or the entire Amazon QuickSight console.}
+Amazon QuickSight dashboards, Amazon QuickSight visuals, the Amazon
+QuickSight Q search bar, or the entire Amazon QuickSight console.}
 
 \item{AllowedDomains}{The domains that you want to add to the allow list for access to the
 generated URL that is then embedded. This optional parameter overrides
@@ -39,6 +40,6 @@ under \verb{https://sapp.amazon.com}.}
 \description{
 Generates an embed URL that you can use to embed an Amazon QuickSight experience in your website. This action can be used for any type of user registered in an Amazon QuickSight account. Before you use this action, make sure that you have configured the relevant Amazon QuickSight resource and permissions.
 
-See \url{https://paws-r.github.io/docs/quicksight/generate_embed_url_for_registered_user.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/quicksight_generate_embed_url_for_registered_user/} for full documentation.
 }
 \keyword{internal}
