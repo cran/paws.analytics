@@ -61,6 +61,36 @@ ivs_batch_get_stream_key <- function(arns) {
 }
 .ivs$operations$batch_get_stream_key <- ivs_batch_get_stream_key
 
+#' Performs StartViewerSessionRevocation on multiple channel ARN and viewer
+#' ID pairs simultaneously
+#'
+#' @description
+#' Performs [`start_viewer_session_revocation`][ivs_start_viewer_session_revocation] on multiple channel ARN and viewer ID pairs simultaneously.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ivs_batch_start_viewer_session_revocation/](https://www.paws-r-sdk.com/docs/ivs_batch_start_viewer_session_revocation/) for full documentation.
+#'
+#' @param viewerSessions &#91;required&#93; Array of viewer sessions, one per channel-ARN and viewer-ID pair.
+#'
+#' @keywords internal
+#'
+#' @rdname ivs_batch_start_viewer_session_revocation
+ivs_batch_start_viewer_session_revocation <- function(viewerSessions) {
+  op <- new_operation(
+    name = "BatchStartViewerSessionRevocation",
+    http_method = "POST",
+    http_path = "/BatchStartViewerSessionRevocation",
+    paginator = list()
+  )
+  input <- .ivs$batch_start_viewer_session_revocation_input(viewerSessions = viewerSessions)
+  output <- .ivs$batch_start_viewer_session_revocation_output()
+  config <- get_config()
+  svc <- .ivs$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ivs$operations$batch_start_viewer_session_revocation <- ivs_batch_start_viewer_session_revocation
+
 #' Creates a new channel and an associated stream key to start streaming
 #'
 #' @description
@@ -90,55 +120,9 @@ ivs_batch_get_stream_key <- function(arns) {
 #' constraints beyond what is documented there.
 #' @param type Channel type, which determines the allowable resolution and bitrate. *If
 #' you exceed the allowable input resolution or bitrate, the stream
-#' probably will disconnect immediately.* Some types generate multiple
-#' qualities (renditions) from the original input; this automatically gives
-#' viewers the best experience for their devices and network conditions.
-#' Some types provide transcoded video; transcoding allows higher playback
-#' quality across a range of download speeds. Default: `STANDARD`. Valid
-#' values:
-#' 
-#' -   `BASIC`: Video is transmuxed: Amazon IVS delivers the original input
-#'     quality to viewers. The viewer’s video-quality choice is limited to
-#'     the original input. Input resolution can be up to 1080p and bitrate
-#'     can be up to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions
-#'     between 480p and 1080p. Original audio is passed through.
-#' 
-#' -   `STANDARD`: Video is transcoded: multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Transcoding
-#'     allows higher playback quality across a range of download speeds.
-#'     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
-#'     Audio is transcoded only for renditions 360p and below; above that,
-#'     audio is passed through. This is the default when you create a
-#'     channel.
-#' 
-#' -   `ADVANCED_SD`: Video is transcoded; multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Input
-#'     resolution can be up to 1080p and bitrate can be up to 8.5 Mbps;
-#'     output is capped at SD quality (480p). You can select an optional
-#'     transcode preset (see below). Audio for all renditions is
-#'     transcoded, and an audio-only rendition is available.
-#' 
-#' -   `ADVANCED_HD`: Video is transcoded; multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Input
-#'     resolution can be up to 1080p and bitrate can be up to 8.5 Mbps;
-#'     output is capped at HD quality (720p). You can select an optional
-#'     transcode preset (see below). Audio for all renditions is
-#'     transcoded, and an audio-only rendition is available.
-#' 
-#' Optional *transcode presets* (available for the `ADVANCED` types) allow
-#' you to trade off available download bandwidth and video quality, to
-#' optimize the viewing experience. There are two presets:
-#' 
-#' -   *Constrained bandwidth delivery* uses a lower bitrate for each
-#'     quality level. Use it if you have low download bandwidth and/or
-#'     simple video content (e.g., talking heads)
-#' 
-#' -   *Higher bandwidth delivery* uses a higher bitrate for each quality
-#'     level. Use it if you have high download bandwidth and/or complex
-#'     video content (e.g., flashes and quick scene changes).
+#' probably will disconnect immediately.* Default: `STANDARD`. For details,
+#' see [Channel
+#' Types](https://docs.aws.amazon.com/ivs/latest/LowLatencyAPIReference/channel-types.html).
 #'
 #' @keywords internal
 #'
@@ -174,6 +158,7 @@ ivs_create_channel <- function(authorized = NULL, insecureIngest = NULL, latency
 #' @param recordingReconnectWindowSeconds If a broadcast disconnects and then reconnects within the specified
 #' interval, the multiple streams will be considered a single broadcast and
 #' merged together. Default: 0.
+#' @param renditionConfiguration Object that describes which renditions should be recorded for a stream.
 #' @param tags Array of 1-50 maps, each of the form `string:string (key:value)`. See
 #' [Tagging Amazon Web Services
 #' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
@@ -187,14 +172,14 @@ ivs_create_channel <- function(authorized = NULL, insecureIngest = NULL, latency
 #' @keywords internal
 #'
 #' @rdname ivs_create_recording_configuration
-ivs_create_recording_configuration <- function(destinationConfiguration, name = NULL, recordingReconnectWindowSeconds = NULL, tags = NULL, thumbnailConfiguration = NULL) {
+ivs_create_recording_configuration <- function(destinationConfiguration, name = NULL, recordingReconnectWindowSeconds = NULL, renditionConfiguration = NULL, tags = NULL, thumbnailConfiguration = NULL) {
   op <- new_operation(
     name = "CreateRecordingConfiguration",
     http_method = "POST",
     http_path = "/CreateRecordingConfiguration",
     paginator = list()
   )
-  input <- .ivs$create_recording_configuration_input(destinationConfiguration = destinationConfiguration, name = name, recordingReconnectWindowSeconds = recordingReconnectWindowSeconds, tags = tags, thumbnailConfiguration = thumbnailConfiguration)
+  input <- .ivs$create_recording_configuration_input(destinationConfiguration = destinationConfiguration, name = name, recordingReconnectWindowSeconds = recordingReconnectWindowSeconds, renditionConfiguration = renditionConfiguration, tags = tags, thumbnailConfiguration = thumbnailConfiguration)
   output <- .ivs$create_recording_configuration_output()
   config <- get_config()
   svc <- .ivs$service(config)
@@ -272,7 +257,7 @@ ivs_delete_channel <- function(arn) {
 #' Deletes a specified authorization key pair
 #'
 #' @description
-#' Deletes a specified authorization key pair. This invalidates future viewer tokens generated using the key pair’s `privateKey`. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/userguide/private-channels.html) in the *Amazon IVS User Guide*.
+#' Deletes a specified authorization key pair. This invalidates future viewer tokens generated using the key pair’s `privateKey`. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html) in the *Amazon IVS User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ivs_delete_playback_key_pair/](https://www.paws-r-sdk.com/docs/ivs_delete_playback_key_pair/) for full documentation.
 #'
@@ -390,7 +375,7 @@ ivs_get_channel <- function(arn) {
 #' fingerprint
 #'
 #' @description
-#' Gets a specified playback authorization key pair and returns the `arn` and `fingerprint`. The `privateKey` held by the caller can be used to generate viewer authorization tokens, to grant viewers access to private channels. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/userguide/private-channels.html) in the *Amazon IVS User Guide*.
+#' Gets a specified playback authorization key pair and returns the `arn` and `fingerprint`. The `privateKey` held by the caller can be used to generate viewer authorization tokens, to grant viewers access to private channels. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html) in the *Amazon IVS User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ivs_get_playback_key_pair/](https://www.paws-r-sdk.com/docs/ivs_get_playback_key_pair/) for full documentation.
 #'
@@ -539,7 +524,7 @@ ivs_get_stream_session <- function(channelArn, streamId = NULL) {
 #' fingerprint
 #'
 #' @description
-#' Imports the public portion of a new key pair and returns its `arn` and `fingerprint`. The `privateKey` can then be used to generate viewer authorization tokens, to grant viewers access to private channels. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/userguide/private-channels.html) in the *Amazon IVS User Guide*.
+#' Imports the public portion of a new key pair and returns its `arn` and `fingerprint`. The `privateKey` can then be used to generate viewer authorization tokens, to grant viewers access to private channels. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html) in the *Amazon IVS User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ivs_import_playback_key_pair/](https://www.paws-r-sdk.com/docs/ivs_import_playback_key_pair/) for full documentation.
 #'
@@ -595,7 +580,7 @@ ivs_list_channels <- function(filterByName = NULL, filterByRecordingConfiguratio
     name = "ListChannels",
     http_method = "POST",
     http_path = "/ListChannels",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_channels_input(filterByName = filterByName, filterByRecordingConfigurationArn = filterByRecordingConfigurationArn, maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_channels_output()
@@ -610,7 +595,7 @@ ivs_list_channels <- function(filterByName = NULL, filterByRecordingConfiguratio
 #' Gets summary information about playback key pairs
 #'
 #' @description
-#' Gets summary information about playback key pairs. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/userguide/private-channels.html) in the *Amazon IVS User Guide*.
+#' Gets summary information about playback key pairs. For more information, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html) in the *Amazon IVS User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ivs_list_playback_key_pairs/](https://www.paws-r-sdk.com/docs/ivs_list_playback_key_pairs/) for full documentation.
 #'
@@ -627,7 +612,7 @@ ivs_list_playback_key_pairs <- function(maxResults = NULL, nextToken = NULL) {
     name = "ListPlaybackKeyPairs",
     http_method = "POST",
     http_path = "/ListPlaybackKeyPairs",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_playback_key_pairs_input(maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_playback_key_pairs_output()
@@ -661,7 +646,7 @@ ivs_list_recording_configurations <- function(maxResults = NULL, nextToken = NUL
     name = "ListRecordingConfigurations",
     http_method = "POST",
     http_path = "/ListRecordingConfigurations",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_recording_configurations_input(maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_recording_configurations_output()
@@ -693,7 +678,7 @@ ivs_list_stream_keys <- function(channelArn, maxResults = NULL, nextToken = NULL
     name = "ListStreamKeys",
     http_method = "POST",
     http_path = "/ListStreamKeys",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_stream_keys_input(channelArn = channelArn, maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_stream_keys_output()
@@ -726,7 +711,7 @@ ivs_list_stream_sessions <- function(channelArn, maxResults = NULL, nextToken = 
     name = "ListStreamSessions",
     http_method = "POST",
     http_path = "/ListStreamSessions",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_stream_sessions_input(channelArn = channelArn, maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_stream_sessions_output()
@@ -759,7 +744,7 @@ ivs_list_streams <- function(filterBy = NULL, maxResults = NULL, nextToken = NUL
     name = "ListStreams",
     http_method = "POST",
     http_path = "/ListStreams",
-    paginator = list()
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
   )
   input <- .ivs$list_streams_input(filterBy = filterBy, maxResults = maxResults, nextToken = nextToken)
   output <- .ivs$list_streams_output()
@@ -803,7 +788,7 @@ ivs_list_tags_for_resource <- function(resourceArn) {
 #' Inserts metadata into the active stream of the specified channel
 #'
 #' @description
-#' Inserts metadata into the active stream of the specified channel. At most 5 requests per second per channel are allowed, each with a maximum 1 KB payload. (If 5 TPS is not sufficient for your needs, we recommend batching your data into a single PutMetadata call.) At most 155 requests per second per account are allowed. Also see [Embedding Metadata within a Video Stream](https://docs.aws.amazon.com/ivs/latest/userguide/metadata.html) in the *Amazon IVS User Guide*.
+#' Inserts metadata into the active stream of the specified channel. At most 5 requests per second per channel are allowed, each with a maximum 1 KB payload. (If 5 TPS is not sufficient for your needs, we recommend batching your data into a single PutMetadata call.) At most 155 requests per second per account are allowed. Also see [Embedding Metadata within a Video Stream](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/metadata.html) in the *Amazon IVS User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ivs_put_metadata/](https://www.paws-r-sdk.com/docs/ivs_put_metadata/) for full documentation.
 #'
@@ -830,6 +815,42 @@ ivs_put_metadata <- function(channelArn, metadata) {
   return(response)
 }
 .ivs$operations$put_metadata <- ivs_put_metadata
+
+#' Starts the process of revoking the viewer session associated with a
+#' specified channel ARN and viewer ID
+#'
+#' @description
+#' Starts the process of revoking the viewer session associated with a specified channel ARN and viewer ID. Optionally, you can provide a version to revoke viewer sessions less than and including that version. For instructions on associating a viewer ID with a viewer session, see [Setting Up Private Channels](https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/private-channels.html).
+#'
+#' See [https://www.paws-r-sdk.com/docs/ivs_start_viewer_session_revocation/](https://www.paws-r-sdk.com/docs/ivs_start_viewer_session_revocation/) for full documentation.
+#'
+#' @param channelArn &#91;required&#93; The ARN of the channel associated with the viewer session to revoke.
+#' @param viewerId &#91;required&#93; The ID of the viewer associated with the viewer session to revoke. Do
+#' not use this field for personally identifying, confidential, or
+#' sensitive information.
+#' @param viewerSessionVersionsLessThanOrEqualTo An optional filter on which versions of the viewer session to revoke.
+#' All versions less than or equal to the specified version will be
+#' revoked. Default: 0.
+#'
+#' @keywords internal
+#'
+#' @rdname ivs_start_viewer_session_revocation
+ivs_start_viewer_session_revocation <- function(channelArn, viewerId, viewerSessionVersionsLessThanOrEqualTo = NULL) {
+  op <- new_operation(
+    name = "StartViewerSessionRevocation",
+    http_method = "POST",
+    http_path = "/StartViewerSessionRevocation",
+    paginator = list()
+  )
+  input <- .ivs$start_viewer_session_revocation_input(channelArn = channelArn, viewerId = viewerId, viewerSessionVersionsLessThanOrEqualTo = viewerSessionVersionsLessThanOrEqualTo)
+  output <- .ivs$start_viewer_session_revocation_output()
+  config <- get_config()
+  svc <- .ivs$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ivs$operations$start_viewer_session_revocation <- ivs_start_viewer_session_revocation
 
 #' Disconnects the incoming RTMPS stream for the specified channel
 #'
@@ -957,55 +978,9 @@ ivs_untag_resource <- function(resourceArn, tagKeys) {
 #' recording is enabled
 #' @param type Channel type, which determines the allowable resolution and bitrate. *If
 #' you exceed the allowable input resolution or bitrate, the stream
-#' probably will disconnect immediately.* Some types generate multiple
-#' qualities (renditions) from the original input; this automatically gives
-#' viewers the best experience for their devices and network conditions.
-#' Some types provide transcoded video; transcoding allows higher playback
-#' quality across a range of download speeds. Default: `STANDARD`. Valid
-#' values:
-#' 
-#' -   `BASIC`: Video is transmuxed: Amazon IVS delivers the original input
-#'     quality to viewers. The viewer’s video-quality choice is limited to
-#'     the original input. Input resolution can be up to 1080p and bitrate
-#'     can be up to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions
-#'     between 480p and 1080p. Original audio is passed through.
-#' 
-#' -   `STANDARD`: Video is transcoded: multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Transcoding
-#'     allows higher playback quality across a range of download speeds.
-#'     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
-#'     Audio is transcoded only for renditions 360p and below; above that,
-#'     audio is passed through. This is the default when you create a
-#'     channel.
-#' 
-#' -   `ADVANCED_SD`: Video is transcoded; multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Input
-#'     resolution can be up to 1080p and bitrate can be up to 8.5 Mbps;
-#'     output is capped at SD quality (480p). You can select an optional
-#'     transcode preset (see below). Audio for all renditions is
-#'     transcoded, and an audio-only rendition is available.
-#' 
-#' -   `ADVANCED_HD`: Video is transcoded; multiple qualities are generated
-#'     from the original input, to automatically give viewers the best
-#'     experience for their devices and network conditions. Input
-#'     resolution can be up to 1080p and bitrate can be up to 8.5 Mbps;
-#'     output is capped at HD quality (720p). You can select an optional
-#'     transcode preset (see below). Audio for all renditions is
-#'     transcoded, and an audio-only rendition is available.
-#' 
-#' Optional *transcode presets* (available for the `ADVANCED` types) allow
-#' you to trade off available download bandwidth and video quality, to
-#' optimize the viewing experience. There are two presets:
-#' 
-#' -   *Constrained bandwidth delivery* uses a lower bitrate for each
-#'     quality level. Use it if you have low download bandwidth and/or
-#'     simple video content (e.g., talking heads)
-#' 
-#' -   *Higher bandwidth delivery* uses a higher bitrate for each quality
-#'     level. Use it if you have high download bandwidth and/or complex
-#'     video content (e.g., flashes and quick scene changes).
+#' probably will disconnect immediately.* Default: `STANDARD`. For details,
+#' see [Channel
+#' Types](https://docs.aws.amazon.com/ivs/latest/LowLatencyAPIReference/channel-types.html).
 #'
 #' @keywords internal
 #'

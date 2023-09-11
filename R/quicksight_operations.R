@@ -439,18 +439,20 @@ quicksight_create_data_source <- function(AwsAccountId, DataSourceId, Name, Type
 #' 
 #' To specify no permissions, omit `Permissions`.
 #' @param Tags Tags for the folder.
+#' @param SharingModel An optional parameter that determines the sharing scope of the folder.
+#' The default value for this parameter is `ACCOUNT`.
 #'
 #' @keywords internal
 #'
 #' @rdname quicksight_create_folder
-quicksight_create_folder <- function(AwsAccountId, FolderId, Name = NULL, FolderType = NULL, ParentFolderArn = NULL, Permissions = NULL, Tags = NULL) {
+quicksight_create_folder <- function(AwsAccountId, FolderId, Name = NULL, FolderType = NULL, ParentFolderArn = NULL, Permissions = NULL, Tags = NULL, SharingModel = NULL) {
   op <- new_operation(
     name = "CreateFolder",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/folders/{FolderId}",
     paginator = list()
   )
-  input <- .quicksight$create_folder_input(AwsAccountId = AwsAccountId, FolderId = FolderId, Name = Name, FolderType = FolderType, ParentFolderArn = ParentFolderArn, Permissions = Permissions, Tags = Tags)
+  input <- .quicksight$create_folder_input(AwsAccountId = AwsAccountId, FolderId = FolderId, Name = Name, FolderType = FolderType, ParentFolderArn = ParentFolderArn, Permissions = Permissions, Tags = Tags, SharingModel = SharingModel)
   output <- .quicksight$create_folder_output()
   config <- get_config()
   svc <- .quicksight$service(config)
@@ -469,9 +471,8 @@ quicksight_create_folder <- function(AwsAccountId, FolderId, Name = NULL, Folder
 #'
 #' @param AwsAccountId &#91;required&#93; The ID for the Amazon Web Services account that contains the folder.
 #' @param FolderId &#91;required&#93; The ID of the folder.
-#' @param MemberId &#91;required&#93; The ID of the asset (the dashboard, analysis, or dataset).
-#' @param MemberType &#91;required&#93; The type of the member, including `DASHBOARD`, `ANALYSIS`, and
-#' `DATASET`.
+#' @param MemberId &#91;required&#93; The ID of the asset that you want to add to the folder.
+#' @param MemberType &#91;required&#93; The member type of the asset that you want to add to a folder.
 #'
 #' @keywords internal
 #'
@@ -1269,9 +1270,8 @@ quicksight_delete_folder <- function(AwsAccountId, FolderId) {
 #'
 #' @param AwsAccountId &#91;required&#93; The ID for the Amazon Web Services account that contains the folder.
 #' @param FolderId &#91;required&#93; The Folder ID.
-#' @param MemberId &#91;required&#93; The ID of the asset (the dashboard, analysis, or dataset) that you want
-#' to delete.
-#' @param MemberType &#91;required&#93; The type of the member, including `DASHBOARD`, `ANALYSIS`, and `DATASET`
+#' @param MemberId &#91;required&#93; The ID of the asset that you want to delete.
+#' @param MemberType &#91;required&#93; The member type of the asset that you want to delete from a folder.
 #'
 #' @keywords internal
 #'
@@ -2125,6 +2125,77 @@ quicksight_describe_dashboard_permissions <- function(AwsAccountId, DashboardId)
 }
 .quicksight$operations$describe_dashboard_permissions <- quicksight_describe_dashboard_permissions
 
+#' Describes an existing snapshot job
+#'
+#' @description
+#' Describes an existing snapshot job.
+#'
+#' See [https://www.paws-r-sdk.com/docs/quicksight_describe_dashboard_snapshot_job/](https://www.paws-r-sdk.com/docs/quicksight_describe_dashboard_snapshot_job/) for full documentation.
+#'
+#' @param AwsAccountId &#91;required&#93; The ID of the Amazon Web Services account that the dashboard snapshot
+#' job is executed in.
+#' @param DashboardId &#91;required&#93; The ID of the dashboard that you have started a snapshot job for.
+#' @param SnapshotJobId &#91;required&#93; The ID of the job to be described. The job ID is set when you start a
+#' new job with a
+#' [`start_dashboard_snapshot_job`][quicksight_start_dashboard_snapshot_job]
+#' API call.
+#'
+#' @keywords internal
+#'
+#' @rdname quicksight_describe_dashboard_snapshot_job
+quicksight_describe_dashboard_snapshot_job <- function(AwsAccountId, DashboardId, SnapshotJobId) {
+  op <- new_operation(
+    name = "DescribeDashboardSnapshotJob",
+    http_method = "GET",
+    http_path = "/accounts/{AwsAccountId}/dashboards/{DashboardId}/snapshot-jobs/{SnapshotJobId}",
+    paginator = list()
+  )
+  input <- .quicksight$describe_dashboard_snapshot_job_input(AwsAccountId = AwsAccountId, DashboardId = DashboardId, SnapshotJobId = SnapshotJobId)
+  output <- .quicksight$describe_dashboard_snapshot_job_output()
+  config <- get_config()
+  svc <- .quicksight$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.quicksight$operations$describe_dashboard_snapshot_job <- quicksight_describe_dashboard_snapshot_job
+
+#' Describes the result of an existing snapshot job that has finished
+#' running
+#'
+#' @description
+#' Describes the result of an existing snapshot job that has finished running.
+#'
+#' See [https://www.paws-r-sdk.com/docs/quicksight_describe_dashboard_snapshot_job_result/](https://www.paws-r-sdk.com/docs/quicksight_describe_dashboard_snapshot_job_result/) for full documentation.
+#'
+#' @param AwsAccountId &#91;required&#93; The ID of the Amazon Web Services account that the dashboard snapshot
+#' job is executed in.
+#' @param DashboardId &#91;required&#93; The ID of the dashboard that you have started a snapshot job for.
+#' @param SnapshotJobId &#91;required&#93; The ID of the job to be described. The job ID is set when you start a
+#' new job with a
+#' [`start_dashboard_snapshot_job`][quicksight_start_dashboard_snapshot_job]
+#' API call.
+#'
+#' @keywords internal
+#'
+#' @rdname quicksight_describe_dashboard_snapshot_job_result
+quicksight_describe_dashboard_snapshot_job_result <- function(AwsAccountId, DashboardId, SnapshotJobId) {
+  op <- new_operation(
+    name = "DescribeDashboardSnapshotJobResult",
+    http_method = "GET",
+    http_path = "/accounts/{AwsAccountId}/dashboards/{DashboardId}/snapshot-jobs/{SnapshotJobId}/result",
+    paginator = list()
+  )
+  input <- .quicksight$describe_dashboard_snapshot_job_result_input(AwsAccountId = AwsAccountId, DashboardId = DashboardId, SnapshotJobId = SnapshotJobId)
+  output <- .quicksight$describe_dashboard_snapshot_job_result_output()
+  config <- get_config()
+  svc <- .quicksight$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.quicksight$operations$describe_dashboard_snapshot_job_result <- quicksight_describe_dashboard_snapshot_job_result
+
 #' Describes a dataset
 #'
 #' @description
@@ -2318,18 +2389,21 @@ quicksight_describe_folder <- function(AwsAccountId, FolderId) {
 #'
 #' @param AwsAccountId &#91;required&#93; The ID for the Amazon Web Services account that contains the folder.
 #' @param FolderId &#91;required&#93; The ID of the folder.
+#' @param Namespace The namespace of the folder whose permissions you want described.
+#' @param MaxResults The maximum number of results to be returned per request.
+#' @param NextToken A pagination token for the next set of results.
 #'
 #' @keywords internal
 #'
 #' @rdname quicksight_describe_folder_permissions
-quicksight_describe_folder_permissions <- function(AwsAccountId, FolderId) {
+quicksight_describe_folder_permissions <- function(AwsAccountId, FolderId, Namespace = NULL, MaxResults = NULL, NextToken = NULL) {
   op <- new_operation(
     name = "DescribeFolderPermissions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/folders/{FolderId}/permissions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Permissions")
   )
-  input <- .quicksight$describe_folder_permissions_input(AwsAccountId = AwsAccountId, FolderId = FolderId)
+  input <- .quicksight$describe_folder_permissions_input(AwsAccountId = AwsAccountId, FolderId = FolderId, Namespace = Namespace, MaxResults = MaxResults, NextToken = NextToken)
   output <- .quicksight$describe_folder_permissions_output()
   config <- get_config()
   svc <- .quicksight$service(config)
@@ -2348,18 +2422,21 @@ quicksight_describe_folder_permissions <- function(AwsAccountId, FolderId) {
 #'
 #' @param AwsAccountId &#91;required&#93; The ID for the Amazon Web Services account that contains the folder.
 #' @param FolderId &#91;required&#93; The ID of the folder.
+#' @param Namespace The namespace of the folder whose permissions you want described.
+#' @param MaxResults The maximum number of results to be returned per request.
+#' @param NextToken A pagination token for the next set of results.
 #'
 #' @keywords internal
 #'
 #' @rdname quicksight_describe_folder_resolved_permissions
-quicksight_describe_folder_resolved_permissions <- function(AwsAccountId, FolderId) {
+quicksight_describe_folder_resolved_permissions <- function(AwsAccountId, FolderId, Namespace = NULL, MaxResults = NULL, NextToken = NULL) {
   op <- new_operation(
     name = "DescribeFolderResolvedPermissions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/folders/{FolderId}/resolved-permissions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Permissions")
   )
-  input <- .quicksight$describe_folder_resolved_permissions_input(AwsAccountId = AwsAccountId, FolderId = FolderId)
+  input <- .quicksight$describe_folder_resolved_permissions_input(AwsAccountId = AwsAccountId, FolderId = FolderId, Namespace = Namespace, MaxResults = MaxResults, NextToken = NextToken)
   output <- .quicksight$describe_folder_resolved_permissions_output()
   config <- get_config()
   svc <- .quicksight$service(config)
@@ -3301,7 +3378,7 @@ quicksight_list_analyses <- function(AwsAccountId, NextToken = NULL, MaxResults 
     name = "ListAnalyses",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/analyses",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "AnalysisSummaryList")
   )
   input <- .quicksight$list_analyses_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_analyses_output()
@@ -3335,7 +3412,7 @@ quicksight_list_asset_bundle_export_jobs <- function(AwsAccountId, NextToken = N
     name = "ListAssetBundleExportJobs",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/asset-bundle-export-jobs",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "AssetBundleExportJobSummaryList")
   )
   input <- .quicksight$list_asset_bundle_export_jobs_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_asset_bundle_export_jobs_output()
@@ -3369,7 +3446,7 @@ quicksight_list_asset_bundle_import_jobs <- function(AwsAccountId, NextToken = N
     name = "ListAssetBundleImportJobs",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/asset-bundle-import-jobs",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "AssetBundleImportJobSummaryList")
   )
   input <- .quicksight$list_asset_bundle_import_jobs_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_asset_bundle_import_jobs_output()
@@ -3404,7 +3481,7 @@ quicksight_list_dashboard_versions <- function(AwsAccountId, DashboardId, NextTo
     name = "ListDashboardVersions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/dashboards/{DashboardId}/versions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DashboardVersionSummaryList")
   )
   input <- .quicksight$list_dashboard_versions_input(AwsAccountId = AwsAccountId, DashboardId = DashboardId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_dashboard_versions_output()
@@ -3437,7 +3514,7 @@ quicksight_list_dashboards <- function(AwsAccountId, NextToken = NULL, MaxResult
     name = "ListDashboards",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/dashboards",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DashboardSummaryList")
   )
   input <- .quicksight$list_dashboards_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_dashboards_output()
@@ -3470,7 +3547,7 @@ quicksight_list_data_sets <- function(AwsAccountId, NextToken = NULL, MaxResults
     name = "ListDataSets",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/data-sets",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DataSetSummaries")
   )
   input <- .quicksight$list_data_sets_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_data_sets_output()
@@ -3503,7 +3580,7 @@ quicksight_list_data_sources <- function(AwsAccountId, NextToken = NULL, MaxResu
     name = "ListDataSources",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/data-sources",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DataSources")
   )
   input <- .quicksight$list_data_sources_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_data_sources_output()
@@ -3536,7 +3613,7 @@ quicksight_list_folder_members <- function(AwsAccountId, FolderId, NextToken = N
     name = "ListFolderMembers",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/folders/{FolderId}/members",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "FolderMemberList")
   )
   input <- .quicksight$list_folder_members_input(AwsAccountId = AwsAccountId, FolderId = FolderId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_folder_members_output()
@@ -3568,7 +3645,7 @@ quicksight_list_folders <- function(AwsAccountId, NextToken = NULL, MaxResults =
     name = "ListFolders",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/folders",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "FolderSummaryList")
   )
   input <- .quicksight$list_folders_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_folders_output()
@@ -3603,7 +3680,7 @@ quicksight_list_group_memberships <- function(GroupName, NextToken = NULL, MaxRe
     name = "ListGroupMemberships",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/groups/{GroupName}/members",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "GroupMemberList")
   )
   input <- .quicksight$list_group_memberships_input(GroupName = GroupName, NextToken = NextToken, MaxResults = MaxResults, AwsAccountId = AwsAccountId, Namespace = Namespace)
   output <- .quicksight$list_group_memberships_output()
@@ -3637,7 +3714,7 @@ quicksight_list_groups <- function(AwsAccountId, NextToken = NULL, MaxResults = 
     name = "ListGroups",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/groups",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "GroupList")
   )
   input <- .quicksight$list_groups_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults, Namespace = Namespace)
   output <- .quicksight$list_groups_output()
@@ -3673,7 +3750,7 @@ quicksight_list_iam_policy_assignments <- function(AwsAccountId, AssignmentStatu
     name = "ListIAMPolicyAssignments",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/v2/iam-policy-assignments",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "IAMPolicyAssignments")
   )
   input <- .quicksight$list_iam_policy_assignments_input(AwsAccountId = AwsAccountId, AssignmentStatus = AssignmentStatus, Namespace = Namespace, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_iam_policy_assignments_output()
@@ -3709,7 +3786,7 @@ quicksight_list_iam_policy_assignments_for_user <- function(AwsAccountId, UserNa
     name = "ListIAMPolicyAssignmentsForUser",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/users/{UserName}/iam-policy-assignments",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "ActiveAssignments")
   )
   input <- .quicksight$list_iam_policy_assignments_for_user_input(AwsAccountId = AwsAccountId, UserName = UserName, NextToken = NextToken, MaxResults = MaxResults, Namespace = Namespace)
   output <- .quicksight$list_iam_policy_assignments_for_user_output()
@@ -3742,7 +3819,7 @@ quicksight_list_ingestions <- function(DataSetId, NextToken = NULL, AwsAccountId
     name = "ListIngestions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/data-sets/{DataSetId}/ingestions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Ingestions")
   )
   input <- .quicksight$list_ingestions_input(DataSetId = DataSetId, NextToken = NextToken, AwsAccountId = AwsAccountId, MaxResults = MaxResults)
   output <- .quicksight$list_ingestions_output()
@@ -3782,7 +3859,7 @@ quicksight_list_namespaces <- function(AwsAccountId, NextToken = NULL, MaxResult
     name = "ListNamespaces",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Namespaces")
   )
   input <- .quicksight$list_namespaces_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_namespaces_output()
@@ -3876,7 +3953,7 @@ quicksight_list_template_aliases <- function(AwsAccountId, TemplateId, NextToken
     name = "ListTemplateAliases",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/templates/{TemplateId}/aliases",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "TemplateAliasList")
   )
   input <- .quicksight$list_template_aliases_input(AwsAccountId = AwsAccountId, TemplateId = TemplateId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_template_aliases_output()
@@ -3911,7 +3988,7 @@ quicksight_list_template_versions <- function(AwsAccountId, TemplateId, NextToke
     name = "ListTemplateVersions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/templates/{TemplateId}/versions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "TemplateVersionSummaryList")
   )
   input <- .quicksight$list_template_versions_input(AwsAccountId = AwsAccountId, TemplateId = TemplateId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_template_versions_output()
@@ -3944,7 +4021,7 @@ quicksight_list_templates <- function(AwsAccountId, NextToken = NULL, MaxResults
     name = "ListTemplates",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/templates",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "TemplateSummaryList")
   )
   input <- .quicksight$list_templates_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_templates_output()
@@ -4013,7 +4090,7 @@ quicksight_list_theme_versions <- function(AwsAccountId, ThemeId, NextToken = NU
     name = "ListThemeVersions",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/themes/{ThemeId}/versions",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "ThemeVersionSummaryList")
   )
   input <- .quicksight$list_theme_versions_input(AwsAccountId = AwsAccountId, ThemeId = ThemeId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_theme_versions_output()
@@ -4056,7 +4133,7 @@ quicksight_list_themes <- function(AwsAccountId, NextToken = NULL, MaxResults = 
     name = "ListThemes",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/themes",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "ThemeSummaryList")
   )
   input <- .quicksight$list_themes_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults, Type = Type)
   output <- .quicksight$list_themes_output()
@@ -4121,7 +4198,7 @@ quicksight_list_topics <- function(AwsAccountId, NextToken = NULL, MaxResults = 
     name = "ListTopics",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/topics",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
   )
   input <- .quicksight$list_topics_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_topics_output()
@@ -4158,7 +4235,7 @@ quicksight_list_user_groups <- function(UserName, AwsAccountId, Namespace, NextT
     name = "ListUserGroups",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/users/{UserName}/groups",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "GroupList")
   )
   input <- .quicksight$list_user_groups_input(UserName = UserName, AwsAccountId = AwsAccountId, Namespace = Namespace, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_user_groups_output()
@@ -4193,7 +4270,7 @@ quicksight_list_users <- function(AwsAccountId, NextToken = NULL, MaxResults = N
     name = "ListUsers",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/users",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "UserList")
   )
   input <- .quicksight$list_users_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults, Namespace = Namespace)
   output <- .quicksight$list_users_output()
@@ -4227,7 +4304,7 @@ quicksight_list_vpc_connections <- function(AwsAccountId, NextToken = NULL, MaxR
     name = "ListVPCConnections",
     http_method = "GET",
     http_path = "/accounts/{AwsAccountId}/vpc-connections",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
   )
   input <- .quicksight$list_vpc_connections_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$list_vpc_connections_output()
@@ -4438,7 +4515,7 @@ quicksight_search_analyses <- function(AwsAccountId, Filters, NextToken = NULL, 
     name = "SearchAnalyses",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/search/analyses",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "AnalysisSummaryList")
   )
   input <- .quicksight$search_analyses_input(AwsAccountId = AwsAccountId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$search_analyses_output()
@@ -4474,7 +4551,7 @@ quicksight_search_dashboards <- function(AwsAccountId, Filters, NextToken = NULL
     name = "SearchDashboards",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/search/dashboards",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DashboardSummaryList")
   )
   input <- .quicksight$search_dashboards_input(AwsAccountId = AwsAccountId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$search_dashboards_output()
@@ -4507,7 +4584,7 @@ quicksight_search_data_sets <- function(AwsAccountId, Filters, NextToken = NULL,
     name = "SearchDataSets",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/search/data-sets",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DataSetSummaries")
   )
   input <- .quicksight$search_data_sets_input(AwsAccountId = AwsAccountId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$search_data_sets_output()
@@ -4540,7 +4617,7 @@ quicksight_search_data_sources <- function(AwsAccountId, Filters, NextToken = NU
     name = "SearchDataSources",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/search/data-sources",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "DataSourceSummaries")
   )
   input <- .quicksight$search_data_sources_input(AwsAccountId = AwsAccountId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$search_data_sources_output()
@@ -4575,7 +4652,7 @@ quicksight_search_folders <- function(AwsAccountId, Filters, NextToken = NULL, M
     name = "SearchFolders",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/search/folders",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "FolderSummaryList")
   )
   input <- .quicksight$search_folders_input(AwsAccountId = AwsAccountId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .quicksight$search_folders_output()
@@ -4612,7 +4689,7 @@ quicksight_search_groups <- function(AwsAccountId, NextToken = NULL, MaxResults 
     name = "SearchGroups",
     http_method = "POST",
     http_path = "/accounts/{AwsAccountId}/namespaces/{Namespace}/groups-search",
-    paginator = list()
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "GroupList")
   )
   input <- .quicksight$search_groups_input(AwsAccountId = AwsAccountId, NextToken = NextToken, MaxResults = MaxResults, Namespace = Namespace, Filters = Filters)
   output <- .quicksight$search_groups_output()
@@ -4698,7 +4775,7 @@ quicksight_start_asset_bundle_export_job <- function(AwsAccountId, AssetBundleEx
 #' @param AssetBundleImportJobId &#91;required&#93; The ID of the job. This ID is unique while the job is running. After the
 #' job is completed, you can reuse this ID for another job.
 #' @param AssetBundleImportSource &#91;required&#93; The source of the asset bundle zip file that contains the data that you
-#' want to import.
+#' want to import. The file must be in `QUICKSIGHT_JSON` format.
 #' @param OverrideParameters Optional overrides to be applied to the resource configuration before
 #' import.
 #' @param FailureAction The failure action for the import job.
@@ -4729,6 +4806,47 @@ quicksight_start_asset_bundle_import_job <- function(AwsAccountId, AssetBundleIm
   return(response)
 }
 .quicksight$operations$start_asset_bundle_import_job <- quicksight_start_asset_bundle_import_job
+
+#' Starts an asynchronous job that generates a dashboard snapshot
+#'
+#' @description
+#' Starts an asynchronous job that generates a dashboard snapshot. You can request one of the following format configurations per API call.
+#'
+#' See [https://www.paws-r-sdk.com/docs/quicksight_start_dashboard_snapshot_job/](https://www.paws-r-sdk.com/docs/quicksight_start_dashboard_snapshot_job/) for full documentation.
+#'
+#' @param AwsAccountId &#91;required&#93; The ID of the Amazon Web Services account that the dashboard snapshot
+#' job is executed in.
+#' @param DashboardId &#91;required&#93; The ID of the dashboard that you want to start a snapshot job for.
+#' @param SnapshotJobId &#91;required&#93; An ID for the dashboard snapshot job. This ID is unique to the dashboard
+#' while the job is running. This ID can be used to poll the status of a
+#' job with a
+#' [`describe_dashboard_snapshot_job`][quicksight_describe_dashboard_snapshot_job]
+#' while the job runs. You can reuse this ID for another job 24 hours after
+#' the current job is completed.
+#' @param UserConfiguration &#91;required&#93; A structure that contains information about the anonymous users that the
+#' generated snapshot is for. This API will not return information about
+#' registered Amazon QuickSight.
+#' @param SnapshotConfiguration &#91;required&#93; A structure that describes the configuration of the dashboard snapshot.
+#'
+#' @keywords internal
+#'
+#' @rdname quicksight_start_dashboard_snapshot_job
+quicksight_start_dashboard_snapshot_job <- function(AwsAccountId, DashboardId, SnapshotJobId, UserConfiguration, SnapshotConfiguration) {
+  op <- new_operation(
+    name = "StartDashboardSnapshotJob",
+    http_method = "POST",
+    http_path = "/accounts/{AwsAccountId}/dashboards/{DashboardId}/snapshot-jobs",
+    paginator = list()
+  )
+  input <- .quicksight$start_dashboard_snapshot_job_input(AwsAccountId = AwsAccountId, DashboardId = DashboardId, SnapshotJobId = SnapshotJobId, UserConfiguration = UserConfiguration, SnapshotConfiguration = SnapshotConfiguration)
+  output <- .quicksight$start_dashboard_snapshot_job_output()
+  config <- get_config()
+  svc <- .quicksight$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.quicksight$operations$start_dashboard_snapshot_job <- quicksight_start_dashboard_snapshot_job
 
 #' Assigns one or more tags (key-value pairs) to the specified Amazon
 #' QuickSight resource
