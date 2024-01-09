@@ -253,18 +253,27 @@ emr_create_security_configuration <- function(Name, SecurityConfiguration) {
 #' user-defined key-value pairs that consist of a required key string with
 #' a maximum of 128 characters, and an optional value string with a maximum
 #' of 256 characters.
+#' @param TrustedIdentityPropagationEnabled A Boolean indicating whether to enable Trusted identity propagation for
+#' the Studio. The default value is `false`.
+#' @param IdcUserAssignment Specifies whether IAM Identity Center user assignment is `REQUIRED` or
+#' `OPTIONAL`. If the value is set to `REQUIRED`, users must be explicitly
+#' assigned to the Studio application to access the Studio.
+#' @param IdcInstanceArn The ARN of the IAM Identity Center instance to create the Studio
+#' application.
+#' @param EncryptionKeyArn The KMS key identifier (ARN) used to encrypt Amazon EMR Studio workspace
+#' and notebook files when backed up to Amazon S3.
 #'
 #' @keywords internal
 #'
 #' @rdname emr_create_studio
-emr_create_studio <- function(Name, Description = NULL, AuthMode, VpcId, SubnetIds, ServiceRole, UserRole = NULL, WorkspaceSecurityGroupId, EngineSecurityGroupId, DefaultS3Location, IdpAuthUrl = NULL, IdpRelayStateParameterName = NULL, Tags = NULL) {
+emr_create_studio <- function(Name, Description = NULL, AuthMode, VpcId, SubnetIds, ServiceRole, UserRole = NULL, WorkspaceSecurityGroupId, EngineSecurityGroupId, DefaultS3Location, IdpAuthUrl = NULL, IdpRelayStateParameterName = NULL, Tags = NULL, TrustedIdentityPropagationEnabled = NULL, IdcUserAssignment = NULL, IdcInstanceArn = NULL, EncryptionKeyArn = NULL) {
   op <- new_operation(
     name = "CreateStudio",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .emr$create_studio_input(Name = Name, Description = Description, AuthMode = AuthMode, VpcId = VpcId, SubnetIds = SubnetIds, ServiceRole = ServiceRole, UserRole = UserRole, WorkspaceSecurityGroupId = WorkspaceSecurityGroupId, EngineSecurityGroupId = EngineSecurityGroupId, DefaultS3Location = DefaultS3Location, IdpAuthUrl = IdpAuthUrl, IdpRelayStateParameterName = IdpRelayStateParameterName, Tags = Tags)
+  input <- .emr$create_studio_input(Name = Name, Description = Description, AuthMode = AuthMode, VpcId = VpcId, SubnetIds = SubnetIds, ServiceRole = ServiceRole, UserRole = UserRole, WorkspaceSecurityGroupId = WorkspaceSecurityGroupId, EngineSecurityGroupId = EngineSecurityGroupId, DefaultS3Location = DefaultS3Location, IdpAuthUrl = IdpAuthUrl, IdpRelayStateParameterName = IdpRelayStateParameterName, Tags = Tags, TrustedIdentityPropagationEnabled = TrustedIdentityPropagationEnabled, IdcUserAssignment = IdcUserAssignment, IdcInstanceArn = IdcInstanceArn, EncryptionKeyArn = EncryptionKeyArn)
   output <- .emr$create_studio_output()
   config <- get_config()
   svc <- .emr$service(config)
@@ -711,7 +720,7 @@ emr_get_block_public_access_configuration <- function() {
 #' See [https://www.paws-r-sdk.com/docs/emr_get_cluster_session_credentials/](https://www.paws-r-sdk.com/docs/emr_get_cluster_session_credentials/) for full documentation.
 #'
 #' @param ClusterId &#91;required&#93; The unique identifier of the cluster.
-#' @param ExecutionRoleArn &#91;required&#93; The Amazon Resource Name (ARN) of the runtime role for interactive
+#' @param ExecutionRoleArn The Amazon Resource Name (ARN) of the runtime role for interactive
 #' workload submission on the cluster. The runtime role can be a
 #' cross-account IAM role. The runtime role ARN is a combination of account
 #' ID, role name, and role type using the following format:
@@ -720,7 +729,7 @@ emr_get_block_public_access_configuration <- function() {
 #' @keywords internal
 #'
 #' @rdname emr_get_cluster_session_credentials
-emr_get_cluster_session_credentials <- function(ClusterId, ExecutionRoleArn) {
+emr_get_cluster_session_credentials <- function(ClusterId, ExecutionRoleArn = NULL) {
   op <- new_operation(
     name = "GetClusterSessionCredentials",
     http_method = "POST",
@@ -1779,18 +1788,24 @@ emr_remove_tags <- function(ResourceId, TagKeys) {
 #' @param OSReleaseLabel Specifies a particular Amazon Linux release for all nodes in a cluster
 #' launch RunJobFlow request. If a release is not specified, Amazon EMR
 #' uses the latest validated Amazon Linux release for cluster launch.
+#' @param EbsRootVolumeIops The IOPS, of the Amazon EBS root device volume of the Linux AMI that is
+#' used for each Amazon EC2 instance. Available in Amazon EMR releases
+#' 6.15.0 and later.
+#' @param EbsRootVolumeThroughput The throughput, in MiB/s, of the Amazon EBS root device volume of the
+#' Linux AMI that is used for each Amazon EC2 instance. Available in Amazon
+#' EMR releases 6.15.0 and later.
 #'
 #' @keywords internal
 #'
 #' @rdname emr_run_job_flow
-emr_run_job_flow <- function(Name, LogUri = NULL, LogEncryptionKmsKeyId = NULL, AdditionalInfo = NULL, AmiVersion = NULL, ReleaseLabel = NULL, Instances, Steps = NULL, BootstrapActions = NULL, SupportedProducts = NULL, NewSupportedProducts = NULL, Applications = NULL, Configurations = NULL, VisibleToAllUsers = NULL, JobFlowRole = NULL, ServiceRole = NULL, Tags = NULL, SecurityConfiguration = NULL, AutoScalingRole = NULL, ScaleDownBehavior = NULL, CustomAmiId = NULL, EbsRootVolumeSize = NULL, RepoUpgradeOnBoot = NULL, KerberosAttributes = NULL, StepConcurrencyLevel = NULL, ManagedScalingPolicy = NULL, PlacementGroupConfigs = NULL, AutoTerminationPolicy = NULL, OSReleaseLabel = NULL) {
+emr_run_job_flow <- function(Name, LogUri = NULL, LogEncryptionKmsKeyId = NULL, AdditionalInfo = NULL, AmiVersion = NULL, ReleaseLabel = NULL, Instances, Steps = NULL, BootstrapActions = NULL, SupportedProducts = NULL, NewSupportedProducts = NULL, Applications = NULL, Configurations = NULL, VisibleToAllUsers = NULL, JobFlowRole = NULL, ServiceRole = NULL, Tags = NULL, SecurityConfiguration = NULL, AutoScalingRole = NULL, ScaleDownBehavior = NULL, CustomAmiId = NULL, EbsRootVolumeSize = NULL, RepoUpgradeOnBoot = NULL, KerberosAttributes = NULL, StepConcurrencyLevel = NULL, ManagedScalingPolicy = NULL, PlacementGroupConfigs = NULL, AutoTerminationPolicy = NULL, OSReleaseLabel = NULL, EbsRootVolumeIops = NULL, EbsRootVolumeThroughput = NULL) {
   op <- new_operation(
     name = "RunJobFlow",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .emr$run_job_flow_input(Name = Name, LogUri = LogUri, LogEncryptionKmsKeyId = LogEncryptionKmsKeyId, AdditionalInfo = AdditionalInfo, AmiVersion = AmiVersion, ReleaseLabel = ReleaseLabel, Instances = Instances, Steps = Steps, BootstrapActions = BootstrapActions, SupportedProducts = SupportedProducts, NewSupportedProducts = NewSupportedProducts, Applications = Applications, Configurations = Configurations, VisibleToAllUsers = VisibleToAllUsers, JobFlowRole = JobFlowRole, ServiceRole = ServiceRole, Tags = Tags, SecurityConfiguration = SecurityConfiguration, AutoScalingRole = AutoScalingRole, ScaleDownBehavior = ScaleDownBehavior, CustomAmiId = CustomAmiId, EbsRootVolumeSize = EbsRootVolumeSize, RepoUpgradeOnBoot = RepoUpgradeOnBoot, KerberosAttributes = KerberosAttributes, StepConcurrencyLevel = StepConcurrencyLevel, ManagedScalingPolicy = ManagedScalingPolicy, PlacementGroupConfigs = PlacementGroupConfigs, AutoTerminationPolicy = AutoTerminationPolicy, OSReleaseLabel = OSReleaseLabel)
+  input <- .emr$run_job_flow_input(Name = Name, LogUri = LogUri, LogEncryptionKmsKeyId = LogEncryptionKmsKeyId, AdditionalInfo = AdditionalInfo, AmiVersion = AmiVersion, ReleaseLabel = ReleaseLabel, Instances = Instances, Steps = Steps, BootstrapActions = BootstrapActions, SupportedProducts = SupportedProducts, NewSupportedProducts = NewSupportedProducts, Applications = Applications, Configurations = Configurations, VisibleToAllUsers = VisibleToAllUsers, JobFlowRole = JobFlowRole, ServiceRole = ServiceRole, Tags = Tags, SecurityConfiguration = SecurityConfiguration, AutoScalingRole = AutoScalingRole, ScaleDownBehavior = ScaleDownBehavior, CustomAmiId = CustomAmiId, EbsRootVolumeSize = EbsRootVolumeSize, RepoUpgradeOnBoot = RepoUpgradeOnBoot, KerberosAttributes = KerberosAttributes, StepConcurrencyLevel = StepConcurrencyLevel, ManagedScalingPolicy = ManagedScalingPolicy, PlacementGroupConfigs = PlacementGroupConfigs, AutoTerminationPolicy = AutoTerminationPolicy, OSReleaseLabel = OSReleaseLabel, EbsRootVolumeIops = EbsRootVolumeIops, EbsRootVolumeThroughput = EbsRootVolumeThroughput)
   output <- .emr$run_job_flow_output()
   config <- get_config()
   svc <- .emr$service(config)
@@ -1799,6 +1814,40 @@ emr_run_job_flow <- function(Name, LogUri = NULL, LogEncryptionKmsKeyId = NULL, 
   return(response)
 }
 .emr$operations$run_job_flow <- emr_run_job_flow
+
+#' You can use the SetKeepJobFlowAliveWhenNoSteps to configure a cluster
+#' (job flow) to terminate after the step execution, i
+#'
+#' @description
+#' You can use the [`set_keep_job_flow_alive_when_no_steps`][emr_set_keep_job_flow_alive_when_no_steps] to configure a cluster (job flow) to terminate after the step execution, i.e., all your steps are executed. If you want a transient cluster that shuts down after the last of the current executing steps are completed, you can configure [`set_keep_job_flow_alive_when_no_steps`][emr_set_keep_job_flow_alive_when_no_steps] to false. If you want a long running cluster, configure [`set_keep_job_flow_alive_when_no_steps`][emr_set_keep_job_flow_alive_when_no_steps] to true.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emr_set_keep_job_flow_alive_when_no_steps/](https://www.paws-r-sdk.com/docs/emr_set_keep_job_flow_alive_when_no_steps/) for full documentation.
+#'
+#' @param JobFlowIds &#91;required&#93; A list of strings that uniquely identify the clusters to protect. This
+#' identifier is returned by [`run_job_flow`][emr_run_job_flow] and can
+#' also be obtained from [`describe_job_flows`][emr_describe_job_flows].
+#' @param KeepJobFlowAliveWhenNoSteps &#91;required&#93; A Boolean that indicates whether to terminate the cluster after all
+#' steps are executed.
+#'
+#' @keywords internal
+#'
+#' @rdname emr_set_keep_job_flow_alive_when_no_steps
+emr_set_keep_job_flow_alive_when_no_steps <- function(JobFlowIds, KeepJobFlowAliveWhenNoSteps) {
+  op <- new_operation(
+    name = "SetKeepJobFlowAliveWhenNoSteps",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .emr$set_keep_job_flow_alive_when_no_steps_input(JobFlowIds = JobFlowIds, KeepJobFlowAliveWhenNoSteps = KeepJobFlowAliveWhenNoSteps)
+  output <- .emr$set_keep_job_flow_alive_when_no_steps_output()
+  config <- get_config()
+  svc <- .emr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emr$operations$set_keep_job_flow_alive_when_no_steps <- emr_set_keep_job_flow_alive_when_no_steps
 
 #' SetTerminationProtection locks a cluster (job flow) so the Amazon EC2
 #' instances in the cluster cannot be terminated by user intervention, an
@@ -2002,18 +2051,20 @@ emr_terminate_job_flows <- function(JobFlowIds) {
 #' same VPC as the Studio.
 #' @param DefaultS3Location The Amazon S3 location to back up Workspaces and notebook files for the
 #' Amazon EMR Studio.
+#' @param EncryptionKeyArn The KMS key identifier (ARN) used to encrypt Amazon EMR Studio workspace
+#' and notebook files when backed up to Amazon S3.
 #'
 #' @keywords internal
 #'
 #' @rdname emr_update_studio
-emr_update_studio <- function(StudioId, Name = NULL, Description = NULL, SubnetIds = NULL, DefaultS3Location = NULL) {
+emr_update_studio <- function(StudioId, Name = NULL, Description = NULL, SubnetIds = NULL, DefaultS3Location = NULL, EncryptionKeyArn = NULL) {
   op <- new_operation(
     name = "UpdateStudio",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .emr$update_studio_input(StudioId = StudioId, Name = Name, Description = Description, SubnetIds = SubnetIds, DefaultS3Location = DefaultS3Location)
+  input <- .emr$update_studio_input(StudioId = StudioId, Name = Name, Description = Description, SubnetIds = SubnetIds, DefaultS3Location = DefaultS3Location, EncryptionKeyArn = EncryptionKeyArn)
   output <- .emr$update_studio_output()
   config <- get_config()
   svc <- .emr$service(config)

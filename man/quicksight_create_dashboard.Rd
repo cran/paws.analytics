@@ -16,7 +16,11 @@ quicksight_create_dashboard(
   VersionDescription = NULL,
   DashboardPublishOptions = NULL,
   ThemeArn = NULL,
-  Definition = NULL
+  Definition = NULL,
+  ValidationStrategy = NULL,
+  FolderArns = NULL,
+  LinkSharingConfiguration = NULL,
+  LinkEntities = NULL
 )
 }
 \arguments{
@@ -87,6 +91,19 @@ or Analysis.
 
 Either a \code{SourceEntity} or a \code{Definition} must be provided in order for
 the request to be valid.}
+
+\item{ValidationStrategy}{The option to relax the validation needed to create a dashboard with
+definition objects. This option skips the validation step for specific
+errors.}
+
+\item{FolderArns}{When you create the dashboard, Amazon QuickSight adds the dashboard to
+these folders.}
+
+\item{LinkSharingConfiguration}{A structure that contains the permissions of a shareable link to the
+dashboard.}
+
+\item{LinkEntities}{A list of analysis Amazon Resource Names (ARNs) to be linked to the
+dashboard.}
 }
 \description{
 Creates a dashboard from either a template or directly with a \code{DashboardDefinition}. To first create a template, see the \code{\link[=quicksight_create_template]{create_template}} API operation.

@@ -33,7 +33,9 @@ emr_run_job_flow(
   ManagedScalingPolicy = NULL,
   PlacementGroupConfigs = NULL,
   AutoTerminationPolicy = NULL,
-  OSReleaseLabel = NULL
+  OSReleaseLabel = NULL,
+  EbsRootVolumeIops = NULL,
+  EbsRootVolumeThroughput = NULL
 )
 }
 \arguments{
@@ -202,6 +204,14 @@ default value is \code{1}. The maximum value is \code{256}.}
 \item{OSReleaseLabel}{Specifies a particular Amazon Linux release for all nodes in a cluster
 launch RunJobFlow request. If a release is not specified, Amazon EMR
 uses the latest validated Amazon Linux release for cluster launch.}
+
+\item{EbsRootVolumeIops}{The IOPS, of the Amazon EBS root device volume of the Linux AMI that is
+used for each Amazon EC2 instance. Available in Amazon EMR releases
+6.15.0 and later.}
+
+\item{EbsRootVolumeThroughput}{The throughput, in MiB/s, of the Amazon EBS root device volume of the
+Linux AMI that is used for each Amazon EC2 instance. Available in Amazon
+EMR releases 6.15.0 and later.}
 }
 \description{
 RunJobFlow creates and starts running a new cluster (job flow). The cluster runs the steps specified. After the steps complete, the cluster stops and the HDFS partition is lost. To prevent loss of data, configure the last step of the job flow to store results in Amazon S3. If the JobFlowInstancesConfig \code{KeepJobFlowAliveWhenNoSteps} parameter is set to \code{TRUE}, the cluster transitions to the WAITING state rather than shutting down after the steps have completed.
