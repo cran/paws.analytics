@@ -1,6 +1,6 @@
 Package: paws.analytics
 Title: 'Amazon Web Services' Analytics Services
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: c(
     person("David", "Kretch", , "david.kretch@gmail.com", role = "aut"),
     person("Adam", "Banker", , "adam.banker39@gmail.com", role = "aut"),
@@ -16,7 +16,7 @@ BugReports: https://github.com/paws-r/paws/issues
 Imports: paws.common (>= 0.6.0)
 Suggests: testthat
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Collate: 'athena_service.R' 'athena_interfaces.R' 'athena_operations.R'
         'cloudsearch_service.R' 'cloudsearch_interfaces.R'
         'cloudsearch_operations.R' 'cloudsearchdomain_service.R'
@@ -61,11 +61,11 @@ Collate: 'athena_service.R' 'athena_interfaces.R' 'athena_operations.R'
         'quicksight_service.R' 'quicksight_interfaces.R'
         'quicksight_operations.R' 'reexports_paws.common.R'
 NeedsCompilation: no
-Packaged: 2024-01-09 17:38:22 UTC; dyfanjones
+Packaged: 2024-05-10 13:16:29 UTC; dyfanjones
 Author: David Kretch [aut],
   Adam Banker [aut],
   Dyfan Jones [cre],
   Amazon.com, Inc. [cph]
 Maintainer: Dyfan Jones <dyfan.r.jones@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-01-09 20:40:02 UTC
+Date/Publication: 2024-05-10 14:50:02 UTC
