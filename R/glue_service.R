@@ -107,6 +107,7 @@ NULL
 #'  \link[=glue_batch_get_table_optimizer]{batch_get_table_optimizer} \tab Returns the configuration for the specified table optimizers\cr
 #'  \link[=glue_batch_get_triggers]{batch_get_triggers} \tab Returns a list of resource metadata for a given list of trigger names\cr
 #'  \link[=glue_batch_get_workflows]{batch_get_workflows} \tab Returns a list of resource metadata for a given list of workflow names\cr
+#'  \link[=glue_batch_put_data_quality_statistic_annotation]{batch_put_data_quality_statistic_annotation} \tab Annotate datapoints over time for a specific data quality statistic\cr
 #'  \link[=glue_batch_stop_job_run]{batch_stop_job_run} \tab Stops one or more job runs for a specified job definition\cr
 #'  \link[=glue_batch_update_partition]{batch_update_partition} \tab Updates one or more partitions in a batch operation\cr
 #'  \link[=glue_cancel_data_quality_rule_recommendation_run]{cancel_data_quality_rule_recommendation_run} \tab Cancels the specified recommendation run that was being used to generate rules\cr
@@ -134,6 +135,7 @@ NULL
 #'  \link[=glue_create_table]{create_table} \tab Creates a new table definition in the Data Catalog\cr
 #'  \link[=glue_create_table_optimizer]{create_table_optimizer} \tab Creates a new table optimizer for a specific function\cr
 #'  \link[=glue_create_trigger]{create_trigger} \tab Creates a new trigger\cr
+#'  \link[=glue_create_usage_profile]{create_usage_profile} \tab Creates an Glue usage profile\cr
 #'  \link[=glue_create_user_defined_function]{create_user_defined_function} \tab Creates a new function definition in the Data Catalog\cr
 #'  \link[=glue_create_workflow]{create_workflow} \tab Creates a new workflow\cr
 #'  \link[=glue_delete_blueprint]{delete_blueprint} \tab Deletes an existing blueprint\cr
@@ -160,6 +162,7 @@ NULL
 #'  \link[=glue_delete_table_optimizer]{delete_table_optimizer} \tab Deletes an optimizer and all associated metadata for a table\cr
 #'  \link[=glue_delete_table_version]{delete_table_version} \tab Deletes a specified version of a table\cr
 #'  \link[=glue_delete_trigger]{delete_trigger} \tab Deletes a specified trigger\cr
+#'  \link[=glue_delete_usage_profile]{delete_usage_profile} \tab Deletes the Glue specified usage profile\cr
 #'  \link[=glue_delete_user_defined_function]{delete_user_defined_function} \tab Deletes an existing function definition from the Data Catalog\cr
 #'  \link[=glue_delete_workflow]{delete_workflow} \tab Deletes a workflow\cr
 #'  \link[=glue_get_blueprint]{get_blueprint} \tab Retrieves the details of a blueprint\cr
@@ -182,6 +185,8 @@ NULL
 #'  \link[=glue_get_databases]{get_databases} \tab Retrieves all databases defined in a given Data Catalog\cr
 #'  \link[=glue_get_data_catalog_encryption_settings]{get_data_catalog_encryption_settings} \tab Retrieves the security configuration for a specified catalog\cr
 #'  \link[=glue_get_dataflow_graph]{get_dataflow_graph} \tab Transforms a Python script into a directed acyclic graph (DAG)\cr
+#'  \link[=glue_get_data_quality_model]{get_data_quality_model} \tab Retrieve the training status of the model along with more information (CompletedOn, StartedOn, FailureReason)\cr
+#'  \link[=glue_get_data_quality_model_result]{get_data_quality_model_result} \tab Retrieve a statistic's predictions for a given Profile ID\cr
 #'  \link[=glue_get_data_quality_result]{get_data_quality_result} \tab Retrieves the result of a data quality rule evaluation\cr
 #'  \link[=glue_get_data_quality_rule_recommendation_run]{get_data_quality_rule_recommendation_run} \tab Gets the specified recommendation run that was used to generate rules\cr
 #'  \link[=glue_get_data_quality_ruleset]{get_data_quality_ruleset} \tab Returns an existing ruleset by identifier or name\cr
@@ -224,6 +229,7 @@ NULL
 #'  \link[=glue_get_unfiltered_partition_metadata]{get_unfiltered_partition_metadata} \tab Retrieves partition metadata from the Data Catalog that contains unfiltered metadata\cr
 #'  \link[=glue_get_unfiltered_partitions_metadata]{get_unfiltered_partitions_metadata} \tab Retrieves partition metadata from the Data Catalog that contains unfiltered metadata\cr
 #'  \link[=glue_get_unfiltered_table_metadata]{get_unfiltered_table_metadata} \tab Allows a third-party analytical engine to retrieve unfiltered table metadata from the Data Catalog\cr
+#'  \link[=glue_get_usage_profile]{get_usage_profile} \tab Retrieves information about the specified Glue usage profile\cr
 #'  \link[=glue_get_user_defined_function]{get_user_defined_function} \tab Retrieves a specified function definition from the Data Catalog\cr
 #'  \link[=glue_get_user_defined_functions]{get_user_defined_functions} \tab Retrieves multiple function definitions from the Data Catalog\cr
 #'  \link[=glue_get_workflow]{get_workflow} \tab Retrieves resource metadata for a workflow\cr
@@ -240,6 +246,8 @@ NULL
 #'  \link[=glue_list_data_quality_rule_recommendation_runs]{list_data_quality_rule_recommendation_runs} \tab Lists the recommendation runs meeting the filter criteria\cr
 #'  \link[=glue_list_data_quality_ruleset_evaluation_runs]{list_data_quality_ruleset_evaluation_runs} \tab Lists all the runs meeting the filter criteria, where a ruleset is evaluated against a data source\cr
 #'  \link[=glue_list_data_quality_rulesets]{list_data_quality_rulesets} \tab Returns a paginated list of rulesets for the specified list of Glue tables\cr
+#'  \link[=glue_list_data_quality_statistic_annotations]{list_data_quality_statistic_annotations} \tab Retrieve annotations for a data quality statistic\cr
+#'  \link[=glue_list_data_quality_statistics]{list_data_quality_statistics} \tab Retrieves a list of data quality statistics\cr
 #'  \link[=glue_list_dev_endpoints]{list_dev_endpoints} \tab Retrieves the names of all DevEndpoint resources in this Amazon Web Services account, or the resources with the specified tag\cr
 #'  \link[=glue_list_jobs]{list_jobs} \tab Retrieves the names of all job resources in this Amazon Web Services account, or the resources with the specified tag\cr
 #'  \link[=glue_list_ml_transforms]{list_ml_transforms} \tab Retrieves a sortable, filterable list of existing Glue machine learning transforms in this Amazon Web Services account, or the resources with the specified tag\cr
@@ -250,8 +258,10 @@ NULL
 #'  \link[=glue_list_statements]{list_statements} \tab Lists statements for the session\cr
 #'  \link[=glue_list_table_optimizer_runs]{list_table_optimizer_runs} \tab Lists the history of previous optimizer runs for a specific table\cr
 #'  \link[=glue_list_triggers]{list_triggers} \tab Retrieves the names of all trigger resources in this Amazon Web Services account, or the resources with the specified tag\cr
+#'  \link[=glue_list_usage_profiles]{list_usage_profiles} \tab List all the Glue usage profiles\cr
 #'  \link[=glue_list_workflows]{list_workflows} \tab Lists names of workflows created in the account\cr
 #'  \link[=glue_put_data_catalog_encryption_settings]{put_data_catalog_encryption_settings} \tab Sets the security configuration for a specified catalog\cr
+#'  \link[=glue_put_data_quality_profile_annotation]{put_data_quality_profile_annotation} \tab Annotate all datapoints for a Profile\cr
 #'  \link[=glue_put_resource_policy]{put_resource_policy} \tab Sets the Data Catalog resource policy for access control\cr
 #'  \link[=glue_put_schema_version_metadata]{put_schema_version_metadata} \tab Puts the metadata key value pair for a specified schema version ID\cr
 #'  \link[=glue_put_workflow_run_properties]{put_workflow_run_properties} \tab Puts the specified workflow run properties for the given workflow run\cr
@@ -303,6 +313,7 @@ NULL
 #'  \link[=glue_update_table]{update_table} \tab Updates a metadata table in the Data Catalog\cr
 #'  \link[=glue_update_table_optimizer]{update_table_optimizer} \tab Updates the configuration for an existing table optimizer\cr
 #'  \link[=glue_update_trigger]{update_trigger} \tab Updates a trigger definition\cr
+#'  \link[=glue_update_usage_profile]{update_usage_profile} \tab Update an Glue usage profile\cr
 #'  \link[=glue_update_user_defined_function]{update_user_defined_function} \tab Updates an existing function definition in the Data Catalog\cr
 #'  \link[=glue_update_workflow]{update_workflow} \tab Updates an existing workflow
 #' }
@@ -344,7 +355,7 @@ glue <- function(config = list(), credentials = list(), endpoint = NULL, region 
   target_prefix = "AWSGlue"
 )
 
-.glue$service <- function(config = list()) {
+.glue$service <- function(config = list(), op = NULL) {
   handlers <- new_handlers("jsonrpc", "v4")
-  new_service(.glue$metadata, handlers, config)
+  new_service(.glue$metadata, handlers, config, op)
 }

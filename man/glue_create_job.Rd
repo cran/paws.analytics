@@ -6,6 +6,8 @@
 \usage{
 glue_create_job(
   Name,
+  JobMode = NULL,
+  JobRunQueuingEnabled = NULL,
   Description = NULL,
   LogUri = NULL,
   Role,
@@ -26,12 +28,34 @@ glue_create_job(
   WorkerType = NULL,
   CodeGenConfigurationNodes = NULL,
   ExecutionClass = NULL,
-  SourceControlDetails = NULL
+  SourceControlDetails = NULL,
+  MaintenanceWindow = NULL
 )
 }
 \arguments{
 \item{Name}{[required] The name you assign to this job definition. It must be unique in your
 account.}
+
+\item{JobMode}{A mode that describes how a job was created. Valid values are:
+\itemize{
+\item \code{SCRIPT} - The job was created using the Glue Studio script editor.
+\item \code{VISUAL} - The job was created using the Glue Studio visual editor.
+\item \code{NOTEBOOK} - The job was created using an interactive sessions
+notebook.
+}
+
+When the \code{JobMode} field is missing or null, \code{SCRIPT} is assigned as the
+default value.}
+
+\item{JobRunQueuingEnabled}{Specifies whether job run queuing is enabled for the job runs for this
+job.
+
+A value of true means job run queuing is enabled for the job runs. If
+false or not populated, the job runs will not be considered for
+queueing.
+
+If this field does not match the value set in the job run, then the
+value from the job run field will be used.}
 
 \item{Description}{Description of the job being defined.}
 
@@ -83,7 +107,13 @@ capacity and 16 GB of memory. For more information, see the \href{https://aws.am
 
 \item{Timeout}{The job timeout in minutes. This is the maximum time that a job run can
 consume resources before it is terminated and enters \code{TIMEOUT} status.
-The default is 2,880 minutes (48 hours).}
+The default is 2,880 minutes (48 hours) for batch jobs.
+
+Streaming jobs must have timeout values less than 7 days or 10080
+minutes. When the value is left blank, the job will be restarted after 7
+days based if you have not setup a maintenance window. If you have setup
+maintenance window, it will be restarted during the maintenance window
+after 7 days.}
 
 \item{MaxCapacity}{For Glue version 1.0 or earlier jobs, using the standard worker type,
 the number of Glue data processing units (DPUs) that can be allocated
@@ -194,6 +224,16 @@ execution class is available for Spark jobs.}
 
 \item{SourceControlDetails}{The details for a source control configuration for a job, allowing
 synchronization of job artifacts to or from a remote repository.}
+
+\item{MaintenanceWindow}{This field specifies a day of the week and hour for a maintenance window
+for streaming jobs. Glue periodically performs maintenance activities.
+During these maintenance windows, Glue will need to restart your
+streaming jobs.
+
+Glue will restart the job within 3 hours of the specified maintenance
+window. For instance, if you set up the maintenance window for Monday at
+10:00AM GMT, your jobs will be restarted between 10:00AM GMT to 1:00PM
+GMT.}
 }
 \description{
 Creates a new job definition.
