@@ -27,7 +27,8 @@ opensearchserviceserverless_batch_get_collection <- function(ids = NULL, names =
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$batch_get_collection_input(ids = ids, names = names)
   output <- .opensearchserviceserverless$batch_get_collection_output()
@@ -58,7 +59,8 @@ opensearchserviceserverless_batch_get_effective_lifecycle_policy <- function(res
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$batch_get_effective_lifecycle_policy_input(resourceIdentifiers = resourceIdentifiers)
   output <- .opensearchserviceserverless$batch_get_effective_lifecycle_policy_output()
@@ -88,7 +90,8 @@ opensearchserviceserverless_batch_get_lifecycle_policy <- function(identifiers) 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$batch_get_lifecycle_policy_input(identifiers = identifiers)
   output <- .opensearchserviceserverless$batch_get_lifecycle_policy_output()
@@ -119,7 +122,8 @@ opensearchserviceserverless_batch_get_vpc_endpoint <- function(ids) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$batch_get_vpc_endpoint_input(ids = ids)
   output <- .opensearchserviceserverless$batch_get_vpc_endpoint_output()
@@ -154,7 +158,8 @@ opensearchserviceserverless_create_access_policy <- function(clientToken = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$create_access_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, type = type)
   output <- .opensearchserviceserverless$create_access_policy_output()
@@ -190,7 +195,8 @@ opensearchserviceserverless_create_collection <- function(clientToken = NULL, de
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$create_collection_input(clientToken = clientToken, description = description, name = name, standbyReplicas = standbyReplicas, tags = tags, type = type)
   output <- .opensearchserviceserverless$create_collection_output()
@@ -225,7 +231,8 @@ opensearchserviceserverless_create_lifecycle_policy <- function(clientToken = NU
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$create_lifecycle_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, type = type)
   output <- .opensearchserviceserverless$create_lifecycle_policy_output()
@@ -246,6 +253,9 @@ opensearchserviceserverless_create_lifecycle_policy <- function(clientToken = NU
 #'
 #' @param clientToken Unique, case-sensitive identifier to ensure idempotency of the request.
 #' @param description A description of the security configuration.
+#' @param iamIdentityCenterOptions Describes IAM Identity Center options in the form of a key-value map.
+#' This field is required if you specify iamidentitycenter for the type
+#' parameter.
 #' @param name &#91;required&#93; The name of the security configuration.
 #' @param samlOptions Describes SAML options in in the form of a key-value map. This field is
 #' required if you specify `saml` for the `type` parameter.
@@ -254,15 +264,16 @@ opensearchserviceserverless_create_lifecycle_policy <- function(clientToken = NU
 #' @keywords internal
 #'
 #' @rdname opensearchserviceserverless_create_security_config
-opensearchserviceserverless_create_security_config <- function(clientToken = NULL, description = NULL, name, samlOptions = NULL, type) {
+opensearchserviceserverless_create_security_config <- function(clientToken = NULL, description = NULL, iamIdentityCenterOptions = NULL, name, samlOptions = NULL, type) {
   op <- new_operation(
     name = "CreateSecurityConfig",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .opensearchserviceserverless$create_security_config_input(clientToken = clientToken, description = description, name = name, samlOptions = samlOptions, type = type)
+  input <- .opensearchserviceserverless$create_security_config_input(clientToken = clientToken, description = description, iamIdentityCenterOptions = iamIdentityCenterOptions, name = name, samlOptions = samlOptions, type = type)
   output <- .opensearchserviceserverless$create_security_config_output()
   config <- get_config()
   svc <- .opensearchserviceserverless$service(config, op)
@@ -296,7 +307,8 @@ opensearchserviceserverless_create_security_policy <- function(clientToken = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$create_security_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, type = type)
   output <- .opensearchserviceserverless$create_security_policy_output()
@@ -333,7 +345,8 @@ opensearchserviceserverless_create_vpc_endpoint <- function(clientToken = NULL, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$create_vpc_endpoint_input(clientToken = clientToken, name = name, securityGroupIds = securityGroupIds, subnetIds = subnetIds, vpcId = vpcId)
   output <- .opensearchserviceserverless$create_vpc_endpoint_output()
@@ -365,7 +378,8 @@ opensearchserviceserverless_delete_access_policy <- function(clientToken = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_access_policy_input(clientToken = clientToken, name = name, type = type)
   output <- .opensearchserviceserverless$delete_access_policy_output()
@@ -400,7 +414,8 @@ opensearchserviceserverless_delete_collection <- function(clientToken = NULL, id
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_collection_input(clientToken = clientToken, id = id)
   output <- .opensearchserviceserverless$delete_collection_output()
@@ -432,7 +447,8 @@ opensearchserviceserverless_delete_lifecycle_policy <- function(clientToken = NU
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_lifecycle_policy_input(clientToken = clientToken, name = name, type = type)
   output <- .opensearchserviceserverless$delete_lifecycle_policy_output()
@@ -465,7 +481,8 @@ opensearchserviceserverless_delete_security_config <- function(clientToken = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_security_config_input(clientToken = clientToken, id = id)
   output <- .opensearchserviceserverless$delete_security_config_output()
@@ -497,7 +514,8 @@ opensearchserviceserverless_delete_security_policy <- function(clientToken = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_security_policy_input(clientToken = clientToken, name = name, type = type)
   output <- .opensearchserviceserverless$delete_security_policy_output()
@@ -528,7 +546,8 @@ opensearchserviceserverless_delete_vpc_endpoint <- function(clientToken = NULL, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$delete_vpc_endpoint_input(clientToken = clientToken, id = id)
   output <- .opensearchserviceserverless$delete_vpc_endpoint_output()
@@ -559,7 +578,8 @@ opensearchserviceserverless_get_access_policy <- function(name, type) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$get_access_policy_input(name = name, type = type)
   output <- .opensearchserviceserverless$get_access_policy_output()
@@ -589,7 +609,8 @@ opensearchserviceserverless_get_account_settings <- function() {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$get_account_settings_input()
   output <- .opensearchserviceserverless$get_account_settings_output()
@@ -620,7 +641,8 @@ opensearchserviceserverless_get_policies_stats <- function() {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$get_policies_stats_input()
   output <- .opensearchserviceserverless$get_policies_stats_output()
@@ -651,7 +673,8 @@ opensearchserviceserverless_get_security_config <- function(id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$get_security_config_input(id = id)
   output <- .opensearchserviceserverless$get_security_config_output()
@@ -683,7 +706,8 @@ opensearchserviceserverless_get_security_policy <- function(name, type) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$get_security_policy_input(name = name, type = type)
   output <- .opensearchserviceserverless$get_security_policy_output()
@@ -725,7 +749,8 @@ opensearchserviceserverless_list_access_policies <- function(maxResults = NULL, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_access_policies_input(maxResults = maxResults, nextToken = nextToken, resource = resource, type = type)
   output <- .opensearchserviceserverless$list_access_policies_output()
@@ -763,7 +788,8 @@ opensearchserviceserverless_list_collections <- function(collectionFilters = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_collections_input(collectionFilters = collectionFilters, maxResults = maxResults, nextToken = nextToken)
   output <- .opensearchserviceserverless$list_collections_output()
@@ -804,7 +830,8 @@ opensearchserviceserverless_list_lifecycle_policies <- function(maxResults = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_lifecycle_policies_input(maxResults = maxResults, nextToken = nextToken, resources = resources, type = type)
   output <- .opensearchserviceserverless$list_lifecycle_policies_output()
@@ -844,7 +871,8 @@ opensearchserviceserverless_list_security_configs <- function(maxResults = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_security_configs_input(maxResults = maxResults, nextToken = nextToken, type = type)
   output <- .opensearchserviceserverless$list_security_configs_output()
@@ -886,7 +914,8 @@ opensearchserviceserverless_list_security_policies <- function(maxResults = NULL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_security_policies_input(maxResults = maxResults, nextToken = nextToken, resource = resource, type = type)
   output <- .opensearchserviceserverless$list_security_policies_output()
@@ -918,7 +947,8 @@ opensearchserviceserverless_list_tags_for_resource <- function(resourceArn) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_tags_for_resource_input(resourceArn = resourceArn)
   output <- .opensearchserviceserverless$list_tags_for_resource_output()
@@ -960,7 +990,8 @@ opensearchserviceserverless_list_vpc_endpoints <- function(maxResults = NULL, ne
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults")
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults"),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$list_vpc_endpoints_input(maxResults = maxResults, nextToken = nextToken, vpcEndpointFilters = vpcEndpointFilters)
   output <- .opensearchserviceserverless$list_vpc_endpoints_output()
@@ -994,7 +1025,8 @@ opensearchserviceserverless_tag_resource <- function(resourceArn, tags) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$tag_resource_input(resourceArn = resourceArn, tags = tags)
   output <- .opensearchserviceserverless$tag_resource_output()
@@ -1028,7 +1060,8 @@ opensearchserviceserverless_untag_resource <- function(resourceArn, tagKeys) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$untag_resource_input(resourceArn = resourceArn, tagKeys = tagKeys)
   output <- .opensearchserviceserverless$untag_resource_output()
@@ -1064,7 +1097,8 @@ opensearchserviceserverless_update_access_policy <- function(clientToken = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_access_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, policyVersion = policyVersion, type = type)
   output <- .opensearchserviceserverless$update_access_policy_output()
@@ -1095,7 +1129,8 @@ opensearchserviceserverless_update_account_settings <- function(capacityLimits =
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_account_settings_input(capacityLimits = capacityLimits)
   output <- .opensearchserviceserverless$update_account_settings_output()
@@ -1127,7 +1162,8 @@ opensearchserviceserverless_update_collection <- function(clientToken = NULL, de
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_collection_input(clientToken = clientToken, description = description, id = id)
   output <- .opensearchserviceserverless$update_collection_output()
@@ -1163,7 +1199,8 @@ opensearchserviceserverless_update_lifecycle_policy <- function(clientToken = NU
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_lifecycle_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, policyVersion = policyVersion, type = type)
   output <- .opensearchserviceserverless$update_lifecycle_policy_output()
@@ -1188,6 +1225,7 @@ opensearchserviceserverless_update_lifecycle_policy <- function(clientToken = NU
 #' [`get_security_policy`][opensearchserviceserverless_get_security_policy]
 #' command.
 #' @param description A description of the security configuration.
+#' @param iamIdentityCenterOptionsUpdates Describes IAM Identity Center options in the form of a key-value map.
 #' @param id &#91;required&#93; The security configuration identifier. For SAML the ID will be
 #' `saml/<accountId>/<idpProviderName>`. For example,
 #' `saml/123456789123/OKTADev`.
@@ -1196,15 +1234,16 @@ opensearchserviceserverless_update_lifecycle_policy <- function(clientToken = NU
 #' @keywords internal
 #'
 #' @rdname opensearchserviceserverless_update_security_config
-opensearchserviceserverless_update_security_config <- function(clientToken = NULL, configVersion, description = NULL, id, samlOptions = NULL) {
+opensearchserviceserverless_update_security_config <- function(clientToken = NULL, configVersion, description = NULL, iamIdentityCenterOptionsUpdates = NULL, id, samlOptions = NULL) {
   op <- new_operation(
     name = "UpdateSecurityConfig",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .opensearchserviceserverless$update_security_config_input(clientToken = clientToken, configVersion = configVersion, description = description, id = id, samlOptions = samlOptions)
+  input <- .opensearchserviceserverless$update_security_config_input(clientToken = clientToken, configVersion = configVersion, description = description, iamIdentityCenterOptionsUpdates = iamIdentityCenterOptionsUpdates, id = id, samlOptions = samlOptions)
   output <- .opensearchserviceserverless$update_security_config_output()
   config <- get_config()
   svc <- .opensearchserviceserverless$service(config, op)
@@ -1238,7 +1277,8 @@ opensearchserviceserverless_update_security_policy <- function(clientToken = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_security_policy_input(clientToken = clientToken, description = description, name = name, policy = policy, policyVersion = policyVersion, type = type)
   output <- .opensearchserviceserverless$update_security_policy_output()
@@ -1276,7 +1316,8 @@ opensearchserviceserverless_update_vpc_endpoint <- function(addSecurityGroupIds 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .opensearchserviceserverless$update_vpc_endpoint_input(addSecurityGroupIds = addSecurityGroupIds, addSubnetIds = addSubnetIds, clientToken = clientToken, id = id, removeSecurityGroupIds = removeSecurityGroupIds, removeSubnetIds = removeSubnetIds)
   output <- .opensearchserviceserverless$update_vpc_endpoint_output()

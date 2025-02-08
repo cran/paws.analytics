@@ -24,7 +24,8 @@ kendra_associate_entities_to_experience <- function(Id, IndexId, EntityList) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$associate_entities_to_experience_input(Id = Id, IndexId = IndexId, EntityList = EntityList)
   output <- .kendra$associate_entities_to_experience_output()
@@ -61,7 +62,8 @@ kendra_associate_personas_to_entities <- function(Id, IndexId, Personas) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$associate_personas_to_entities_input(Id = Id, IndexId = IndexId, Personas = Personas)
   output <- .kendra$associate_personas_to_entities_output()
@@ -93,7 +95,8 @@ kendra_batch_delete_document <- function(IndexId, DocumentIdList, DataSourceSync
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$batch_delete_document_input(IndexId = IndexId, DocumentIdList = DocumentIdList, DataSourceSyncJobMetricTarget = DataSourceSyncJobMetricTarget)
   output <- .kendra$batch_delete_document_output()
@@ -124,7 +127,8 @@ kendra_batch_delete_featured_results_set <- function(IndexId, FeaturedResultsSet
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$batch_delete_featured_results_set_input(IndexId = IndexId, FeaturedResultsSetIds = FeaturedResultsSetIds)
   output <- .kendra$batch_delete_featured_results_set_output()
@@ -161,7 +165,8 @@ kendra_batch_get_document_status <- function(IndexId, DocumentInfoList) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$batch_get_document_status_input(IndexId = IndexId, DocumentInfoList = DocumentInfoList)
   output <- .kendra$batch_get_document_status_output()
@@ -214,7 +219,8 @@ kendra_batch_put_document <- function(IndexId, RoleArn = NULL, Documents, Custom
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$batch_put_document_input(IndexId = IndexId, RoleArn = RoleArn, Documents = Documents, CustomDocumentEnrichmentConfiguration = CustomDocumentEnrichmentConfiguration)
   output <- .kendra$batch_put_document_output()
@@ -244,7 +250,8 @@ kendra_clear_query_suggestions <- function(IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$clear_query_suggestions_input(IndexId = IndexId)
   output <- .kendra$clear_query_suggestions_output()
@@ -290,7 +297,8 @@ kendra_create_access_control_configuration <- function(IndexId, Name, Descriptio
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_access_control_configuration_input(IndexId = IndexId, Name = Name, Description = Description, AccessControlList = AccessControlList, HierarchicalAccessControlList = HierarchicalAccessControlList, ClientToken = ClientToken)
   output <- .kendra$create_access_control_configuration_output()
@@ -378,7 +386,8 @@ kendra_create_data_source <- function(Name, IndexId, Type, Configuration = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_data_source_input(Name = Name, IndexId = IndexId, Type = Type, Configuration = Configuration, VpcConfiguration = VpcConfiguration, Description = Description, Schedule = Schedule, RoleArn = RoleArn, Tags = Tags, ClientToken = ClientToken, LanguageCode = LanguageCode, CustomDocumentEnrichmentConfiguration = CustomDocumentEnrichmentConfiguration)
   output <- .kendra$create_data_source_output()
@@ -426,7 +435,8 @@ kendra_create_experience <- function(Name, IndexId, RoleArn = NULL, Configuratio
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_experience_input(Name = Name, IndexId = IndexId, RoleArn = RoleArn, Configuration = Configuration, Description = Description, ClientToken = ClientToken)
   output <- .kendra$create_experience_output()
@@ -451,7 +461,7 @@ kendra_create_experience <- function(Name, IndexId, RoleArn = NULL, Configuratio
 #' @param Description A description for the FAQ.
 #' @param S3Path &#91;required&#93; The path to the FAQ file in S3.
 #' @param RoleArn &#91;required&#93; The Amazon Resource Name (ARN) of an IAM role with permission to access
-#' the S3 bucket that contains the FAQs. For more information, see [IAM
+#' the S3 bucket that contains the FAQ file. For more information, see [IAM
 #' access roles for Amazon
 #' Kendra](https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html).
 #' @param Tags A list of key-value pairs that identify the FAQ. You can use the tags to
@@ -485,7 +495,8 @@ kendra_create_faq <- function(IndexId, Name, Description = NULL, S3Path, RoleArn
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_faq_input(IndexId = IndexId, Name = Name, Description = Description, S3Path = S3Path, RoleArn = RoleArn, Tags = Tags, FileFormat = FileFormat, ClientToken = ClientToken, LanguageCode = LanguageCode)
   output <- .kendra$create_faq_output()
@@ -542,7 +553,8 @@ kendra_create_featured_results_set <- function(IndexId, FeaturedResultsSetName, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_featured_results_set_input(IndexId = IndexId, FeaturedResultsSetName = FeaturedResultsSetName, Description = Description, ClientToken = ClientToken, Status = Status, QueryTexts = QueryTexts, FeaturedDocuments = FeaturedDocuments, Tags = Tags)
   output <- .kendra$create_featured_results_set_output()
@@ -564,14 +576,15 @@ kendra_create_featured_results_set <- function(IndexId, FeaturedResultsSetName, 
 #' @param Name &#91;required&#93; A name for the index.
 #' @param Edition The Amazon Kendra edition to use for the index. Choose
 #' `DEVELOPER_EDITION` for indexes intended for development, testing, or
-#' proof of concept. Use `ENTERPRISE_EDITION` for production. Once you set
-#' the edition for an index, it can't be changed.
+#' proof of concept. Use `ENTERPRISE_EDITION` for production. Use
+#' `GEN_AI_ENTERPRISE_EDITION` for creating generative AI applications.
+#' Once you set the edition for an index, it can't be changed.
 #' 
 #' The `Edition` parameter is optional. If you don't supply a value, the
 #' default is `ENTERPRISE_EDITION`.
 #' 
-#' For more information on quota limits for Enterprise and Developer
-#' editions, see
+#' For more information on quota limits for Gen AI Enterprise Edition,
+#' Enterprise Edition, and Developer Edition indices, see
 #' [Quotas](https://docs.aws.amazon.com/kendra/latest/dg/quotas.html).
 #' @param RoleArn &#91;required&#93; The Amazon Resource Name (ARN) of an IAM role with permission to access
 #' your Amazon CloudWatch logs and metrics. For more information, see [IAM
@@ -589,7 +602,17 @@ kendra_create_featured_results_set <- function(IndexId, FeaturedResultsSetName, 
 #' can consist of Unicode letters, digits, white space, and any of the
 #' following symbols: _ . : / = + - @@.
 #' @param UserTokenConfigurations The user token configuration.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index and you
+#' try to use `UserTokenConfigurations` to configure user context policy,
+#' Amazon Kendra returns a `ValidationException` error.
 #' @param UserContextPolicy The user context policy.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index, you
+#' can only use `ATTRIBUTE_FILTER` to filter search results by user
+#' context. If you're using an Amazon Kendra Gen AI Enterprise Edition
+#' index and you try to use `USER_TOKEN` to configure user context policy,
+#' Amazon Kendra returns a `ValidationException` error.
 #' 
 #' **ATTRIBUTE_FILTER**
 #' 
@@ -608,6 +631,9 @@ kendra_create_featured_results_set <- function(IndexId, FeaturedResultsSetName, 
 #' [UserGroupResolutionConfiguration](https://docs.aws.amazon.com/kendra/latest/APIReference/API_UserGroupResolutionConfiguration.html).
 #' This is useful for user context filtering, where search results are
 #' filtered based on the user or their group access to documents.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index,
+#' `UserGroupResolutionConfiguration` isn't supported.
 #'
 #' @keywords internal
 #'
@@ -618,7 +644,8 @@ kendra_create_index <- function(Name, Edition = NULL, RoleArn, ServerSideEncrypt
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_index_input(Name = Name, Edition = Edition, RoleArn = RoleArn, ServerSideEncryptionConfiguration = ServerSideEncryptionConfiguration, Description = Description, ClientToken = ClientToken, Tags = Tags, UserTokenConfigurations = UserTokenConfigurations, UserContextPolicy = UserContextPolicy, UserGroupResolutionConfiguration = UserGroupResolutionConfiguration)
   output <- .kendra$create_index_output()
@@ -674,7 +701,8 @@ kendra_create_query_suggestions_block_list <- function(IndexId, Name, Descriptio
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_query_suggestions_block_list_input(IndexId = IndexId, Name = Name, Description = Description, SourceS3Path = SourceS3Path, ClientToken = ClientToken, RoleArn = RoleArn, Tags = Tags)
   output <- .kendra$create_query_suggestions_block_list_output()
@@ -718,7 +746,8 @@ kendra_create_thesaurus <- function(IndexId, Name, Description = NULL, RoleArn, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$create_thesaurus_input(IndexId = IndexId, Name = Name, Description = Description, RoleArn = RoleArn, Tags = Tags, SourceS3Path = SourceS3Path, ClientToken = ClientToken)
   output <- .kendra$create_thesaurus_output()
@@ -750,7 +779,8 @@ kendra_delete_access_control_configuration <- function(IndexId, Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_access_control_configuration_input(IndexId = IndexId, Id = Id)
   output <- .kendra$delete_access_control_configuration_output()
@@ -781,7 +811,8 @@ kendra_delete_data_source <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_data_source_input(Id = Id, IndexId = IndexId)
   output <- .kendra$delete_data_source_output()
@@ -812,7 +843,8 @@ kendra_delete_experience <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_experience_input(Id = Id, IndexId = IndexId)
   output <- .kendra$delete_experience_output()
@@ -824,10 +856,10 @@ kendra_delete_experience <- function(Id, IndexId) {
 }
 .kendra$operations$delete_experience <- kendra_delete_experience
 
-#' Removes an FAQ from an index
+#' Removes a FAQ from an index
 #'
 #' @description
-#' Removes an FAQ from an index.
+#' Removes a FAQ from an index.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_delete_faq/](https://www.paws-r-sdk.com/docs/kendra_delete_faq/) for full documentation.
 #'
@@ -843,7 +875,8 @@ kendra_delete_faq <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_faq_input(Id = Id, IndexId = IndexId)
   output <- .kendra$delete_faq_output()
@@ -873,7 +906,8 @@ kendra_delete_index <- function(Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_index_input(Id = Id)
   output <- .kendra$delete_index_output()
@@ -885,11 +919,11 @@ kendra_delete_index <- function(Id) {
 }
 .kendra$operations$delete_index <- kendra_delete_index
 
-#' Deletes a group so that all users and sub groups that belong to the
-#' group can no longer access documents only available to that group
+#' Deletes a group so that all users that belong to the group can no longer
+#' access documents only available to that group
 #'
 #' @description
-#' Deletes a group so that all users and sub groups that belong to the group can no longer access documents only available to that group.
+#' Deletes a group so that all users that belong to the group can no longer access documents only available to that group.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_delete_principal_mapping/](https://www.paws-r-sdk.com/docs/kendra_delete_principal_mapping/) for full documentation.
 #'
@@ -931,7 +965,8 @@ kendra_delete_principal_mapping <- function(IndexId, DataSourceId = NULL, GroupI
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_principal_mapping_input(IndexId = IndexId, DataSourceId = DataSourceId, GroupId = GroupId, OrderingId = OrderingId)
   output <- .kendra$delete_principal_mapping_output()
@@ -962,7 +997,8 @@ kendra_delete_query_suggestions_block_list <- function(IndexId, Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_query_suggestions_block_list_input(IndexId = IndexId, Id = Id)
   output <- .kendra$delete_query_suggestions_block_list_output()
@@ -993,7 +1029,8 @@ kendra_delete_thesaurus <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$delete_thesaurus_input(Id = Id, IndexId = IndexId)
   output <- .kendra$delete_thesaurus_output()
@@ -1026,7 +1063,8 @@ kendra_describe_access_control_configuration <- function(IndexId, Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_access_control_configuration_input(IndexId = IndexId, Id = Id)
   output <- .kendra$describe_access_control_configuration_output()
@@ -1057,7 +1095,8 @@ kendra_describe_data_source <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_data_source_input(Id = Id, IndexId = IndexId)
   output <- .kendra$describe_data_source_output()
@@ -1090,7 +1129,8 @@ kendra_describe_experience <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_experience_input(Id = Id, IndexId = IndexId)
   output <- .kendra$describe_experience_output()
@@ -1102,10 +1142,10 @@ kendra_describe_experience <- function(Id, IndexId) {
 }
 .kendra$operations$describe_experience <- kendra_describe_experience
 
-#' Gets information about an FAQ list
+#' Gets information about a FAQ
 #'
 #' @description
-#' Gets information about an FAQ list.
+#' Gets information about a FAQ.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_describe_faq/](https://www.paws-r-sdk.com/docs/kendra_describe_faq/) for full documentation.
 #'
@@ -1121,7 +1161,8 @@ kendra_describe_faq <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_faq_input(Id = Id, IndexId = IndexId)
   output <- .kendra$describe_faq_output()
@@ -1153,7 +1194,8 @@ kendra_describe_featured_results_set <- function(IndexId, FeaturedResultsSetId) 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_featured_results_set_input(IndexId = IndexId, FeaturedResultsSetId = FeaturedResultsSetId)
   output <- .kendra$describe_featured_results_set_output()
@@ -1183,7 +1225,8 @@ kendra_describe_index <- function(Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_index_input(Id = Id)
   output <- .kendra$describe_index_output()
@@ -1219,7 +1262,8 @@ kendra_describe_principal_mapping <- function(IndexId, DataSourceId = NULL, Grou
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_principal_mapping_input(IndexId = IndexId, DataSourceId = DataSourceId, GroupId = GroupId)
   output <- .kendra$describe_principal_mapping_output()
@@ -1251,7 +1295,8 @@ kendra_describe_query_suggestions_block_list <- function(IndexId, Id) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_query_suggestions_block_list_input(IndexId = IndexId, Id = Id)
   output <- .kendra$describe_query_suggestions_block_list_output()
@@ -1282,7 +1327,8 @@ kendra_describe_query_suggestions_config <- function(IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_query_suggestions_config_input(IndexId = IndexId)
   output <- .kendra$describe_query_suggestions_config_output()
@@ -1313,7 +1359,8 @@ kendra_describe_thesaurus <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$describe_thesaurus_input(Id = Id, IndexId = IndexId)
   output <- .kendra$describe_thesaurus_output()
@@ -1346,7 +1393,8 @@ kendra_disassociate_entities_from_experience <- function(Id, IndexId, EntityList
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$disassociate_entities_from_experience_input(Id = Id, IndexId = IndexId, EntityList = EntityList)
   output <- .kendra$disassociate_entities_from_experience_output()
@@ -1380,7 +1428,8 @@ kendra_disassociate_personas_from_entities <- function(Id, IndexId, EntityIds) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$disassociate_personas_from_entities_input(Id = Id, IndexId = IndexId, EntityIds = EntityIds)
   output <- .kendra$disassociate_personas_from_entities_output()
@@ -1433,7 +1482,8 @@ kendra_get_query_suggestions <- function(IndexId, QueryText, MaxSuggestionsCount
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$get_query_suggestions_input(IndexId = IndexId, QueryText = QueryText, MaxSuggestionsCount = MaxSuggestionsCount, SuggestionTypes = SuggestionTypes, AttributeSuggestionsConfig = AttributeSuggestionsConfig)
   output <- .kendra$get_query_suggestions_output()
@@ -1495,7 +1545,8 @@ kendra_get_snapshots <- function(IndexId, Interval, MetricType, NextToken = NULL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$get_snapshots_input(IndexId = IndexId, Interval = Interval, MetricType = MetricType, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$get_snapshots_output()
@@ -1530,7 +1581,8 @@ kendra_list_access_control_configurations <- function(IndexId, NextToken = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_access_control_configurations_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_access_control_configurations_output()
@@ -1571,7 +1623,8 @@ kendra_list_data_source_sync_jobs <- function(Id, IndexId, NextToken = NULL, Max
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_data_source_sync_jobs_input(Id = Id, IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults, StartTimeFilter = StartTimeFilter, StatusFilter = StatusFilter)
   output <- .kendra$list_data_source_sync_jobs_output()
@@ -1607,7 +1660,8 @@ kendra_list_data_sources <- function(IndexId, NextToken = NULL, MaxResults = NUL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_data_sources_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_data_sources_output()
@@ -1644,7 +1698,8 @@ kendra_list_entity_personas <- function(Id, IndexId, NextToken = NULL, MaxResult
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_entity_personas_input(Id = Id, IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_entity_personas_output()
@@ -1680,7 +1735,8 @@ kendra_list_experience_entities <- function(Id, IndexId, NextToken = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken")
+    paginator = list(input_token = "NextToken", output_token = "NextToken"),
+    stream_api = FALSE
   )
   input <- .kendra$list_experience_entities_input(Id = Id, IndexId = IndexId, NextToken = NextToken)
   output <- .kendra$list_experience_entities_output()
@@ -1715,7 +1771,8 @@ kendra_list_experiences <- function(IndexId, NextToken = NULL, MaxResults = NULL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_experiences_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_experiences_output()
@@ -1727,14 +1784,14 @@ kendra_list_experiences <- function(IndexId, NextToken = NULL, MaxResults = NULL
 }
 .kendra$operations$list_experiences <- kendra_list_experiences
 
-#' Gets a list of FAQ lists associated with an index
+#' Gets a list of FAQs associated with an index
 #'
 #' @description
-#' Gets a list of FAQ lists associated with an index.
+#' Gets a list of FAQs associated with an index.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_list_faqs/](https://www.paws-r-sdk.com/docs/kendra_list_faqs/) for full documentation.
 #'
-#' @param IndexId &#91;required&#93; The index that contains the FAQ lists.
+#' @param IndexId &#91;required&#93; The index for the FAQs.
 #' @param NextToken If the previous response was incomplete (because there is more data to
 #' retrieve), Amazon Kendra returns a pagination token in the response. You
 #' can use this pagination token to retrieve the next set of FAQs.
@@ -1750,7 +1807,8 @@ kendra_list_faqs <- function(IndexId, NextToken = NULL, MaxResults = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_faqs_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_faqs_output()
@@ -1784,7 +1842,8 @@ kendra_list_featured_results_sets <- function(IndexId, NextToken = NULL, MaxResu
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$list_featured_results_sets_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_featured_results_sets_output()
@@ -1826,7 +1885,8 @@ kendra_list_groups_older_than_ordering_id <- function(IndexId, DataSourceId = NU
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_groups_older_than_ordering_id_input(IndexId = IndexId, DataSourceId = DataSourceId, OrderingId = OrderingId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_groups_older_than_ordering_id_output()
@@ -1859,7 +1919,8 @@ kendra_list_indices <- function(NextToken = NULL, MaxResults = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_indices_input(NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_indices_output()
@@ -1899,7 +1960,8 @@ kendra_list_query_suggestions_block_lists <- function(IndexId, NextToken = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_query_suggestions_block_lists_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_query_suggestions_block_lists_output()
@@ -1911,15 +1973,20 @@ kendra_list_query_suggestions_block_lists <- function(IndexId, NextToken = NULL,
 }
 .kendra$operations$list_query_suggestions_block_lists <- kendra_list_query_suggestions_block_lists
 
-#' Gets a list of tags associated with a specified resource
+#' Gets a list of tags associated with a resource
 #'
 #' @description
-#' Gets a list of tags associated with a specified resource. Indexes, FAQs, and data sources can have tags associated with them.
+#' Gets a list of tags associated with a resource. Indexes, FAQs, data sources, and other resources can have tags associated with them.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/kendra_list_tags_for_resource/) for full documentation.
 #'
-#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, or data source to get
-#' a list of tags for.
+#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, data source, or other
+#' resource to get a list of tags for. For example, the ARN of an index is
+#' constructed as follows:
+#' *arn:aws:kendra:your-region:your-account-id:index/index-id* For
+#' information on how to construct an ARN for all types of Amazon Kendra
+#' resources, see [Resource
+#' types](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonkendra.html#amazonkendra-resources-for-iam-policies).
 #'
 #' @keywords internal
 #'
@@ -1930,7 +1997,8 @@ kendra_list_tags_for_resource <- function(ResourceARN) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$list_tags_for_resource_input(ResourceARN = ResourceARN)
   output <- .kendra$list_tags_for_resource_output()
@@ -1965,7 +2033,8 @@ kendra_list_thesauri <- function(IndexId, NextToken = NULL, MaxResults = NULL) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults")
+    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults"),
+    stream_api = FALSE
   )
   input <- .kendra$list_thesauri_input(IndexId = IndexId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .kendra$list_thesauri_output()
@@ -1995,10 +2064,10 @@ kendra_list_thesauri <- function(IndexId, NextToken = NULL, MaxResults = NULL) {
 #' Confluence and Salesforce. However, "Sales and Marketing" team only
 #' needs access to customer-related documents stored in Salesforce.
 #' @param GroupId &#91;required&#93; The identifier of the group you want to map its users to.
-#' @param GroupMembers &#91;required&#93; The list that contains your users or sub groups that belong the same
-#' group.
+#' @param GroupMembers &#91;required&#93; The list that contains your users that belong the same group. This can
+#' include sub groups that belong to a group.
 #' 
-#' For example, the group "Company" includes the user "CEO" and the sub
+#' For example, the group "Company A" includes the user "CEO" and the sub
 #' groups "Research", "Engineering", and "Sales and Marketing".
 #' 
 #' If you have more than 1000 users and/or sub groups for a single group,
@@ -2006,7 +2075,7 @@ kendra_list_thesauri <- function(IndexId, NextToken = NULL, MaxResults = NULL) {
 #' sub groups for a group. Your sub groups can contain more than 1000
 #' users, but the list of sub groups that belong to a group (and/or users)
 #' must be no more than 1000.
-#' @param OrderingId The timestamp identifier you specify to ensure Amazon Kendra does not
+#' @param OrderingId The timestamp identifier you specify to ensure Amazon Kendra doesn't
 #' override the latest `PUT` action with previous actions. The highest
 #' number ID, which is the ordering ID, is the latest action you want to
 #' process and apply on top of other actions with lower number IDs. This
@@ -2022,8 +2091,8 @@ kendra_list_thesauri <- function(IndexId, NextToken = NULL, MaxResults = NULL) {
 #' 
 #' The default ordering ID is the current Unix time in milliseconds that
 #' the action was received by Amazon Kendra.
-#' @param RoleArn The Amazon Resource Name (ARN) of a role that has access to the S3 file
-#' that contains your list of users or sub groups that belong to a group.
+#' @param RoleArn The Amazon Resource Name (ARN) of an IAM role that has access to the S3
+#' file that contains your list of users that belong to a group.
 #' 
 #' For more information, see [IAM roles for Amazon
 #' Kendra](https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html#iam-roles-ds).
@@ -2037,7 +2106,8 @@ kendra_put_principal_mapping <- function(IndexId, DataSourceId = NULL, GroupId, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$put_principal_mapping_input(IndexId = IndexId, DataSourceId = DataSourceId, GroupId = GroupId, GroupMembers = GroupMembers, OrderingId = OrderingId, RoleArn = RoleArn)
   output <- .kendra$put_principal_mapping_output()
@@ -2071,6 +2141,10 @@ kendra_put_principal_mapping <- function(IndexId, DataSourceId = NULL, GroupId, 
 #' 
 #' The `AttributeFilter` parameter means you can create a set of filtering
 #' rules that a document must satisfy to be included in the query results.
+#' 
+#' For Amazon Kendra Gen AI Enterprise Edition indices use
+#' `AttributeFilter` to enable document filtering for end users using
+#' `_email_id` or include public documents (`_email_id=null`).
 #' @param Facets An array of documents fields/attributes for faceted search. Amazon
 #' Kendra returns a count for each field key specified. This helps your
 #' users narrow their search.
@@ -2131,7 +2205,8 @@ kendra_query <- function(IndexId, QueryText = NULL, AttributeFilter = NULL, Face
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$query_input(IndexId = IndexId, QueryText = QueryText, AttributeFilter = AttributeFilter, Facets = Facets, RequestedDocumentAttributes = RequestedDocumentAttributes, QueryResultTypeFilter = QueryResultTypeFilter, DocumentRelevanceOverrideConfigurations = DocumentRelevanceOverrideConfigurations, PageNumber = PageNumber, PageSize = PageSize, SortingConfiguration = SortingConfiguration, SortingConfigurations = SortingConfigurations, UserContext = UserContext, VisitorId = VisitorId, SpellCorrectionConfiguration = SpellCorrectionConfiguration, CollapseConfiguration = CollapseConfiguration)
   output <- .kendra$query_output()
@@ -2167,6 +2242,10 @@ kendra_query <- function(IndexId, QueryText = NULL, AttributeFilter = NULL, Face
 #' 
 #' The `AttributeFilter` parameter means you can create a set of filtering
 #' rules that a document must satisfy to be included in the query results.
+#' 
+#' For Amazon Kendra Gen AI Enterprise Edition indices use
+#' `AttributeFilter` to enable document filtering for end users using
+#' `_email_id` or include public documents (`_email_id=null`).
 #' @param RequestedDocumentAttributes A list of document fields/attributes to include in the response. You can
 #' limit the response to include certain document fields. By default, all
 #' document fields are included in the response.
@@ -2198,7 +2277,8 @@ kendra_retrieve <- function(IndexId, QueryText, AttributeFilter = NULL, Requeste
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$retrieve_input(IndexId = IndexId, QueryText = QueryText, AttributeFilter = AttributeFilter, RequestedDocumentAttributes = RequestedDocumentAttributes, DocumentRelevanceOverrideConfigurations = DocumentRelevanceOverrideConfigurations, PageNumber = PageNumber, PageSize = PageSize, UserContext = UserContext)
   output <- .kendra$retrieve_output()
@@ -2229,7 +2309,8 @@ kendra_start_data_source_sync_job <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$start_data_source_sync_job_input(Id = Id, IndexId = IndexId)
   output <- .kendra$start_data_source_sync_job_output()
@@ -2261,7 +2342,8 @@ kendra_stop_data_source_sync_job <- function(Id, IndexId) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$stop_data_source_sync_job_input(Id = Id, IndexId = IndexId)
   output <- .kendra$stop_data_source_sync_job_output()
@@ -2299,7 +2381,8 @@ kendra_submit_feedback <- function(IndexId, QueryId, ClickFeedbackItems = NULL, 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$submit_feedback_input(IndexId = IndexId, QueryId = QueryId, ClickFeedbackItems = ClickFeedbackItems, RelevanceFeedbackItems = RelevanceFeedbackItems)
   output <- .kendra$submit_feedback_output()
@@ -2311,17 +2394,23 @@ kendra_submit_feedback <- function(IndexId, QueryId, ClickFeedbackItems = NULL, 
 }
 .kendra$operations$submit_feedback <- kendra_submit_feedback
 
-#' Adds the specified tag to the specified index, FAQ, or data source
-#' resource
+#' Adds the specified tag to the specified index, FAQ, data source, or
+#' other resource
 #'
 #' @description
-#' Adds the specified tag to the specified index, FAQ, or data source resource. If the tag already exists, the existing value is replaced with the new value.
+#' Adds the specified tag to the specified index, FAQ, data source, or other resource. If the tag already exists, the existing value is replaced with the new value.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_tag_resource/](https://www.paws-r-sdk.com/docs/kendra_tag_resource/) for full documentation.
 #'
-#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, or data source to tag.
-#' @param Tags &#91;required&#93; A list of tag keys to add to the index, FAQ, or data source. If a tag
-#' already exists, the existing value is replaced with the new value.
+#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, data source, or other
+#' resource to add a tag. For example, the ARN of an index is constructed
+#' as follows: *arn:aws:kendra:your-region:your-account-id:index/index-id*
+#' For information on how to construct an ARN for all types of Amazon
+#' Kendra resources, see [Resource
+#' types](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonkendra.html#amazonkendra-resources-for-iam-policies).
+#' @param Tags &#91;required&#93; A list of tag keys to add to the index, FAQ, data source, or other
+#' resource. If a tag already exists, the existing value is replaced with
+#' the new value.
 #'
 #' @keywords internal
 #'
@@ -2332,7 +2421,8 @@ kendra_tag_resource <- function(ResourceARN, Tags) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$tag_resource_input(ResourceARN = ResourceARN, Tags = Tags)
   output <- .kendra$tag_resource_output()
@@ -2344,17 +2434,22 @@ kendra_tag_resource <- function(ResourceARN, Tags) {
 }
 .kendra$operations$tag_resource <- kendra_tag_resource
 
-#' Removes a tag from an index, FAQ, or a data source
+#' Removes a tag from an index, FAQ, data source, or other resource
 #'
 #' @description
-#' Removes a tag from an index, FAQ, or a data source.
+#' Removes a tag from an index, FAQ, data source, or other resource.
 #'
 #' See [https://www.paws-r-sdk.com/docs/kendra_untag_resource/](https://www.paws-r-sdk.com/docs/kendra_untag_resource/) for full documentation.
 #'
-#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, or data source to
-#' remove the tag from.
-#' @param TagKeys &#91;required&#93; A list of tag keys to remove from the index, FAQ, or data source. If a
-#' tag key does not exist on the resource, it is ignored.
+#' @param ResourceARN &#91;required&#93; The Amazon Resource Name (ARN) of the index, FAQ, data source, or other
+#' resource to remove a tag. For example, the ARN of an index is
+#' constructed as follows:
+#' *arn:aws:kendra:your-region:your-account-id:index/index-id* For
+#' information on how to construct an ARN for all types of Amazon Kendra
+#' resources, see [Resource
+#' types](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonkendra.html#amazonkendra-resources-for-iam-policies).
+#' @param TagKeys &#91;required&#93; A list of tag keys to remove from the index, FAQ, data source, or other
+#' resource. If a tag key doesn't exist for the resource, it is ignored.
 #'
 #' @keywords internal
 #'
@@ -2365,7 +2460,8 @@ kendra_untag_resource <- function(ResourceARN, TagKeys) {
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$untag_resource_input(ResourceARN = ResourceARN, TagKeys = TagKeys)
   output <- .kendra$untag_resource_output()
@@ -2406,7 +2502,8 @@ kendra_update_access_control_configuration <- function(IndexId, Id, Name = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_access_control_configuration_input(IndexId = IndexId, Id = Id, Name = Name, Description = Description, AccessControlList = AccessControlList, HierarchicalAccessControlList = HierarchicalAccessControlList)
   output <- .kendra$update_access_control_configuration_output()
@@ -2435,9 +2532,9 @@ kendra_update_access_control_configuration <- function(IndexId, Id, Name = NULL,
 #' VPC](https://docs.aws.amazon.com/kendra/latest/dg/vpc-configuration.html).
 #' @param Description A new description for the data source connector.
 #' @param Schedule The sync schedule you want to update for the data source connector.
-#' @param RoleArn The Amazon Resource Name (ARN) of a role with permission to access the
-#' data source and required resources. For more information, see [IAM roles
-#' for Amazon
+#' @param RoleArn The Amazon Resource Name (ARN) of an IAM role with permission to access
+#' the data source and required resources. For more information, see [IAM
+#' roles for Amazon
 #' Kendra](https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html).
 #' @param LanguageCode The code for a language you want to update for the data source
 #' connector. This allows you to support a language for all documents when
@@ -2463,7 +2560,8 @@ kendra_update_data_source <- function(Id, Name = NULL, IndexId, Configuration = 
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_data_source_input(Id = Id, Name = Name, IndexId = IndexId, Configuration = Configuration, VpcConfiguration = VpcConfiguration, Description = Description, Schedule = Schedule, RoleArn = RoleArn, LanguageCode = LanguageCode, CustomDocumentEnrichmentConfiguration = CustomDocumentEnrichmentConfiguration)
   output <- .kendra$update_data_source_output()
@@ -2485,10 +2583,10 @@ kendra_update_data_source <- function(Id, Name = NULL, IndexId, Configuration = 
 #' @param Id &#91;required&#93; The identifier of your Amazon Kendra experience you want to update.
 #' @param Name A new name for your Amazon Kendra experience.
 #' @param IndexId &#91;required&#93; The identifier of the index for your Amazon Kendra experience.
-#' @param RoleArn The Amazon Resource Name (ARN) of a role with permission to access
-#' [`query`][kendra_query] API, `QuerySuggestions` API,
+#' @param RoleArn The Amazon Resource Name (ARN) of an IAM role with permission to access
+#' the [`query`][kendra_query] API, `QuerySuggestions` API,
 #' [`submit_feedback`][kendra_submit_feedback] API, and IAM Identity Center
-#' that stores your user and group information. For more information, see
+#' that stores your users and groups information. For more information, see
 #' [IAM roles for Amazon
 #' Kendra](https://docs.aws.amazon.com/kendra/latest/dg/iam-roles.html).
 #' @param Configuration Configuration information you want to update for your Amazon Kendra
@@ -2504,7 +2602,8 @@ kendra_update_experience <- function(Id, Name = NULL, IndexId, RoleArn = NULL, C
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_experience_input(Id = Id, Name = Name, IndexId = IndexId, RoleArn = RoleArn, Configuration = Configuration, Description = Description)
   output <- .kendra$update_experience_output()
@@ -2549,7 +2648,8 @@ kendra_update_featured_results_set <- function(IndexId, FeaturedResultsSetId, Fe
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_featured_results_set_input(IndexId = IndexId, FeaturedResultsSetId = FeaturedResultsSetId, FeaturedResultsSetName = FeaturedResultsSetName, Description = Description, Status = Status, QueryTexts = QueryTexts, FeaturedDocuments = FeaturedDocuments)
   output <- .kendra$update_featured_results_set_output()
@@ -2585,12 +2685,25 @@ kendra_update_featured_results_set <- function(IndexId, FeaturedResultsSetId, Fe
 #' capacity below what is required to meet the storage needs for your
 #' index.
 #' @param UserTokenConfigurations The user token configuration.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index and you
+#' try to use `UserTokenConfigurations` to configure user context policy,
+#' Amazon Kendra returns a `ValidationException` error.
 #' @param UserContextPolicy The user context policy.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index, you
+#' can only use `ATTRIBUTE_FILTER` to filter search results by user
+#' context. If you're using an Amazon Kendra Gen AI Enterprise Edition
+#' index and you try to use `USER_TOKEN` to configure user context policy,
+#' Amazon Kendra returns a `ValidationException` error.
 #' @param UserGroupResolutionConfiguration Gets users and groups from IAM Identity Center identity source. To
 #' configure this, see
 #' [UserGroupResolutionConfiguration](https://docs.aws.amazon.com/kendra/latest/APIReference/API_UserGroupResolutionConfiguration.html).
 #' This is useful for user context filtering, where search results are
 #' filtered based on the user or their group access to documents.
+#' 
+#' If you're using an Amazon Kendra Gen AI Enterprise Edition index,
+#' `UserGroupResolutionConfiguration` isn't supported.
 #'
 #' @keywords internal
 #'
@@ -2601,7 +2714,8 @@ kendra_update_index <- function(Id, Name = NULL, RoleArn = NULL, Description = N
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_index_input(Id = Id, Name = Name, RoleArn = RoleArn, Description = Description, DocumentMetadataConfigurationUpdates = DocumentMetadataConfigurationUpdates, CapacityUnits = CapacityUnits, UserTokenConfigurations = UserTokenConfigurations, UserContextPolicy = UserContextPolicy, UserGroupResolutionConfiguration = UserGroupResolutionConfiguration)
   output <- .kendra$update_index_output()
@@ -2648,7 +2762,8 @@ kendra_update_query_suggestions_block_list <- function(IndexId, Id, Name = NULL,
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_query_suggestions_block_list_input(IndexId = IndexId, Id = Id, Name = Name, Description = Description, SourceS3Path = SourceS3Path, RoleArn = RoleArn)
   output <- .kendra$update_query_suggestions_block_list_output()
@@ -2724,7 +2839,8 @@ kendra_update_query_suggestions_config <- function(IndexId, Mode = NULL, QueryLo
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_query_suggestions_config_input(IndexId = IndexId, Mode = Mode, QueryLogLookBackWindowInDays = QueryLogLookBackWindowInDays, IncludeQueriesWithoutUserInformation = IncludeQueriesWithoutUserInformation, MinimumNumberOfQueryingUsers = MinimumNumberOfQueryingUsers, MinimumQueryCount = MinimumQueryCount, AttributeSuggestionsConfig = AttributeSuggestionsConfig)
   output <- .kendra$update_query_suggestions_config_output()
@@ -2760,7 +2876,8 @@ kendra_update_thesaurus <- function(Id, Name = NULL, IndexId, Description = NULL
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .kendra$update_thesaurus_input(Id = Id, Name = Name, IndexId = IndexId, Description = Description, RoleArn = RoleArn, SourceS3Path = SourceS3Path)
   output <- .kendra$update_thesaurus_output()
